@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+<path d="M40 0H0V40" fill="none" stroke="rgba(13,13,15,.055)" stroke-width="1"/></pattern></defs>
+<rect width="1600" height="900" fill="#efefea"/><rect width="1600" height="900" fill="url(#g)"/>
+  <g>
+    <rect x="128" y="108" width="1344" height="594" rx="10" fill="#fff"/>
+    <rect x="128" y="108" width="1344" height="594" rx="10" fill="none" stroke="rgba(13,13,15,.10)"/>
+    <rect x="128" y="108" width="1344" height="44" rx="10" fill="#f6f6f3"/>
+    <circle cx="152" cy="130" r="5" fill="rgba(13,13,15,.10)"/>
+    <circle cx="170" cy="130" r="5" fill="rgba(13,13,15,.10)"/>
+    <circle cx="188" cy="130" r="5" fill="rgba(13,13,15,.10)"/>
+    <rect x="168" y="198" width="564.48" height="22" rx="3" fill="#0d0d0f"/>
+    <rect x="168" y="232" width="739.2" height="22" rx="3" fill="#0d0d0f"/>
+    <rect x="168" y="280" width="456.96000000000004" height="12" rx="3" fill="rgba(13,13,15,.10)"/>
+    <rect x="168" y="302" width="376.32000000000005" height="12" rx="3" fill="rgba(13,13,15,.10)"/>
+    <rect x="168" y="340" width="128" height="36" rx="18" fill="#2f4bff"/>
+    <rect x="961.28" y="196" width="430.08" height="270" rx="6" fill="#f6f6f3"/>
+    <rect x="168" y="486" width="362.88" height="162" rx="6" fill="#f6f6f3"/>
+    <rect x="571.2" y="486" width="362.88" height="162" rx="6" fill="#f6f6f3"/>
+    <rect x="974.4" y="486" width="362.88" height="162" rx="6" fill="#f6f6f3"/>
+  </g>
+<g font-family="'Space Grotesk',Inter,sans-serif">
+  <text x="800" y="854" text-anchor="middle" font-size="17" letter-spacing="3" fill="#8c8c94">EDTECH — PLACEHOLDER 01</text>
+  <text x="800" y="878" text-anchor="middle" font-size="14" letter-spacing="1.5" fill="#8c8c94" opacity=".7">Replace this file with your export · 1600×900</text>
+</g></svg>

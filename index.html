@@ -1,340 +1,747 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahil Das | Portfolio</title>
-    <style>
-        /* --- Custom Properties & Theme --- */
-        :root {
-            --bg-primary: #0a0f1d;
-            --bg-secondary: #111827;
-            --accent-color: #3b82f6; /* Electric Blue */
-            --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --card-bg: #1f2937;
-            --transition: all 0.3s ease;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#08050f" />
+<meta name="color-scheme" content="dark" />
 
-        /* --- Reset & Base Styles --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+<title>Sahil Das — UI/UX Designer · Product Designer · Frontend Developer</title>
+<meta name="description" content="Sahil Das is a UI/UX Designer who brings designs to life with code. Product design, brand identity and frontend development — Vidyapeeth360, HelpRevX, HealthPulse, Nexus AI." />
+<meta name="author" content="Sahil Das" />
+<link rel="canonical" href="https://sahilarya990.github.io/" />
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Sahil Das — UI/UX Designer · Product Designer · Frontend Developer" />
+<meta property="og:description" content="I design digital experiences that feel as good as they look." />
+<meta property="og:url" content="https://sahilarya990.github.io/" />
+<meta property="og:image" content="https://sahilarya990.github.io/assets/og-cover.svg" />
+<meta name="twitter:card" content="summary_large_image" />
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="site.webmanifest" />
 
-        li {
-            list-style: none;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+<link rel="stylesheet" href="style.css" />
+<!-- Content stays visible if JavaScript never runs -->
+<script>document.documentElement.className = 'js';</script>
 
-        section {
-            padding: 6rem 0;
-        }
-
-        .section-title {
-            font-size: 2.25rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 4px;
-            background: var(--accent-gradient);
-            margin: 0.5rem auto 0;
-            border-radius: 2px;
-        }
-
-        /* --- Header & Navigation --- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(10, 15, 29, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* --- Hero Section --- */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: radial-gradient(circle at 90% 10%, rgba(59, 130, 246, 0.1), transparent 40%);
-            padding-top: 70px;
-        }
-
-        .hero-content {
-            max-width: 700px;
-        }
-
-        .hero-tagline {
-            color: var(--accent-color);
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            background: var(--accent-gradient);
-            border-radius: 5px;
-            font-weight: 600;
-            transition: var(--transition);
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        /* --- About Section --- */
-        #about {
-            background-color: var(--bg-secondary);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-        }
-
-        .skills-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .skill-group h4 {
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .tag {
-            background-color: var(--card-bg);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* --- Contact Section --- */
-        #contact {
-            background-color: var(--bg-primary); /* Alternated color for section break */
-            text-align: center;
-        }
-
-        .contact-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-wrapper p {
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-        }
-
-        /* --- Footer --- */
-        footer {
-            padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            background-color: var(--bg-secondary);
-        }
-
-        /* --- Responsive Design --- */
-        @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .nav-links { display: none; }
-            section { padding: 4rem 0; }
-        }
-    </style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Person","name":"Sahil Das",
+  "url":"https://sahilarya990.github.io/",
+  "jobTitle":"UI/UX Designer",
+  "description":"UI/UX Designer who brings designs to life with code.",
+  "alumniOf":"National Institute of Technology, Rourkela",
+  "knowsAbout":["UI/UX Design","Product Design","Brand Identity","Design Systems","Frontend Development"]
+}
+</script>
 </head>
+
 <body>
 
-    <!-- Header Navigation -->
-    <header>
-        <div class="container nav">
-            <div class="logo">Sahil Das</div>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+<!-- ══════════════════════════════════════════════════════════════════
+     AMBIENT ATMOSPHERE — cinematic gradients, drifting light, dust
+     ══════════════════════════════════════════════════════════════ -->
+<div class="amb" aria-hidden="true">
+  <div class="amb__field"></div>
+  <span class="orb orb--1"></span>
+  <span class="orb orb--2"></span>
+  <span class="orb orb--3"></span>
+  <div class="amb__dust" id="dust"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     INTRO
+     ══════════════════════════════════════════════════════════════ -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro__stack">
+    <span class="intro__name" id="introName">SAHIL DAS</span>
+    <span class="intro__tag" id="introTag">DESIGN <i>×</i> CODE</span>
+  </div>
+  <span class="intro__bar" id="introBar"></span>
+</div>
+
+<!-- Cursor (desktop only) -->
+<div class="cur" id="cur" aria-hidden="true"><span id="curTxt"></span></div>
+
+<!-- Scroll progress -->
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     NAV
+     ══════════════════════════════════════════════════════════════ -->
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a href="#top" class="brand" aria-label="Sahil Das — home">
+      <span class="brand__name">SAHIL DAS</span>
+      <span class="brand__role">UI/UX Designer</span>
+    </a>
+
+    <nav class="menu" id="menu" aria-label="Primary">
+      <ul class="menu__list">
+        <li><a href="#work"       class="menu__link"><span class="menu__i">01</span>Work</a></li>
+        <li><a href="#about"      class="menu__link"><span class="menu__i">02</span>About</a></li>
+        <li><a href="#skills"     class="menu__link"><span class="menu__i">03</span>Skills</a></li>
+        <li><a href="#experience" class="menu__link"><span class="menu__i">04</span>Experience</a></li>
+        <li><a href="#contact"    class="menu__link"><span class="menu__i">05</span>Contact</a></li>
+      </ul>
+      <p class="status status--menu"><i class="dot"></i> Available for opportunities</p>
+    </nav>
+
+    <div class="nav__end">
+      <p class="status"><i class="dot"></i> Available for opportunities</p>
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Live section indicator (desktop) -->
+<aside class="ticker" id="ticker" aria-hidden="true">
+  <span class="ticker__n" id="tickerNum">00</span>
+  <span class="ticker__l" id="tickerLabel">Intro</span>
+</aside>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════════════════════════ -->
+<section class="hero" aria-labelledby="heroTitle">
+
+  <!-- Atmospheric light behind the product visual -->
+  <div class="hero__light" id="heroLight" aria-hidden="true">
+    <span class="hero__light-a"></span>
+    <span class="hero__light-b"></span>
+    <span class="hero__mesh"></span>
+  </div>
+
+  <div class="wrap hero__in">
+
+    <p class="hero__badge reveal">
+      <i aria-hidden="true">✦</i> UI/UX Designer · Product Designer · Frontend
+    </p>
+
+    <h1 class="hero__title" id="heroTitle">
+      <span class="ln"><span>I design <em class="hl">digital experiences</em></span></span>
+      <span class="ln"><span>that feel as good as they look.</span></span>
+    </h1>
+
+    <p class="hero__lede reveal" data-delay="120">
+      I work across brand identity, product design, UI/UX and frontend development.
+    </p>
+
+    <div class="hero__cta reveal" data-delay="200">
+      <a href="#work" class="btn btn--fill btn--hero mag" data-cursor="btn">
+        View my work
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#contact" class="btn btn--out btn--hero mag" data-cursor="btn">Let's connect</a>
+    </div>
+
+  </div>
+
+  <a href="#work" class="hero__scroll" aria-label="Scroll to explore">
+    <span>Scroll to explore</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+  </a>
+</section>
+
+<!-- Discipline marquee -->
+<div class="strip" aria-hidden="true">
+  <div class="strip__t" id="strip"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SELECTED WORK
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec" id="work" aria-labelledby="workTitle" data-name="Work">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="eyebrow reveal"><span>01</span> Selected Work</p>
+      <h2 class="sec__title reveal" id="workTitle" data-delay="60">
+        Designing products.<br />Building interfaces.<br /><span class="mute">Shaping brands.</span>
+      </h2>
+    </header>
+  </div>
+
+  <!-- ── 01 · VIDYAPEETH360 ─────────────────────────────────────── -->
+  <article class="lead reveal" data-project="vidyapeeth360">
+    <div class="wrap wrap--wide">
+      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Vidyapeeth360">Open case study</button>
+
+      <div class="lead__row">
+        <div class="lead__id">
+          <span class="pnum">01</span>
+          <h3 class="lead__title">Vidyapeeth360</h3>
+          <p class="lead__sub">Institution Management SaaS</p>
+          <ul class="tags">
+            <li>UI/UX</li><li>Product Design</li><li>Frontend</li>
+          </ul>
+          <span class="arrow">View case study
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
         </div>
+
+        <figure class="shot shot--browser" data-parallax="0.03">
+          <span class="chrome"><i></i><i></i><i></i><b>vidyapeeth360</b></span>
+          <div class="shot__box">
+            <img src="images/vidyapeeth-landingpage.jpg"
+                 alt="Vidyapeeth360 landing page — institution management SaaS"
+                 width="480" height="309" loading="lazy" decoding="async" />
+          </div>
+          <span class="badge-view">View case study <b>→</b></span>
+        </figure>
+      </div>
+
+      <dl class="lead__facts">
+        <div><dt>My role</dt><dd>UI/UX Designer + Frontend</dd></div>
+        <div><dt>Tools</dt><dd>Figma · HTML · CSS · JavaScript</dd></div>
+        <div><dt>Contribution</dt><dd>Landing page · Dashboard showcase · Responsive UI · Frontend implementation</dd></div>
+      </dl>
+    </div>
+  </article>
+
+  <!-- ── 02 · HELPREVX BRAND IDENTITY ───────────────────────────── -->
+  <article class="brand-case reveal" data-project="helprevx">
+    <div class="wrap wrap--wide">
+      <div class="brand-case__panel">
+        <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HelpRevX brand identity">Open case study</button>
+
+        <div class="brand-case__grid">
+          <div class="brand-case__copy">
+            <span class="pnum pnum--inv">02</span>
+            <h3 class="brand-case__title">HelpRevX</h3>
+            <p class="brand-case__sub">Brand Identity</p>
+            <ul class="brand-case__facets">
+              <li><span>01</span> Logo</li>
+              <li><span>02</span> Colour</li>
+              <li><span>03</span> Typography</li>
+              <li><span>04</span> Visual System</li>
+            </ul>
+            <ul class="tags tags--inv">
+              <li>Brand Identity</li><li>UI/UX</li><li>Visual Design</li>
+            </ul>
+            <span class="arrow arrow--inv">View case study
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+
+          <div class="brand-case__assets" data-parallax="0.02">
+            <figure class="brand-case__mark">
+              <img src="images/HelpRevX-logo.jpg" alt="HelpRevX logo mark"
+                   width="800" height="800" loading="lazy" decoding="async" />
+            </figure>
+            <figure class="brand-case__sys">
+              <img src="images/helprevx-design-system.png" alt="HelpRevX visual system — colour, typography and iconography"
+                   width="778" height="861" loading="lazy" decoding="async" />
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── 03 · HEALTHPULSE ───────────────────────────────────────── -->
+  <article class="duo duo--flip reveal" data-project="healthpulse">
+    <div class="wrap wrap--wide">
+      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HealthPulse">Open case study</button>
+
+      <div class="duo__row">
+        <figure class="shot shot--device" data-parallax="0.04">
+          <div class="shot__box">
+            <img src="images/healthplus-app.avif" alt="HealthPulse fitness mobile app screens"
+                 width="1024" height="856" loading="lazy" decoding="async" />
+          </div>
+          <span class="badge-view">View case study <b>→</b></span>
+        </figure>
+
+        <div class="duo__copy">
+          <span class="pnum">03</span>
+          <h3 class="duo__title">HealthPulse</h3>
+          <p class="duo__sub">Fitness Mobile App</p>
+          <ul class="tags"><li>UI/UX</li><li>Mobile Product Design</li></ul>
+          <p class="duo__desc">An internship project focused on designing a fitness-oriented mobile product experience.</p>
+          <span class="arrow">View case study
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── 04 · NEXUS AI ──────────────────────────────────────────── -->
+  <article class="wide reveal" data-project="nexus-ai">
+    <div class="wrap wrap--wide">
+      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Nexus AI">Open case study</button>
+
+      <div class="wide__head">
+        <div>
+          <span class="pnum">04</span>
+          <h3 class="wide__title">Nexus AI</h3>
+          <p class="wide__sub">SaaS Web Dashboard</p>
+        </div>
+        <div class="wide__meta">
+          <ul class="tags"><li>UI/UX</li><li>SaaS</li><li>Dashboard</li></ul>
+          <p class="wide__desc">A dashboard concept focused on structured navigation, information hierarchy and AI-product experience.</p>
+          <span class="arrow">View case study
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <figure class="shot shot--wide" data-parallax="0.03">
+        <span class="chrome"><i></i><i></i><i></i><b>nexus-ai · dashboard</b></span>
+        <div class="shot__box">
+          <img src="images/nexus-ai-dashboard.avif" alt="Nexus AI SaaS dashboard interface"
+               width="1024" height="874" loading="lazy" decoding="async" />
+        </div>
+        <span class="badge-view">View case study <b>→</b></span>
+      </figure>
+    </div>
+  </article>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SECONDARY WORK
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec sec--tight" id="more" aria-labelledby="moreTitle" data-name="More work">
+  <div class="wrap">
+    <header class="sec__head sec__head--row">
+      <div>
+        <p class="eyebrow reveal"><span>02</span> Also designed</p>
+        <h2 class="sec__title sec__title--sm reveal" id="moreTitle" data-delay="60">Training projects<br />&amp; explorations</h2>
+      </div>
+      <div class="rail__ctl reveal" data-delay="100">
+        <button class="rbtn" id="railPrev" type="button" aria-label="Previous projects" data-cursor="btn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+        <button class="rbtn" id="railNext" type="button" aria-label="Next projects" data-cursor="btn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </header>
+  </div>
+
+  <div class="rail" id="rail" tabindex="0" role="region" aria-label="Other projects, horizontally scrollable">
+    <ul class="rail__t">
+      <li class="mini" data-project="grocery">
+        <button class="hit" type="button" data-cursor="view" aria-label="Open project: Grocery Food Delivery App">Open</button>
+        <figure class="mini__shot">
+          <img src="images/grocery-app.png.avif" alt="Grocery food delivery app interface"
+               width="1024" height="1024" loading="lazy" decoding="async" />
+        </figure>
+        <p class="mini__cat">Mobile App · UI/UX</p>
+        <h3 class="mini__title">Grocery Food Delivery App</h3>
+        <p class="mini__desc">Browsing, search and repeat ordering in one mobile flow.</p>
+      </li>
+
+      <li class="mini" data-project="edtech">
+        <button class="hit" type="button" data-cursor="view" aria-label="Open project: EdTech Landing Page">Open</button>
+        <figure class="mini__shot">
+          <img src="images/edtech-landingpage.avif" alt="EdTech landing page interface"
+               width="1024" height="802" loading="lazy" decoding="async" />
+        </figure>
+        <p class="mini__cat">Landing Page · UI/UX</p>
+        <h3 class="mini__title">EdTech Landing Page</h3>
+        <p class="mini__desc">Structured sections built around one clear call to action.</p>
+      </li>
+
+      <li class="mini" data-project="salon">
+        <button class="hit" type="button" data-cursor="view" aria-label="Open project: Responsive Salon Website">Open</button>
+        <figure class="mini__shot">
+          <img src="images/saloon-responsive.avif" alt="Responsive salon website interface"
+               width="1024" height="687" loading="lazy" decoding="async" />
+        </figure>
+        <p class="mini__cat">Web · UI/UX</p>
+        <h3 class="mini__title">Responsive Salon Website</h3>
+        <p class="mini__desc">Visual-first layout with booking always within reach.</p>
+      </li>
+
+      <li class="mini" data-project="seller-dashboard">
+        <button class="hit" type="button" data-cursor="view" aria-label="Open project: Ecommerce Seller Dashboard">Open</button>
+        <figure class="mini__shot">
+          <img src="images/Ecommerce%20Seller%20Dashboard.avif" alt="Ecommerce seller dashboard interface"
+               width="572" height="1024" loading="lazy" decoding="async" />
+        </figure>
+        <p class="mini__cat">Dashboard · UI/UX</p>
+        <h3 class="mini__title">Ecommerce Seller Dashboard</h3>
+        <p class="mini__desc">Orders, listings and performance in one clear structure.</p>
+      </li>
+
+      <li class="mini" data-project="responsive-website">
+        <button class="hit" type="button" data-cursor="view" aria-label="Open project: Responsive Multi-Page Website">Open</button>
+        <figure class="mini__shot">
+          <img src="assets/projects/responsive-website/cover.svg" alt="Responsive multi-page website interface"
+               width="1200" height="900" loading="lazy" decoding="async" />
+        </figure>
+        <p class="mini__cat">Web · Frontend</p>
+        <h3 class="mini__title">Responsive Multi-Page Website</h3>
+        <p class="mini__desc">One component system reused across every page.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     ABOUT
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec" id="about" aria-labelledby="aboutTitle" data-name="About">
+  <div class="wrap">
+    <p class="eyebrow reveal"><span>03</span> About</p>
+
+    <div class="about">
+      <h2 class="about__statement reveal" id="aboutTitle" data-delay="60">
+        Designing experiences that feel <em class="hl">simple, useful</em>
+        &amp; <em class="hl">human</em>.
+      </h2>
+
+      <div class="about__side">
+        <figure class="about__pic reveal" data-delay="120">
+          <img src="images/sahil-profile.avif" alt="Portrait of Sahil Das"
+               width="1024" height="992" loading="lazy" decoding="async" />
+        </figure>
+
+        <div class="about__bio reveal" data-delay="160">
+          <p>I'm a UI/UX Designer and Industrial Design student at NIT Rourkela, working at the
+             intersection of design, technology and user experience.</p>
+          <p>I've worked across brand identity, UI/UX, product design and frontend development —
+             including industry work at <strong>HelpRevX</strong>, where I contributed to branding and the
+             digital product experience of <strong>Vidyapeeth360</strong>.</p>
+
+          <ul class="chips">
+            <li>NIT Rourkela</li><li>Industrial Design</li><li>UI/UX</li><li>Frontend</li>
+          </ul>
+
+          <dl class="about__facts">
+            <div><dt>Degree</dt><dd>B.Tech · 2024–2028</dd></div>
+            <div><dt>CGPA</dt><dd>7.46</dd></div>
+            <div><dt>Primary tool</dt><dd>Figma</dd></div>
+            <div><dt>Also</dt><dd>VS Code · Android Studio · GitHub</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     DESIGN × CODE
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec sec--tight" id="skills" aria-labelledby="skillsTitle" data-name="Design × Code">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="eyebrow reveal"><span>04</span> Design × Code</p>
+      <h2 class="sec__title reveal" id="skillsTitle" data-delay="60">
+        A designer who<br /><span class="mute">ships the interface.</span>
+      </h2>
+    </header>
+  </div>
+
+  <div class="wrap wrap--wide">
+    <div class="panels" id="panels">
+      <div class="panel" data-panel="design">
+        <!-- Abstract Figma-style shapes -->
+        <svg class="panel__art" viewBox="0 0 300 300" aria-hidden="true">
+          <circle cx="228" cy="66" r="44"/>
+          <rect x="150" y="130" width="88" height="88" rx="10"/>
+          <rect x="196" y="196" width="72" height="72" rx="36"/>
+          <path d="M60 250h120M60 274h72"/>
+        </svg>
+        <div class="panel__in">
+          <span class="panel__n">01</span>
+          <h3 class="panel__w">DESIGN</h3>
+          <p class="panel__r">UI/UX Designer</p>
+          <ul class="panel__l">
+            <li>Figma</li><li>Wireframing</li><li>Prototyping</li><li>Design Systems</li>
+            <li>Brand Identity</li><li>Product Design</li><li>Visual Design</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel" data-panel="code">
+        <!-- Decorative code lines -->
+        <div class="panel__code" aria-hidden="true">
+          <i style="--w:62%"></i><i style="--w:44%"></i><i style="--w:78%"></i>
+          <i style="--w:36%"></i><i style="--w:70%"></i><i style="--w:52%"></i>
+          <i style="--w:84%"></i><i style="--w:40%"></i>
+        </div>
+        <div class="panel__in">
+          <span class="panel__n">02</span>
+          <h3 class="panel__w">CODE</h3>
+          <p class="panel__r">Frontend Developer</p>
+          <ul class="panel__l">
+            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Responsive UI</li>
+            <li>Interactions</li><li>Design → Code</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Design → Code pipeline -->
+  <div class="wrap">
+    <div class="flow" id="flow" aria-label="From design to live interface">
+      <p class="flow__k">Design becoming interface</p>
+      <ol class="flow__t">
+        <li class="flow__s reveal"><span>Figma</span></li>
+        <li class="flow__s reveal" data-delay="70"><span>Design</span></li>
+        <li class="flow__s reveal" data-delay="140"><span>HTML</span></li>
+        <li class="flow__s reveal" data-delay="210"><span>CSS</span></li>
+        <li class="flow__s reveal" data-delay="280"><span>JavaScript</span></li>
+        <li class="flow__s flow__s--end reveal" data-delay="350"><span>Live UI</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     EXPERIENCE
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec" id="experience" aria-labelledby="expTitle" data-name="Experience">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="eyebrow reveal"><span>05</span> Experience</p>
+      <h2 class="sec__title reveal" id="expTitle" data-delay="60">Where I've designed,<br /><span class="mute">built and led.</span></h2>
     </header>
 
-    <!-- Hero Section -->
-    <section id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-tagline">Hi there, I am</div>
-                <h1 id="dynamic-greeting">Sahil Das</h1>
-                <p>An Industrial Design student bridging the gap between physical aesthetics, digital user experiences, and clean web development.</p>
-                <a href="#about" class="btn">Learn More About Me</a>
-            </div>
+    <ol class="exp">
+      <li class="exp__i reveal">
+        <div class="exp__meta"><time>May 2026 — July 2026</time><span>Remote</span></div>
+        <div class="exp__body">
+          <h3>HelpRevX</h3>
+          <p class="exp__role">Brand &amp; UI/UX Design Intern</p>
+          <ul class="tags tags--pill"><li>Brand Identity</li><li>UI/UX</li><li>Frontend</li></ul>
+          <p class="exp__txt">Designed the HelpRevX brand identity and Brand Kit, refined product interfaces,
+             and contributed to the frontend implementation of the Vidyapeeth360 landing page.</p>
         </div>
-    </section>
+      </li>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p>I am a 20-year-old student currently pursuing my B.Tech at <strong>NIT Rourkela</strong> within the <strong>Industrial Design</strong> branch. My academic background gives me a unique perspective on form, function, and human-centered design systems.</p>
-                    <p>Driven by curiosity about how users interact with digital interfaces, I ventured into the world of UI/UX design. To bring those design concepts to life seamlessly, I am currently scaling up my engineering skills in modern frontend web development.</p>
-                </div>
-                <div class="skills-container">
-                    <div class="skill-group">
-                        <h4>Design Expertise</h4>
-                        <div class="skill-tags">
-                            <span class="tag">UI/UX Design</span>
-                            <span class="tag">Figma</span>
-                            <span class="tag">User Research</span>
-                            <span class="tag">Wireframing</span>
-                        </div>
-                    </div>
-                    <div class="skill-group">
-                        <h4>Development Skills</h4>
-                        <div class="skill-tags">
-                            <span class="tag">HTML5</span>
-                            <span class="tag">CSS3</span>
-                            <span class="tag">JavaScript (ES6+)</span>
-                            <span class="tag">Responsive Web Design</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <li class="exp__i reveal">
+        <div class="exp__meta"><time>May 2026 — Present</time><span>NIT Rourkela</span></div>
+        <div class="exp__body">
+          <h3>ASME NIT Rourkela</h3>
+          <p class="exp__role">Creative Head</p>
+          <p class="exp__prev"><span>Previously</span> Designer &amp; Video Editor · Feb 2025 — May 2026</p>
         </div>
-    </section>
+      </li>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="contact-wrapper">
-                <h2 class="section-title">Get In Touch</h2>
-                <p>I am always looking to collaborate on interesting design systems, web development projects, or UI/UX initiatives. Drop an email or connect with me if you want to build something together.</p>
-                <a href="mailto:your.email@example.com" class="btn" id="contact-btn">Say Hello</a>
-            </div>
+      <li class="exp__i reveal">
+        <div class="exp__meta"><time>May 2025 — Present</time><span>NIT Rourkela</span></div>
+        <div class="exp__body">
+          <h3>Axiom NIT Rourkela</h3>
+          <p class="exp__role">Creative Head</p>
+          <p class="exp__prev"><span>Previously</span> Graphic Designer · Jan 2025 — May 2025</p>
         </div>
-    </section>
+      </li>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="year"></span> Sahil Das. Built with HTML, CSS, and JS.</p>
+      <li class="exp__i reveal">
+        <div class="exp__meta"><time>NIT Rourkela</time></div>
+        <div class="exp__body">
+          <h3>BlueStreak</h3>
+          <p class="exp__role">Aerodynamic Subsystem</p>
         </div>
-    </footer>
+      </li>
+    </ol>
 
-    <!-- JavaScript Functionality -->
-    <script>
-        // Set current year dynamically in the footer
-        document.getElementById('year').textContent = new Date().getFullYear();
+    <!-- HelpRevX highlight -->
+    <div class="worked reveal">
+      <p class="worked__k">What I worked on at HelpRevX</p>
+      <ol class="worked__g">
+        <li><span>01</span><h3>Brand Identity</h3><p>HelpRevX Brand Kit</p></li>
+        <li><span>02</span><h3>Product Design</h3><p>Vidyapeeth360</p></li>
+        <li><span>03</span><h3>UI/UX</h3><p>Landing page + dashboard</p></li>
+        <li><span>04</span><h3>Frontend</h3><p>HTML + CSS + JavaScript</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
 
-        // Simple runtime interaction: Dynamic welcome based on the time of day
-        const greetingElement = document.getElementById('dynamic-greeting');
-        const hour = new Date().getHours();
-        let greetingText = "Sahil Das";
+<!-- ══════════════════════════════════════════════════════════════════
+     PROCESS
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec sec--tight" id="process" aria-labelledby="procTitle" data-name="Process">
+  <div class="wrap">
+    <header class="sec__head sec__head--row">
+      <div>
+        <p class="eyebrow reveal"><span>06</span> Process</p>
+        <h2 class="sec__title sec__title--sm reveal" id="procTitle" data-delay="60">How the work<br />gets made.</h2>
+      </div>
+      <div class="rail__ctl reveal" data-delay="100">
+        <button class="rbtn" id="procPrev" type="button" aria-label="Previous step" data-cursor="btn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+        <button class="rbtn" id="procNext" type="button" aria-label="Next step" data-cursor="btn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </header>
+  </div>
 
-        if (hour < 12) {
-            greetingText = "Good Morning, I'm Sahil Das";
-        } else if (hour < 18) {
-            greetingText = "Good Afternoon, I'm Sahil Das";
-        } else {
-            greetingText = "Good Evening, I'm Sahil Das";
-        }
-        
-        // Updates the hero headline text seamlessly
-        greetingElement.textContent = greetingText;
+  <div class="proc" id="proc" tabindex="0" role="region" aria-label="Design process, horizontally scrollable">
+    <ol class="proc__t">
+      <li class="step reveal"><span class="step__n">01</span><h3>Understand</h3><p>Understand users, context and requirements.</p></li>
+      <li class="step reveal" data-delay="60"><span class="step__n">02</span><h3>Define</h3><p>Structure the problem and experience goals.</p></li>
+      <li class="step reveal" data-delay="120"><span class="step__n">03</span><h3>Explore</h3><p>Wireframes, flows and design directions.</p></li>
+      <li class="step reveal" data-delay="180"><span class="step__n">04</span><h3>Design</h3><p>High-fidelity interfaces, components and visual systems.</p></li>
+      <li class="step reveal" data-delay="240"><span class="step__n">05</span><h3>Prototype</h3><p>Create realistic interactive product experiences.</p></li>
+      <li class="step reveal" data-delay="300"><span class="step__n">06</span><h3>Build</h3><p>Translate designs into responsive frontend interfaces.</p></li>
+    </ol>
+  </div>
+</section>
 
-        console.log("Sahil's Portfolio loaded successfully. Design meets Code.");
-    </script>
+<!-- ══════════════════════════════════════════════════════════════════
+     CERTIFICATIONS
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec" id="certifications" aria-labelledby="certTitle" data-name="Certifications">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="eyebrow reveal"><span>07</span> Certifications</p>
+      <h2 class="sec__title sec__title--sm reveal" id="certTitle" data-delay="60">Training &amp; recognition.</h2>
+    </header>
+
+    <div class="certs">
+      <article class="cert cert--main reveal">
+        <button class="cert__open" type="button" data-cursor="view"
+                data-lightbox="assets/certificates/helprevx-certificate.svg"
+                data-lightbox-alt="HelpRevX internship completion certificate"
+                aria-label="Enlarge HelpRevX internship completion certificate">
+          <img src="assets/certificates/helprevx-certificate.svg"
+               alt="HelpRevX internship completion certificate"
+               width="1200" height="850" loading="lazy" decoding="async" />
+          <span class="cert__zoom">Click to enlarge</span>
+        </button>
+        <div class="cert__txt">
+          <h3>Internship Completion</h3>
+          <p class="cert__org">HelpRevX · UI/UX Developer</p>
+          <time>May 2026 — July 2026</time>
+        </div>
+      </article>
+
+      <article class="cert reveal" data-delay="60">
+        <div class="cert__txt">
+          <h3>UI/UX Internship</h3>
+          <p class="cert__org">1stop.ai</p>
+          <time>December 2025 — April 2026</time>
+        </div>
+        <div class="cert__split">
+          <div><b>3</b><span>Training projects</span></div>
+          <div><b>2</b><span>Live industry projects</span></div>
+        </div>
+        <div class="cert__lists">
+          <div><h4>Training</h4><ul><li>Grocery Food Delivery App</li><li>EdTech Landing Page</li><li>Responsive Salon Website</li></ul></div>
+          <div><h4>Live</h4><ul><li>HealthPulse</li><li>Nexus AI</li></ul></div>
+        </div>
+      </article>
+
+      <article class="cert cert--sm reveal" data-delay="120">
+        <div class="cert__txt">
+          <h3>ASME EFx India 2026</h3>
+          <p class="cert__org">Human-Powered Vehicle Project</p>
+        </div>
+        <p class="cert__note">Participated in the ASME EFx India 2026 human-powered vehicle project.</p>
+      </article>
+
+      <article class="cert cert--sm reveal" data-delay="160">
+        <div class="cert__txt">
+          <h3>Discover Yourself</h3>
+          <p class="cert__org">Personality Development</p>
+        </div>
+        <p class="cert__note">Personality development and smart outreach course.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     CURRENTLY EXPLORING
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec sec--tight" id="exploring" aria-labelledby="expLabel" data-name="Exploring">
+  <div class="wrap">
+    <div class="explore reveal">
+      <p class="eyebrow"><span>08</span> Currently exploring</p>
+      <h2 class="explore__t" id="expLabel">Design <span class="x">×</span> Technology</h2>
+      <ul class="explore__l">
+        <li>UI/UX</li><li>Product Design</li><li>Frontend Development</li>
+        <li>Design Systems</li><li>Interactive Interfaces</li>
+      </ul>
+      <p class="explore__p">Building better digital experiences by combining thoughtful design with frontend development.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     CONTACT
+     ══════════════════════════════════════════════════════════════ -->
+<section class="contact" id="contact" aria-labelledby="contactTitle" data-name="Contact">
+  <div class="contact__bg" aria-hidden="true"><i></i><i></i></div>
+  <div class="wrap contact__in">
+    <p class="eyebrow eyebrow--inv reveal"><span>09</span> Contact</p>
+    <h2 class="contact__t reveal" id="contactTitle" data-delay="60">Have an idea <em class="hl">worth designing?</em></h2>
+    <p class="contact__s reveal" data-delay="120">Let's turn it into something people enjoy using.</p>
+
+    <div class="contact__cta reveal" data-delay="180">
+      <a class="btn btn--fill btn--big mag" href="mailto:founder@helprevx.com" data-cursor="btn">
+        Email me
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <!-- TODO: replace with your LinkedIn profile URL -->
+      <a class="btn btn--out btn--big mag" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" data-cursor="btn">LinkedIn</a>
+      <a class="btn btn--out btn--big mag" href="https://github.com/sahilarya990" target="_blank" rel="noopener noreferrer" data-cursor="btn">GitHub</a>
+    </div>
+
+    <div class="contact__card reveal" data-delay="240">
+      <p class="contact__name">Sahil Das</p>
+      <p class="contact__disc">UI/UX Designer · Product Designer · Frontend Developer</p>
+      <p class="contact__time"><i class="dot"></i> <span id="localTime">Rourkela, India</span></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div>
+      <p class="foot__name">SAHIL DAS</p>
+      <p class="foot__role">UI/UX Designer · Product Designer · Frontend Developer</p>
+    </div>
+    <p class="foot__tag">Designing experiences.<br />Building interfaces.</p>
+    <p class="foot__c">© <span id="year">2026</span> Sahil Das</p>
+  </div>
+</footer>
+
+<button class="top" id="toTop" type="button" aria-label="Back to top" data-cursor="btn">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+</button>
+
+<!-- Case study panel -->
+<div class="cs" id="cs" role="dialog" aria-modal="true" aria-labelledby="csTitle" hidden>
+  <div class="cs__scrim" data-close></div>
+  <article class="cs__sheet">
+    <button class="cs__x" type="button" data-close aria-label="Close case study" data-cursor="btn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div id="csBody"></div>
+  </article>
+</div>
+
+<!-- Lightbox -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image preview" hidden>
+  <div class="lb__scrim" data-close></div>
+  <button class="lb__x" type="button" data-close aria-label="Close preview" data-cursor="btn">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <img id="lbImg" src="" alt="" />
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

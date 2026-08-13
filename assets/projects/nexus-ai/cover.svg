@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img">
+<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+<path d="M40 0H0V40" fill="none" stroke="rgba(13,13,15,.055)" stroke-width="1"/></pattern></defs>
+<rect width="1200" height="900" fill="#efefea"/><rect width="1200" height="900" fill="url(#g)"/>
+  <g>
+    <rect x="84.00000000000001" y="117" width="1032" height="612" rx="10" fill="#fff"/>
+    <rect x="84.00000000000001" y="117" width="1032" height="612" rx="10" fill="none" stroke="rgba(13,13,15,.10)"/>
+    <rect x="84.00000000000001" y="117" width="206.4" height="612" rx="10" fill="#f6f6f3"/>
+    <rect x="106.00000000000001" y="143" width="146.4" height="12" rx="3" fill="#0d0d0f"/>
+    <rect x="106.00000000000001" y="187" width="162.4" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="106.00000000000001" y="217" width="162.4" height="10" rx="3" fill="#2f4bff"/><rect x="106.00000000000001" y="247" width="162.4" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="106.00000000000001" y="277" width="162.4" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="106.00000000000001" y="307" width="162.4" height="10" rx="3" fill="rgba(13,13,15,.10)"/>
+    <rect x="318.40000000000003" y="143" width="309.59999999999997" height="16" rx="3" fill="#0d0d0f"/>
+    <rect x="318.40000000000003" y="183" width="227.04" height="122.4" rx="6" fill="#f6f6f3"/><rect x="576.4000000000001" y="183" width="227.04" height="122.4" rx="6" fill="#f6f6f3"/><rect x="834.4000000000001" y="183" width="227.04" height="122.4" rx="6" fill="#f6f6f3"/>
+    <rect x="318.40000000000003" y="374.03999999999996" width="743.04" height="275.40000000000003" rx="6" fill="#f6f6f3"/>
+    <rect x="338.40000000000003" y="410.76" width="619.1999999999999" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="338.40000000000003" y="444.76" width="619.1999999999999" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="338.40000000000003" y="478.76" width="619.1999999999999" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="338.40000000000003" y="512.76" width="619.1999999999999" height="10" rx="3" fill="rgba(13,13,15,.10)"/>
+  </g>
+<g font-family="'Space Grotesk',Inter,sans-serif">
+  <text x="600" y="854" text-anchor="middle" font-size="17" letter-spacing="3" fill="#8c8c94">NEXUS AI — PLACEHOLDER COVER</text>
+  <text x="600" y="878" text-anchor="middle" font-size="14" letter-spacing="1.5" fill="#8c8c94" opacity=".7">Replace this file with your export · 1200×900</text>
+</g></svg>

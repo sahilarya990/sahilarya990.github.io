@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img">
+<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+<path d="M40 0H0V40" fill="none" stroke="rgba(13,13,15,.055)" stroke-width="1"/></pattern></defs>
+<rect width="1200" height="900" fill="#efefea"/><rect width="1200" height="900" fill="url(#g)"/>
+  <g>
+    <rect x="96" y="108" width="1008" height="594" rx="10" fill="#fff"/>
+    <rect x="96" y="108" width="1008" height="594" rx="10" fill="none" stroke="rgba(13,13,15,.10)"/>
+    <rect x="96" y="108" width="1008" height="44" rx="10" fill="#f6f6f3"/>
+    <circle cx="120" cy="130" r="5" fill="rgba(13,13,15,.10)"/>
+    <circle cx="138" cy="130" r="5" fill="rgba(13,13,15,.10)"/>
+    <circle cx="156" cy="130" r="5" fill="rgba(13,13,15,.10)"/>
+    <rect x="136" y="198" width="423.35999999999996" height="22" rx="3" fill="#0d0d0f"/>
+    <rect x="136" y="232" width="554.4000000000001" height="22" rx="3" fill="#0d0d0f"/>
+    <rect x="136" y="280" width="342.72" height="12" rx="3" fill="rgba(13,13,15,.10)"/>
+    <rect x="136" y="302" width="282.24" height="12" rx="3" fill="rgba(13,13,15,.10)"/>
+    <rect x="136" y="340" width="128" height="36" rx="18" fill="#2f4bff"/>
+    <rect x="720.96" y="196" width="322.56" height="270" rx="6" fill="#f6f6f3"/>
+    <rect x="136" y="486" width="272.16" height="162" rx="6" fill="#f6f6f3"/>
+    <rect x="438.4" y="486" width="272.16" height="162" rx="6" fill="#f6f6f3"/>
+    <rect x="740.8" y="486" width="272.16" height="162" rx="6" fill="#f6f6f3"/>
+  </g>
+<g font-family="'Space Grotesk',Inter,sans-serif">
+  <text x="600" y="854" text-anchor="middle" font-size="17" letter-spacing="3" fill="#8c8c94">SALON WEBSITE — PLACEHOLDER COVER</text>
+  <text x="600" y="878" text-anchor="middle" font-size="14" letter-spacing="1.5" fill="#8c8c94" opacity=".7">Replace this file with your export · 1200×900</text>
+</g></svg>

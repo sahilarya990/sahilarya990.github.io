@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+<path d="M40 0H0V40" fill="none" stroke="rgba(13,13,15,.055)" stroke-width="1"/></pattern></defs>
+<rect width="1600" height="900" fill="#efefea"/><rect width="1600" height="900" fill="url(#g)"/>
+  <g>
+    <rect x="112.00000000000001" y="117" width="1376" height="612" rx="10" fill="#fff"/>
+    <rect x="112.00000000000001" y="117" width="1376" height="612" rx="10" fill="none" stroke="rgba(13,13,15,.10)"/>
+    <rect x="112.00000000000001" y="117" width="275.2" height="612" rx="10" fill="#f6f6f3"/>
+    <rect x="134" y="143" width="215.2" height="12" rx="3" fill="#0d0d0f"/>
+    <rect x="134" y="187" width="231.2" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="134" y="217" width="231.2" height="10" rx="3" fill="#2f4bff"/><rect x="134" y="247" width="231.2" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="134" y="277" width="231.2" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="134" y="307" width="231.2" height="10" rx="3" fill="rgba(13,13,15,.10)"/>
+    <rect x="415.2" y="143" width="412.8" height="16" rx="3" fill="#0d0d0f"/>
+    <rect x="415.2" y="183" width="302.72" height="122.4" rx="6" fill="#f6f6f3"/><rect x="759.2" y="183" width="302.72" height="122.4" rx="6" fill="#f6f6f3"/><rect x="1103.2" y="183" width="302.72" height="122.4" rx="6" fill="#f6f6f3"/>
+    <rect x="415.2" y="374.03999999999996" width="990.7199999999999" height="275.40000000000003" rx="6" fill="#f6f6f3"/>
+    <rect x="435.2" y="410.76" width="825.6" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="435.2" y="444.76" width="825.6" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="435.2" y="478.76" width="825.6" height="10" rx="3" fill="rgba(13,13,15,.10)"/><rect x="435.2" y="512.76" width="825.6" height="10" rx="3" fill="rgba(13,13,15,.10)"/>
+  </g>
+<g font-family="'Space Grotesk',Inter,sans-serif">
+  <text x="800" y="854" text-anchor="middle" font-size="17" letter-spacing="3" fill="#8c8c94">NEXUS AI — PLACEHOLDER 01</text>
+  <text x="800" y="878" text-anchor="middle" font-size="14" letter-spacing="1.5" fill="#8c8c94" opacity=".7">Replace this file with your export · 1600×900</text>
+</g></svg>

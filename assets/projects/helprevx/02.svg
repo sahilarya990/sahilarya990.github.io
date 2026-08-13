@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <rect width="1600" height="900" fill="#0d0d0f"/>
+  <g>
+    <rect x="144" y="126.00000000000001" width="544" height="544" rx="8" fill="rgba(255,255,255,.06)"/>
+    <circle cx="416" cy="398" r="120" fill="none" stroke="#f6f6f3" stroke-width="7"/>
+    <path d="M416 278 L536 518 L296 518 Z" fill="#2f4bff"/>
+    <rect x="784" y="126.00000000000001" width="152" height="152" rx="6" fill="#2f4bff"/><rect x="968" y="126.00000000000001" width="152" height="152" rx="6" fill="#f6f6f3"/><rect x="1152" y="126.00000000000001" width="152" height="152" rx="6" fill="#57575e"/><rect x="1336" y="126.00000000000001" width="152" height="152" rx="6" fill="#d9552f"/>
+    <rect x="784" y="350.00000000000006" width="704" height="26" rx="3" fill="rgba(255,255,255,.16)"/>
+    <rect x="784" y="422" width="480" height="18" rx="3" fill="rgba(255,255,255,.1)"/>
+    <rect x="784" y="478" width="576" height="12" rx="3" fill="rgba(255,255,255,.08)"/>
+    <circle cx="208" cy="648" r="35.199999999999996" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="328" cy="648" r="35.199999999999996" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="448" cy="648" r="35.199999999999996" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="568" cy="648" r="35.199999999999996" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="688" cy="648" r="35.199999999999996" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="808" cy="648" r="35.199999999999996" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/>
+  </g>
+  <g font-family="'Space Grotesk',Inter,sans-serif">
+    <text x="800" y="854" text-anchor="middle" font-size="17" letter-spacing="3" fill="rgba(246,246,243,.5)">HELPREVX — PLACEHOLDER 02</text>
+    <text x="800" y="878" text-anchor="middle" font-size="14" letter-spacing="1.5" fill="rgba(246,246,243,.35)">Replace this file with your export · 1600×900</text>
+  </g></svg>

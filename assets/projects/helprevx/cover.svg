@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" width="1400" height="1000" role="img">
+  <rect width="1400" height="1000" fill="#0d0d0f"/>
+  <g>
+    <rect x="126" y="140" width="476.00000000000006" height="476.00000000000006" rx="8" fill="rgba(255,255,255,.06)"/>
+    <circle cx="364" cy="378" r="105" fill="none" stroke="#f6f6f3" stroke-width="7"/>
+    <path d="M364 273 L469 483 L259 483 Z" fill="#2f4bff"/>
+    <rect x="686" y="140" width="133" height="133" rx="6" fill="#2f4bff"/><rect x="847" y="140" width="133" height="133" rx="6" fill="#f6f6f3"/><rect x="1008" y="140" width="133" height="133" rx="6" fill="#57575e"/><rect x="1169" y="140" width="133" height="133" rx="6" fill="#d9552f"/>
+    <rect x="686" y="336" width="616" height="26" rx="3" fill="rgba(255,255,255,.16)"/>
+    <rect x="686" y="399" width="420" height="18" rx="3" fill="rgba(255,255,255,.1)"/>
+    <rect x="686" y="448" width="504" height="12" rx="3" fill="rgba(255,255,255,.08)"/>
+    <circle cx="182" cy="720" r="30.799999999999997" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="287" cy="720" r="30.799999999999997" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="392" cy="720" r="30.799999999999997" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="497" cy="720" r="30.799999999999997" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="602" cy="720" r="30.799999999999997" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/><circle cx="707" cy="720" r="30.799999999999997" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3"/>
+  </g>
+  <g font-family="'Space Grotesk',Inter,sans-serif">
+    <text x="700" y="954" text-anchor="middle" font-size="17" letter-spacing="3" fill="rgba(246,246,243,.5)">HELPREVX — PLACEHOLDER COVER</text>
+    <text x="700" y="978" text-anchor="middle" font-size="14" letter-spacing="1.5" fill="rgba(246,246,243,.35)">Replace this file with your export · 1400×1000</text>
+  </g></svg>
