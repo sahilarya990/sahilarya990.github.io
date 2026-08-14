@@ -439,18 +439,29 @@ const Hero = {
     }
 
     /* Cinematic exit — the hero drifts up and dims as you scroll away.
-       Transform + opacity only; done well before one viewport of scroll. */
+       Transform + opacity only, and lerped rather than snapped to scrollY
+       so a fast flick or a notchy trackpad still reads as one continuous
+       drift instead of a jump cut. */
     const hin = $('.hero__in'), cue = $('.hero__scroll');
     if (hin && !REDUCED) {
-      onScroll(() => {
-        const y = scrollY, vh = innerHeight;
-        if (y > vh * 1.2) return;                       // hero long gone — skip the work
-        const p = Math.min(1, y / (vh * 0.72));
-        hin.style.transform = `translate3d(0, ${(-y * 0.16).toFixed(1)}px, 0)`;
-        hin.style.opacity = (1 - p).toFixed(3);
-        if (light) light.style.opacity = (1 - p * 0.9).toFixed(3);
-        if (cue) cue.style.opacity = y > 60 ? '0' : '';
-      });
+      let sy = 0, hraf = null;
+
+      const paintHero = () => {
+        const vh = innerHeight;
+        if (sy <= vh * 1.25) {
+          const p = Math.min(1, sy / (vh * 0.72));
+          hin.style.transform = `translate3d(0, ${(-sy * 0.16).toFixed(1)}px, 0)`;
+          hin.style.opacity = (1 - p).toFixed(3);
+          if (light) light.style.opacity = (1 - p * 0.9).toFixed(3);
+          if (cue) cue.style.opacity = sy > 60 ? '0' : '';
+        }
+      };
+      const heroLoop = () => {
+        sy += (scrollY - sy) * 0.15;
+        paintHero();
+        hraf = (Math.abs(scrollY - sy) > 0.4) ? requestAnimationFrame(heroLoop) : null;
+      };
+      onScroll(() => { if (!hraf) hraf = requestAnimationFrame(heroLoop); });
     }
 
     const year = $('#year');
@@ -485,10 +496,13 @@ const Parallax = {
    08b. WORK STAGE  —  the scroll-driven Selected Work showcase
    ----------------------------------------------------------------------
    Desktop + motion: the stage is tall, its viewport pins, and scroll
-   position maps to a continuous index x ∈ [0, N-1]. Each slide's distance
-   from x drives opacity, translate and scale, so project 01 dissolves
-   into 02 as one continuous story. Mobile / reduced motion: the class
-   never goes on and the slides read as a normal stacked flow.
+   position maps to a continuous index x ∈ [0, N-1]. A lerped copy of x
+   trails the raw scroll-derived value by a few frames — that trailing lag
+   is what makes the crossfade read as flowing motion rather than content
+   snapped 1:1 to the scrollbar. Each slide's distance from the smoothed
+   index drives opacity, translate and scale, so project 01 dissolves into
+   02 as one continuous story. Mobile / reduced motion: the class never
+   goes on and the slides read as a normal stacked flow.
    ══════════════════════════════════════════════════════════════════════ */
 const Workstage = {
   init() {
@@ -501,30 +515,19 @@ const Workstage = {
     const N = slides.length;
     if (N < 2) return;
 
-    let on = false;
+    let on = false, x = 0, raf = null;
 
-    const sync = () => {
-      const want = DESKTOP() && !REDUCED;
-      if (want === on) return;
-      on = want;
-      stage.classList.toggle('wstage--on', on);
-      if (!on) slides.forEach((s) => {
-        s.style.cssText = '';
-        const m = $('.slide__media', s);
-        if (m) m.style.transform = '';
-      });
-    };
-
-    const paint = () => {
-      if (!on) return;
+    const targetX = () => {
       const r = stage.getBoundingClientRect();
       const span = r.height - innerHeight;
-      if (span <= 0) return;
+      if (span <= 0) return 0;
       const t = Math.min(1, Math.max(0, -r.top / span));
-      const x = t * (N - 1);                            // continuous slide index
+      return t * (N - 1);
+    };
 
+    const render = (val) => {
       slides.forEach((s, i) => {
-        const d = x - i, ad = Math.abs(d);
+        const d = val - i, ad = Math.abs(d);
         const a = Math.max(0, 1 - ad * 1.5);            // fully solo at rest
         s.style.opacity = a.toFixed(3);
         s.style.visibility = a <= 0 ? 'hidden' : 'visible';
@@ -535,14 +538,36 @@ const Workstage = {
           `translate3d(0, ${(-d * 26).toFixed(1)}px, 0) scale(${(1 - Math.min(ad, 1) * .07).toFixed(4)})`;
       });
 
-      const act = Math.round(x);
+      const act = Math.round(val);
       dots.forEach((dt, i) => dt.classList.toggle('on', i === act));
-      bars.forEach((b, i) => b && b.style.setProperty('--p', Math.min(1, Math.max(0, x - i)).toFixed(3)));
+      bars.forEach((b, i) => b && b.style.setProperty('--p', Math.min(1, Math.max(0, val - i)).toFixed(3)));
+    };
+
+    const loop = () => {
+      if (!on) { raf = null; return; }
+      const t = targetX();
+      x += (t - x) * 0.15;                              // the flow: trail the true position, don't snap to it
+      render(x);
+      raf = (Math.abs(t - x) > 0.0015) ? requestAnimationFrame(loop) : null;
+    };
+    const kick = () => { if (on && !raf) raf = requestAnimationFrame(loop); };
+
+    const sync = () => {
+      const want = DESKTOP() && !REDUCED;
+      if (want === on) return;
+      on = want;
+      stage.classList.toggle('wstage--on', on);
+      if (on) { x = targetX(); render(x); kick(); }
+      else slides.forEach((s) => {
+        s.style.cssText = '';
+        const m = $('.slide__media', s);
+        if (m) m.style.transform = '';
+      });
     };
 
     sync();
-    onScroll(paint);
-    addEventListener('resize', () => { sync(); paint(); });
+    onScroll(kick);
+    addEventListener('resize', () => { sync(); if (on) kick(); });
 
     /* Progress numbers jump straight to a project */
     dots.forEach((dt, i) => {
@@ -609,6 +634,9 @@ const AboutWords = {
     t.innerHTML = words.map((w) => `<span class="w">${esc(w)}</span>`).join(' ');
     t.classList.add('about__statement--live');
     const ws = $$('.w', t);
+    /* A small per-word stagger — so words that cross the threshold together
+       still ripple in left to right instead of popping in as one block */
+    ws.forEach((w, i) => { w.style.transitionDelay = `${Math.min(i, 10) * 22}ms`; });
 
     onScroll(() => {
       const r = t.getBoundingClientRect(), vh = innerHeight;

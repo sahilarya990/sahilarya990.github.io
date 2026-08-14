@@ -662,11 +662,13 @@ body.cur-on .cur{opacity:1}
   .exp::before{
     content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line-2);
   }
-  /* JS sets --fill as the section passes the viewport centre */
+  /* JS sets --fill as the section passes the viewport centre — the height
+     transition is what turns discrete scroll samples into a flowing line */
   .exp::after{
     content:"";position:absolute;left:0;top:0;width:1px;height:var(--fill,0%);
     background:linear-gradient(180deg,var(--acc),var(--acc-3));
     box-shadow:0 0 10px rgba(139,92,246,.45);
+    transition:height .5s var(--e);
   }
 }
 .js .exp__i{opacity:.38;transition:opacity .6s var(--e)}
