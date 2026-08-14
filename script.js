@@ -418,6 +418,7 @@ const Reveal = {
    ══════════════════════════════════════════════════════════════════════ */
 const Hero = {
   init() {
+    /* Mouse parallax on the atmospheric light (desktop only, max 15px) */
     const light = $('#heroLight');
     if (light && FINE && !REDUCED && DESKTOP()) {
       let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
@@ -425,14 +426,14 @@ const Hero = {
       const loop = () => {
         cx += (tx - cx) * 0.06;
         cy += (ty - cy) * 0.06;
-        light.style.translate = `calc(-50% + ${cx.toFixed(2)}px) calc(-50% + ${cy.toFixed(2)}px)`;
+        light.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
         raf = (Math.abs(tx - cx) > .1 || Math.abs(ty - cy) > .1) ? requestAnimationFrame(loop) : null;
       };
 
       addEventListener('mousemove', (e) => {
         if (scrollY > innerHeight) return;              // only while the hero is on screen
-        tx = ((e.clientX / innerWidth) - .5) * 26;      // ±13px
-        ty = ((e.clientY / innerHeight) - .5) * 26;
+        tx = ((e.clientX / innerWidth) - .5) * 30;      // ±15px
+        ty = ((e.clientY / innerHeight) - .5) * 30;
         if (!raf) raf = requestAnimationFrame(loop);
       }, { passive: true });
     }
@@ -592,6 +593,31 @@ const Lightbox = {
 
 
 /* ══════════════════════════════════════════════════════════════════════
+   10b. AMBIENT DUST  —  a few slow-drifting particles, desktop only
+   ══════════════════════════════════════════════════════════════════════ */
+const Dust = {
+  init() {
+    const box = $('#dust');
+    if (!box || REDUCED || innerWidth < 700) return;
+
+    const COUNT = 9;   /* kept sparse so the hero stays calm */
+    const rand = (min, max) => min + Math.random() * (max - min);
+    let html = '';
+
+    for (let i = 0; i < COUNT; i++) {
+      const dur = rand(16, 30);
+      html +=
+        `<i style="left:${rand(0, 100).toFixed(2)}%;top:${rand(50, 100).toFixed(2)}%;` +
+        `--o:${rand(.12, .32).toFixed(2)};` +
+        `width:${Math.random() < .22 ? 3 : 2}px;height:${Math.random() < .22 ? 3 : 2}px;` +
+        `animation-duration:${dur.toFixed(1)}s;animation-delay:${(-Math.random() * dur).toFixed(1)}s"></i>`;
+    }
+    box.innerHTML = html;
+  }
+};
+
+
+/* ══════════════════════════════════════════════════════════════════════
    11. LIVE CLOCK  (local time in the footer)
    ══════════════════════════════════════════════════════════════════════ */
 const Clock = {
@@ -627,6 +653,7 @@ function init() {
   Parallax.init();
   Panel.init();
   Lightbox.init();
+  Dust.init();
   Clock.init();
 }
 

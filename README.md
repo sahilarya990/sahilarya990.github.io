@@ -42,8 +42,9 @@ altitude, it belongs in the panel — not on the page.
 
 ## Design system
 
-Almost-black ground, off-white text, **purple strictly as an accent** — interaction, active
-state, primary CTA. It is never a section background and never a gradient across a heading.
+Almost-black ground, off-white text, **purple as an accent** — interaction, active state,
+primary CTA, and the ambient light. It is never a flat section background. The one gradient
+heading on the page is the hero's `.hl` span; every heading below it stays plain.
 
 | Token | Value | Role |
 |---|---|---|
@@ -70,9 +71,12 @@ state, primary CTA. It is never a section background and never a gradient across
 | Body | 15 → 17px | `--fs-body` |
 | Metadata | 11 → 13px | `--fs-meta` |
 
-Headings are **straight**: weight 600, `-0.02em` tracking, no gradient fill, no italics, no
-forced line breaks. Uppercase and letter-spacing are reserved for one label per section
-(the eyebrow) and small metadata — never for headings or body copy.
+Below the hero, headings are **straight**: weight 600, `-0.02em` tracking, no gradient fill,
+no italics, no forced line breaks. Uppercase and letter-spacing are reserved for one label per
+section (the eyebrow) and small metadata — never for headings or body copy.
+
+The hero keeps its original treatment: centred, 38 → 76px, the travelling-light badge, and a
+gradient `.hl` span. It's the one loud moment; the rest of the page stays quiet.
 
 All tokens live in one `:root` block at the top of `style.css`. Change the accent there
 and it updates everywhere.
@@ -90,10 +94,11 @@ progressive disclosure inside the panel.
 
 ## Interactions
 
-1s intro · masked line reveal on the hero headline · scroll reveal via `IntersectionObserver` ·
-custom cursor with a circular **VIEW** state over projects · magnetic buttons · nav that
-compacts on scroll and **hides going down, returns going up** · scroll spy · scroll progress
-bar · hero light that drifts with the pointer · transform-only parallax on the two large
+1s intro · masked line reveal on the hero headline · a light travelling around the hero badge ·
+layered hero light that drifts with the pointer · drifting ambient orbs and sparse dust ·
+scroll reveal via `IntersectionObserver` · custom cursor with a circular **VIEW** state over
+projects · magnetic buttons · nav that compacts on scroll and **hides going down, returns
+going up** · scroll spy · scroll progress bar · transform-only parallax on the two large
 visuals · image scale on project hover · hover-expanding Design/Code panels · case-study
 slide-over · certificate lightbox · live IST clock.
 

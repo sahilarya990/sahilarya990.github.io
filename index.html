@@ -43,10 +43,15 @@
 
 <body>
 
-<!-- Ambient atmosphere — two slow light sources, nothing more -->
+<!-- ══════════════════════════════════════════════════════════════════
+     AMBIENT ATMOSPHERE — cinematic gradients, drifting light, dust
+     ══════════════════════════════════════════════════════════════ -->
 <div class="amb" aria-hidden="true">
+  <div class="amb__field"></div>
   <span class="orb orb--1"></span>
   <span class="orb orb--2"></span>
+  <span class="orb orb--3"></span>
+  <div class="amb__dust" id="dust"></div>
 </div>
 
 <!-- Intro -->
@@ -99,14 +104,25 @@
 <span id="top"></span>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     HERO — headline, one supporting line, two buttons. Nothing else.
+     HERO
      ══════════════════════════════════════════════════════════════ -->
 <section class="hero" aria-labelledby="heroTitle">
-  <div class="hero__light" id="heroLight" aria-hidden="true"></div>
+
+  <!-- Atmospheric light behind the headline -->
+  <div class="hero__light" id="heroLight" aria-hidden="true">
+    <span class="hero__light-a"></span>
+    <span class="hero__light-b"></span>
+    <span class="hero__mesh"></span>
+  </div>
 
   <div class="wrap hero__in">
+
+    <p class="hero__badge reveal">
+      <i aria-hidden="true">✦</i> UI/UX Designer · Product Designer · Frontend
+    </p>
+
     <h1 class="hero__title" id="heroTitle">
-      <span class="ln"><span>I design digital experiences</span></span>
+      <span class="ln"><span>I design <em class="hl">digital experiences</em></span></span>
       <span class="ln"><span>that feel as good as they look.</span></span>
     </h1>
 
@@ -115,13 +131,19 @@
     </p>
 
     <div class="hero__cta reveal" data-delay="200">
-      <a href="#work" class="btn btn--fill mag" data-cursor="btn">
+      <a href="#work" class="btn btn--fill btn--hero mag" data-cursor="btn">
         View selected work
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <a href="#contact" class="btn btn--out mag" data-cursor="btn">Let's talk</a>
+      <a href="#contact" class="btn btn--out btn--hero mag" data-cursor="btn">Let's talk</a>
     </div>
+
   </div>
+
+  <a href="#work" class="hero__scroll" aria-label="Scroll to explore">
+    <span>Scroll to explore</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+  </a>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════

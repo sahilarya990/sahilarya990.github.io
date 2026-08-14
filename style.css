@@ -45,8 +45,9 @@
   --shadow:0 24px 70px -30px rgba(0,0,0,.7);
 
   /* Type scale — calm, nothing shouting
-     hero 40→72 · section 32→52 · project 28→36 · body 15→17 · meta 11→13 */
-  --fs-hero:clamp(2.5rem, 1.7rem + 2.7vw, 4.5rem);
+     hero 38→76 · section 32→52 · project 28→36 · body 15→17 · meta 11→13
+     The hero keeps its original scale; everything below it stays quiet. */
+  --fs-hero:clamp(2.375rem, 1.1rem + 4.2vw, 4.75rem);
   --fs-sec:clamp(2rem, 1.55rem + 1.45vw, 3.25rem);
   --fs-proj:clamp(1.75rem, 1.5rem + .8vw, 2.25rem);
   --fs-body:clamp(.9375rem, .91rem + .12vw, 1.0625rem);
@@ -133,6 +134,14 @@ html{scrollbar-color:#3b1f6b var(--bg);scrollbar-width:thin}
 }
 .eyebrow span{color:var(--acc-3);font-variant-numeric:tabular-nums}
 
+/* Purple gradient highlight — the hero headline only */
+.hl{
+  font-style:normal;
+  background:linear-gradient(100deg,var(--acc-3) 0%,var(--acc) 55%,var(--indigo) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  color:transparent;
+}
+
 /* Category tags — sentence case, quiet */
 .tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .tags li{
@@ -190,12 +199,46 @@ html{scrollbar-color:#3b1f6b var(--bg);scrollbar-width:thin}
 
 /* ══ 04. ATMOSPHERE ══════════════════════════════════════════════════ */
 .amb{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--bg)}
-.orb{position:absolute;display:block;border-radius:50%;filter:blur(150px)}
-.orb--1{width:44vw;height:44vw;top:-12vw;left:-8vw;background:#7c3aed;opacity:.15;
-  animation:drift 28s ease-in-out infinite}
-.orb--2{width:36vw;height:36vw;top:52vh;right:-12vw;background:#6366f1;opacity:.1;
-  animation:drift 34s ease-in-out infinite reverse}
-@keyframes drift{50%{transform:translate3d(4vw,3vh,0) scale(1.1)}}
+
+/* Slow cinematic gradient field */
+.amb__field{
+  position:absolute;inset:-15%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(139,92,246,.18), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(99,102,241,.12), transparent 30%),
+    radial-gradient(circle at 50% 90%, rgba(168,85,247,.10), transparent 35%);
+  animation:field 22s ease-in-out infinite alternate;
+}
+@keyframes field{
+  0%  {transform:translate3d(0,0,0) scale(1)}
+  50% {transform:translate3d(2.5%,-2%,0) scale(1.06)}
+  100%{transform:translate3d(-2%,2.5%,0) scale(1.02)}
+}
+
+/* Drifting light sources */
+.orb{position:absolute;display:block;border-radius:50%;filter:blur(140px)}
+.orb--1{width:46vw;height:46vw;top:-10vw;left:-6vw;background:#7c3aed;opacity:.2;
+  animation:drift1 24s ease-in-out infinite}
+.orb--2{width:38vw;height:38vw;top:45vh;right:-10vw;background:#6366f1;opacity:.14;
+  animation:drift2 19s ease-in-out infinite}
+.orb--3{width:34vw;height:34vw;bottom:-12vw;left:28vw;background:#a855f7;opacity:.1;
+  animation:drift1 27s ease-in-out infinite reverse}
+@keyframes drift1{50%{transform:translate3d(5vw,4vh,0) scale(1.14)}}
+@keyframes drift2{50%{transform:translate3d(-6vw,-5vh,0) scale(.9)}}
+
+/* Dust particles (injected by JS) */
+.amb__dust{position:absolute;inset:0}
+.amb__dust i{
+  position:absolute;display:block;width:2px;height:2px;border-radius:50%;
+  background:var(--acc-3);opacity:.3;
+  animation:rise linear infinite;
+}
+@keyframes rise{
+  0%  {transform:translateY(0) scale(.6);opacity:0}
+  14% {opacity:var(--o,.3)}
+  86% {opacity:calc(var(--o,.3) * .65)}
+  100%{transform:translateY(-46vh) scale(1);opacity:0}
+}
 
 /* ══ 05. INTRO / CURSOR / CHROME ═════════════════════════════════════ */
 .intro{
@@ -309,35 +352,109 @@ body.cur-on .cur{opacity:1}
 .burger.open span:last-child{bottom:20px;transform:translateX(-50%) rotate(-45deg)}
 
 /* ══ 07. HERO ════════════════════════════════════════════════════════
-   Headline, one supporting line, two buttons. Nothing around it.
+   One centred composition: badge → headline → lede → CTA.
    ════════════════════════════════════════════════════════════════════ */
 .hero{
   position:relative;min-height:100svh;display:flex;align-items:center;
-  padding:calc(var(--nav-h) + clamp(3rem,7vw,6rem)) 0 clamp(5rem,10vw,8rem);
+  padding:calc(var(--nav-h) + clamp(2rem,5vw,3.5rem)) 0 clamp(5rem,10vw,8rem);
   overflow:hidden;
 }
-.hero__light{
-  position:absolute;left:50%;top:58%;translate:-50% -50%;z-index:0;pointer-events:none;
-  width:min(120%,1200px);aspect-ratio:16/9;
-  background:radial-gradient(ellipse at 50% 50%, rgba(139,92,246,.22), transparent 62%);
-  filter:blur(60px);
-  opacity:0;animation:lightIn 2.2s var(--e) .3s forwards;
+.hero__in{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;
 }
-@keyframes lightIn{to{opacity:1}}
 
-.hero__in{position:relative;z-index:1;width:100%}
-.hero__title{
-  font-size:var(--fs-hero);font-weight:600;letter-spacing:-.025em;line-height:1.08;
-  max-width:min(100%,1200px);
+/* — Atmospheric light — */
+.hero__light{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.hero__light span{position:absolute;left:50%;translate:-50% 0;display:block;border-radius:50%}
+.hero__light-a{
+  top:40%;width:min(130%,1180px);height:min(72vh,660px);
+  background:radial-gradient(circle at 50% 50%, rgba(139,92,246,.30), transparent 62%);
+  filter:blur(50px);opacity:0;animation:lightIn 2.4s var(--e) .35s forwards;
 }
-.hero__lede{
-  margin-top:clamp(1.25rem,2.2vw,1.75rem);
-  max-width:min(100%,46ch);color:var(--text-2);
-  font-size:clamp(1rem,.95rem + .3vw,1.15rem);
+.hero__light-b{
+  top:26%;width:min(150%,1500px);height:min(88vh,840px);
+  background:radial-gradient(circle at 50% 50%, rgba(99,102,241,.15), transparent 68%);
+  filter:blur(74px);opacity:0;animation:lightIn 2.8s var(--e) .5s forwards, breathe 16s ease-in-out 3s infinite;
 }
-.hero__cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:clamp(2rem,3.5vw,2.75rem)}
+@keyframes lightIn{to{opacity:var(--lo,1)}}
+@keyframes breathe{50%{transform:scale(1.07)}}
+
+/* Whisper-quiet grid at the foot of the hero */
+.hero__mesh{
+  top:auto !important;bottom:0;width:min(100%,1500px);height:58%;border-radius:0 !important;
+  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 62% 78% at 50% 92%,#000 5%,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse 62% 78% at 50% 92%,#000 5%,transparent 72%);
+}
+
+/* — Badge with a light travelling around its border —
+   ::before is an oversized conic gradient (faint ring + one bright head with a
+   fading tail) rotating inside the pill; ::after masks out everything but a 1px
+   edge, so only the ring shows. */
+.hero__badge{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.55rem 1.15rem;border-radius:99px;
+  font-size:var(--fs-meta);font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--text-2);
+  box-shadow:0 0 26px -6px rgba(139,92,246,.4);
+}
+.hero__badge::before{
+  content:"";position:absolute;z-index:-2;left:50%;top:50%;
+  width:260%;aspect-ratio:1/1;translate:-50% -50%;
+  background:conic-gradient(from 0deg,
+    rgba(139,92,246,.24) 0 62%,      /* resting ring          */
+    rgba(139,92,246,.34) 74%,        /* tail fades in         */
+    rgba(192,132,252,.85) 88%,       /* tail brightens        */
+    #f5f3ff 94%,                     /* head                  */
+    rgba(139,92,246,.24) 97%);       /* back to the ring      */
+  animation:badgeTail 4.5s linear infinite;
+}
+.hero__badge::after{
+  content:"";position:absolute;z-index:-1;inset:1px;border-radius:99px;
+  background:rgba(18,10,32,.86);backdrop-filter:blur(16px);
+}
+@keyframes badgeTail{to{rotate:360deg}}
+.hero__badge i{font-style:normal;color:var(--acc-3);font-size:.9em}
+
+/* Entrance offsets — :not(.in) so the revealed state still wins */
+.js .hero__badge.reveal:not(.in){transform:translateY(10px)}
 .js .hero__lede.reveal:not(.in),
-.js .hero__cta.reveal:not(.in){transform:translateY(14px)}
+.js .hero__cta.reveal:not(.in){transform:translateY(15px)}
+
+/* — Headline — */
+.hero__title{
+  margin-top:clamp(1.5rem,3vw,2.25rem);
+  font-size:var(--fs-hero);
+  font-weight:600;letter-spacing:-.038em;line-height:1.06;
+  max-width:min(100%,1240px);text-wrap:balance;
+}
+
+/* — Supporting line — */
+.hero__lede{
+  margin-top:clamp(1.1rem,2vw,1.65rem);
+  max-width:min(100%,52ch);color:var(--text-2);line-height:1.6;
+  font-size:clamp(.98rem,.92rem + .3vw,1.18rem);
+}
+
+/* — Buttons — */
+.hero__cta{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-top:clamp(1.75rem,3vw,2.5rem)}
+.btn--hero{padding:.95rem 1.7rem;border-radius:14px;font-size:.9rem}
+
+/* — Scroll cue —
+   Sits just above the first fold, not at the bottom of the (taller) hero box */
+.hero__scroll{
+  position:absolute;left:50%;translate:-50% 0;top:calc(100svh - 3.5rem);z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  font-size:.66rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-3);opacity:.75;transition:opacity var(--t-s),color var(--t-s);
+}
+.hero__scroll:hover{opacity:1;color:var(--acc-3)}
+.hero__scroll svg{width:15px;height:15px;animation:nudge 2.6s var(--e) infinite}
+@keyframes nudge{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(5px);opacity:1}}
 
 /* ══ 08. SECTION FURNITURE ═══════════════════════════════════════════ */
 .sec{padding:var(--sy) 0;position:relative}
@@ -651,6 +768,11 @@ body.cur-on .cur{opacity:1}
     font-size:1rem;font-weight:600;color:var(--acc-3);
   }
 
+  /* Hero — same centred composition, tighter rhythm */
+  .hero{padding-top:calc(var(--nav-h) + 2.5rem)}
+  .hero__light-a{filter:blur(42px);--lo:.85}
+  .hero__light-b{width:min(160%,1100px)}
+
   .case--split{grid-template-columns:minmax(0,1fr);gap:clamp(1.75rem,4vw,2.5rem)}
   .case--flip .case__media{order:0}
   .case--split .case__body{max-width:52ch}
@@ -666,7 +788,10 @@ body.cur-on .cur{opacity:1}
 
   .cur{display:none}
   body.cur-on{cursor:auto}
-  .orb{filter:blur(120px)}
+
+  /* Softer atmosphere on smaller screens */
+  .orb{filter:blur(110px)}
+  .orb--1{opacity:.16}.orb--2{opacity:.11}.orb--3{opacity:.08}
 }
 
 @media (max-width:760px){
@@ -678,11 +803,17 @@ body.cur-on .cur{opacity:1}
 @media (max-width:640px){
   :root{--page-gutter:20px;--sy:clamp(4rem,14vw,5.5rem);--py:clamp(3.25rem,12vw,4.5rem)}
 
-  .hero{padding-top:calc(var(--nav-h) + 2.5rem);padding-bottom:5rem;min-height:92svh}
-  .hero__title{font-size:clamp(2.125rem,8.6vw,2.75rem);line-height:1.14}
+  /* Hero — single column, calmer light */
+  .hero{padding-top:calc(var(--nav-h) + 2rem);padding-bottom:5.5rem}
+  .hero__badge{font-size:.66rem;letter-spacing:.07em;padding:.45rem .85rem;line-height:1.5}
+  .hero__title{font-size:clamp(2.375rem,9.6vw,2.875rem);letter-spacing:-.03em;line-height:1.1}
+  .hero__lede{font-size:.95rem}
   .hero__cta{flex-direction:column;align-items:stretch;width:100%;max-width:320px}
   .hero__cta .btn{width:100%}
-  .hero__light{width:150%;filter:blur(50px);opacity:.75}
+  /* Softer light on small screens */
+  .hero__light-a{filter:blur(36px);--lo:.62;width:155%;height:50vh;top:38%}
+  .hero__light-b{--lo:.7;width:175%}
+  .hero__mesh{height:46%;background-size:48px 48px}
 
   .sec__title{font-size:clamp(1.85rem,7.6vw,2.35rem)}
   .case__t{font-size:clamp(1.6rem,7vw,2rem)}
@@ -707,8 +838,14 @@ body.cur-on .cur{opacity:1}
   .cs__meta{grid-template-columns:1fr;gap:1.25rem}
 
   .top{right:20px;bottom:20px}
-  .orb--1{width:80vw;height:80vw;opacity:.13}
-  .orb--2{display:none}
+
+  /* Dial the atmosphere back */
+  .amb__field{opacity:.7}
+  .orb{filter:blur(90px)}
+  .orb--1{width:74vw;height:74vw;opacity:.14}
+  .orb--2{width:64vw;height:64vw;opacity:.09}
+  .orb--3{display:none}
+  .amb__dust{display:none}
 }
 
 /* ══ 16. REDUCED MOTION ══════════════════════════════════════════════ */
@@ -719,5 +856,8 @@ body.cur-on .cur{opacity:1}
   }
   .js .reveal{opacity:1;transform:none}
   .js .ln > span{transform:none}
-  .hero__light{opacity:1}
+  /* No travelling light — fall back to a plain static ring */
+  .hero__badge::before,.hero__badge::after{display:none}
+  .hero__badge{border:1px solid rgba(139,92,246,.32);background:rgba(255,255,255,.035)}
+  .amb__dust{display:none}
 }
