@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#08050f" />
+<meta name="theme-color" content="#070410" />
 <meta name="color-scheme" content="dark" />
 
 <title>Sahil Das — UI/UX Designer</title>
@@ -80,10 +80,10 @@
 
     <nav class="menu" id="menu" aria-label="Primary">
       <ul class="menu__list">
-        <li><a href="#work"    class="menu__link">Work</a></li>
-        <li><a href="#about"   class="menu__link">About</a></li>
-        <li><a href="#skills"  class="menu__link">Skills</a></li>
-        <li><a href="#contact" class="menu__link">Contact</a></li>
+        <li><a href="#work"       class="menu__link">Work</a></li>
+        <li><a href="#about"      class="menu__link">About</a></li>
+        <li><a href="#experience" class="menu__link">Experience</a></li>
+        <li><a href="#contact"    class="menu__link">Contact</a></li>
       </ul>
       <a class="menu__cta" href="mailto:founder@helprevx.com">Let's talk <span aria-hidden="true">↗</span></a>
     </nav>
@@ -159,95 +159,96 @@
     </header>
   </div>
 
-  <div class="wrap wrap--wide">
+  <!-- Scroll-driven showcase.
+       Base layout is a plain stacked flow (mobile, no-JS, reduced motion).
+       On desktop, JS adds .wstage--on: the inner viewport pins and the four
+       projects crossfade into each other as one continuous story. -->
+  <div class="wstage" id="wstage">
+    <div class="wstage__pin">
+      <div class="wrap wrap--wide wstage__in">
+        <ul class="slides">
 
-    <!-- 01 — Vidyapeeth360 · full-width composition -->
-    <article class="case case--stack reveal" data-project="vidyapeeth360">
-      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Vidyapeeth360">Open case study</button>
+          <li class="slide" data-project="vidyapeeth360">
+            <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Vidyapeeth360">Open case study</button>
+            <div class="slide__copy">
+              <span class="slide__n">01</span>
+              <h3 class="slide__t">Vidyapeeth360</h3>
+              <p class="slide__d">Institution management platform — landing page and product showcase.</p>
+              <ul class="tags"><li>UI/UX</li><li>SaaS</li><li>Web</li></ul>
+              <span class="arrow">View case study
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </div>
+            <figure class="slide__media">
+              <img src="images/vidyapeeth-landingpage.jpg"
+                   alt="Vidyapeeth360 landing page — institution management platform"
+                   width="480" height="309" loading="lazy" decoding="async" />
+            </figure>
+          </li>
 
-      <header class="case__head">
-        <span class="case__n">01</span>
-        <h3 class="case__t">Vidyapeeth360</h3>
-        <p class="case__d">Institution management platform — landing page and product showcase.</p>
-      </header>
+          <li class="slide" data-project="helprevx">
+            <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HelpRevX">Open case study</button>
+            <div class="slide__copy">
+              <span class="slide__n">02</span>
+              <h3 class="slide__t">HelpRevX</h3>
+              <p class="slide__d">A complete brand system — logo, colour, typography and guidelines.</p>
+              <ul class="tags"><li>Branding</li><li>Product Design</li></ul>
+              <span class="arrow">View case study
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </div>
+            <figure class="slide__media slide__media--center">
+              <img src="images/HelpRevX-logo.jpg"
+                   alt="HelpRevX brand direction — logo mark and wordmark"
+                   width="800" height="800" loading="lazy" decoding="async" />
+            </figure>
+          </li>
 
-      <figure class="case__media" data-parallax="0.02">
-        <img src="images/vidyapeeth-landingpage.jpg"
-             alt="Vidyapeeth360 landing page — institution management platform"
-             width="480" height="309" loading="lazy" decoding="async" />
-      </figure>
+          <li class="slide" data-project="healthpulse">
+            <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HealthPulse">Open case study</button>
+            <div class="slide__copy">
+              <span class="slide__n">03</span>
+              <h3 class="slide__t">HealthPulse</h3>
+              <p class="slide__d">A fitness app that keeps progress readable mid-workout.</p>
+              <ul class="tags"><li>Mobile App</li><li>UX</li></ul>
+              <span class="arrow">View case study
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </div>
+            <figure class="slide__media slide__media--center">
+              <img src="images/healthplus-app.avif" alt="HealthPulse fitness mobile app screens"
+                   width="1024" height="856" loading="lazy" decoding="async" />
+            </figure>
+          </li>
 
-      <footer class="case__foot">
-        <ul class="tags"><li>UI/UX</li><li>SaaS</li><li>Web</li></ul>
-        <span class="arrow">View case study
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-      </footer>
-    </article>
+          <li class="slide" data-project="nexus-ai">
+            <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Nexus AI">Open case study</button>
+            <div class="slide__copy">
+              <span class="slide__n">04</span>
+              <h3 class="slide__t">Nexus AI</h3>
+              <p class="slide__d">A dashboard built around hierarchy, not panels.</p>
+              <ul class="tags"><li>SaaS</li><li>Dashboard</li><li>UI/UX</li></ul>
+              <span class="arrow">View case study
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </div>
+            <figure class="slide__media slide__media--center">
+              <img src="images/nexus-ai-dashboard.avif" alt="Nexus AI SaaS dashboard interface"
+                   width="1024" height="874" loading="lazy" decoding="async" />
+            </figure>
+          </li>
 
-    <!-- 02 — HelpRevX · visual left, copy right -->
-    <article class="case case--split reveal" data-project="helprevx">
-      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HelpRevX">Open case study</button>
-
-      <figure class="case__media case__media--square case__media--center">
-        <img src="images/HelpRevX-logo.jpg"
-             alt="HelpRevX brand direction — logo mark and wordmark"
-             width="800" height="800" loading="lazy" decoding="async" />
-      </figure>
-
-      <div class="case__body">
-        <span class="case__n">02</span>
-        <h3 class="case__t">HelpRevX</h3>
-        <p class="case__d">A complete brand system — logo, colour, typography and guidelines.</p>
-        <ul class="tags"><li>Branding</li><li>Product Design</li></ul>
-        <span class="arrow">View case study
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
+        </ul>
       </div>
-    </article>
 
-    <!-- 03 — HealthPulse · copy left, visual right -->
-    <article class="case case--split case--flip reveal" data-project="healthpulse">
-      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HealthPulse">Open case study</button>
-
-      <figure class="case__media case__media--tall">
-        <img src="images/healthplus-app.avif" alt="HealthPulse fitness mobile app screens"
-             width="1024" height="856" loading="lazy" decoding="async" />
-      </figure>
-
-      <div class="case__body">
-        <span class="case__n">03</span>
-        <h3 class="case__t">HealthPulse</h3>
-        <p class="case__d">A fitness app that keeps progress readable mid-workout.</p>
-        <ul class="tags"><li>Mobile App</li><li>UX</li></ul>
-        <span class="arrow">View case study
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-      </div>
-    </article>
-
-    <!-- 04 — Nexus AI · full-width composition -->
-    <article class="case case--stack reveal" data-project="nexus-ai">
-      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Nexus AI">Open case study</button>
-
-      <header class="case__head">
-        <span class="case__n">04</span>
-        <h3 class="case__t">Nexus AI</h3>
-        <p class="case__d">A dashboard built around hierarchy, not panels.</p>
-      </header>
-
-      <figure class="case__media case__media--center" data-parallax="0.02">
-        <img src="images/nexus-ai-dashboard.avif" alt="Nexus AI SaaS dashboard interface"
-             width="1024" height="874" loading="lazy" decoding="async" />
-      </figure>
-
-      <footer class="case__foot">
-        <ul class="tags"><li>SaaS</li><li>Dashboard</li><li>UI/UX</li></ul>
-        <span class="arrow">View case study
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-      </footer>
-    </article>
+      <!-- Where am I? — 01 ━━ 02 ━━ 03 ━━ 04 -->
+      <ol class="wprog" aria-label="Selected work progress">
+        <li class="on"><button type="button" data-cursor="btn">01</button><i></i></li>
+        <li><button type="button" data-cursor="btn">02</button><i></i></li>
+        <li><button type="button" data-cursor="btn">03</button><i></i></li>
+        <li><button type="button" data-cursor="btn">04</button></li>
+      </ol>
+    </div>
   </div>
 
   <!-- Explorations — four selected experiments, nothing more -->
@@ -297,9 +298,8 @@
 
     <div class="about">
       <div class="about__copy">
-        <h2 class="sec__title reveal" id="aboutTitle" data-delay="60">
-          Designing experiences that feel simple, useful and human.
-        </h2>
+        <!-- Words brighten progressively as the statement scrolls into view -->
+        <h2 class="sec__title about__statement" id="aboutTitle">Designing experiences that feel simple, useful and human.</h2>
 
         <div class="about__bio reveal" data-delay="120">
           <p>I'm a UI/UX designer who enjoys turning complex ideas into simple, usable digital
@@ -364,7 +364,7 @@
     </header>
 
     <ol class="exp">
-      <li class="exp__i reveal">
+      <li class="exp__i">
         <div class="exp__lead">
           <h3>HelpRevX</h3>
           <p class="exp__role">Brand &amp; UI/UX Design</p>
@@ -373,7 +373,7 @@
         <time class="exp__y">2026</time>
       </li>
 
-      <li class="exp__i reveal">
+      <li class="exp__i">
         <div class="exp__lead">
           <h3>ASME NIT Rourkela</h3>
           <p class="exp__role">Creative Head</p>
@@ -382,7 +382,7 @@
         <time class="exp__y">2025 — Now</time>
       </li>
 
-      <li class="exp__i reveal">
+      <li class="exp__i">
         <div class="exp__lead">
           <h3>Axiom NIT Rourkela</h3>
           <p class="exp__role">Creative Head</p>
@@ -391,7 +391,7 @@
         <time class="exp__y">2025 — Now</time>
       </li>
 
-      <li class="exp__i reveal">
+      <li class="exp__i">
         <div class="exp__lead">
           <h3>1stop.ai</h3>
           <p class="exp__role">UI/UX Design Intern</p>

@@ -438,6 +438,21 @@ const Hero = {
       }, { passive: true });
     }
 
+    /* Cinematic exit — the hero drifts up and dims as you scroll away.
+       Transform + opacity only; done well before one viewport of scroll. */
+    const hin = $('.hero__in'), cue = $('.hero__scroll');
+    if (hin && !REDUCED) {
+      onScroll(() => {
+        const y = scrollY, vh = innerHeight;
+        if (y > vh * 1.2) return;                       // hero long gone — skip the work
+        const p = Math.min(1, y / (vh * 0.72));
+        hin.style.transform = `translate3d(0, ${(-y * 0.16).toFixed(1)}px, 0)`;
+        hin.style.opacity = (1 - p).toFixed(3);
+        if (light) light.style.opacity = (1 - p * 0.9).toFixed(3);
+        if (cue) cue.style.opacity = y > 60 ? '0' : '';
+      });
+    }
+
     const year = $('#year');
     if (year) year.textContent = new Date().getFullYear();
   }
@@ -461,6 +476,146 @@ const Parallax = {
         const offset = (r.top + r.height / 2 - vh / 2) * -speed;
         el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
       });
+    });
+  }
+};
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   08b. WORK STAGE  —  the scroll-driven Selected Work showcase
+   ----------------------------------------------------------------------
+   Desktop + motion: the stage is tall, its viewport pins, and scroll
+   position maps to a continuous index x ∈ [0, N-1]. Each slide's distance
+   from x drives opacity, translate and scale, so project 01 dissolves
+   into 02 as one continuous story. Mobile / reduced motion: the class
+   never goes on and the slides read as a normal stacked flow.
+   ══════════════════════════════════════════════════════════════════════ */
+const Workstage = {
+  init() {
+    const stage = $('#wstage');
+    if (!stage) return;
+
+    const slides = $$('.slides > .slide', stage);
+    const dots   = $$('.wprog > li', stage);
+    const bars   = dots.map((d) => $('i', d));
+    const N = slides.length;
+    if (N < 2) return;
+
+    let on = false;
+
+    const sync = () => {
+      const want = DESKTOP() && !REDUCED;
+      if (want === on) return;
+      on = want;
+      stage.classList.toggle('wstage--on', on);
+      if (!on) slides.forEach((s) => {
+        s.style.cssText = '';
+        const m = $('.slide__media', s);
+        if (m) m.style.transform = '';
+      });
+    };
+
+    const paint = () => {
+      if (!on) return;
+      const r = stage.getBoundingClientRect();
+      const span = r.height - innerHeight;
+      if (span <= 0) return;
+      const t = Math.min(1, Math.max(0, -r.top / span));
+      const x = t * (N - 1);                            // continuous slide index
+
+      slides.forEach((s, i) => {
+        const d = x - i, ad = Math.abs(d);
+        const a = Math.max(0, 1 - ad * 1.5);            // fully solo at rest
+        s.style.opacity = a.toFixed(3);
+        s.style.visibility = a <= 0 ? 'hidden' : 'visible';
+        s.style.pointerEvents = ad < .5 ? 'auto' : 'none';
+        s.style.transform = `translate3d(0, ${(-d * 46).toFixed(1)}px, 0)`;
+        const m = $('.slide__media', s);
+        if (m) m.style.transform =
+          `translate3d(0, ${(-d * 26).toFixed(1)}px, 0) scale(${(1 - Math.min(ad, 1) * .07).toFixed(4)})`;
+      });
+
+      const act = Math.round(x);
+      dots.forEach((dt, i) => dt.classList.toggle('on', i === act));
+      bars.forEach((b, i) => b && b.style.setProperty('--p', Math.min(1, Math.max(0, x - i)).toFixed(3)));
+    };
+
+    sync();
+    onScroll(paint);
+    addEventListener('resize', () => { sync(); paint(); });
+
+    /* Progress numbers jump straight to a project */
+    dots.forEach((dt, i) => {
+      $('button', dt)?.addEventListener('click', () => {
+        if (!on) return;
+        const r = stage.getBoundingClientRect();
+        const top = scrollY + r.top + (i / (N - 1)) * (r.height - innerHeight);
+        scrollTo({ top: top + 2, behavior: REDUCED ? 'auto' : 'smooth' });
+      });
+    });
+  }
+};
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   08c. EXPERIENCE TIMELINE  —  scroll-progress line + live row
+   ══════════════════════════════════════════════════════════════════════ */
+const Timeline = {
+  init() {
+    const list = $('.exp');
+    if (!list) return;
+    const rows = $$('.exp__i', list);
+    if (!rows.length) return;
+
+    if (REDUCED) {
+      rows.forEach((r) => r.classList.add('is-live'));
+      return;
+    }
+
+    onScroll(() => {
+      const vh = innerHeight;
+      const lr = list.getBoundingClientRect();
+      if (lr.bottom < -100 || lr.top > vh + 100) return;
+
+      /* Brightest row = the one nearest the viewport centre */
+      const mid = vh * 0.52;
+      let best = 0, bd = Infinity;
+      rows.forEach((r, i) => {
+        const c = r.getBoundingClientRect();
+        const d = Math.abs(c.top + c.height / 2 - mid);
+        if (d < bd) { bd = d; best = i; }
+      });
+      rows.forEach((r, i) => {
+        r.classList.toggle('is-live', i === best);
+        r.classList.toggle('is-past', i < best);
+      });
+
+      const p = Math.min(1, Math.max(0, (mid - lr.top) / lr.height));
+      list.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
+    });
+  }
+};
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   08d. ABOUT STATEMENT  —  words brighten with scroll
+   ══════════════════════════════════════════════════════════════════════ */
+const AboutWords = {
+  init() {
+    const t = $('#aboutTitle');
+    if (!t || REDUCED) return;                          // reduced motion: plain text
+
+    const words = t.textContent.trim().split(/\s+/);
+    t.innerHTML = words.map((w) => `<span class="w">${esc(w)}</span>`).join(' ');
+    t.classList.add('about__statement--live');
+    const ws = $$('.w', t);
+
+    onScroll(() => {
+      const r = t.getBoundingClientRect(), vh = innerHeight;
+      if (r.top > vh || r.bottom < 0) return;
+      const p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (vh * 0.38)));
+      const n = Math.round(p * ws.length);
+      ws.forEach((w, i) => w.classList.toggle('on', i < n));
     });
   }
 };
@@ -651,6 +806,9 @@ function init() {
   Cursor.init();
   Magnetic.init();
   Parallax.init();
+  Workstage.init();
+  Timeline.init();
+  AboutWords.init();
   Panel.init();
   Lightbox.init();
   Dust.init();

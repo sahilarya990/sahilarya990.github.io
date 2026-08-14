@@ -48,8 +48,8 @@ heading on the page is the hero's `.hl` span; every heading below it stays plain
 
 | Token | Value | Role |
 |---|---|---|
-| `--bg` | `#08050f` | Page background — almost black |
-| `--bg-2` `--bg-3` | `#0d0818` `#120b20` | Media and panel surfaces |
+| `--bg` | `#070410` | Page background — almost black |
+| `--bg-2` `--bg-3` | `#0c0716` `#110a1e` | Media and panel surfaces |
 | `--acc` `--acc-2` `--acc-3` | `#8b5cf6` `#a855f7` `#c084fc` | Primary / secondary / electric purple |
 | `--indigo` | `#6366f1` | Soft blue-violet (ambient light only) |
 | `--text` `--text-2` `--text-3` | `#f5f3ff` `#a8a0b8` `#8b829e` | Primary / secondary / metadata |
@@ -81,26 +81,42 @@ gradient `.hl` span. It's the one loud moment; the rest of the page stays quiet.
 All tokens live in one `:root` block at the top of `style.css`. Change the accent there
 and it updates everywhere.
 
-## Work compositions
+## Work composition
 
-Projects alternate between two shapes so the section never reads as a card grid:
+One slide shape for all four projects — copy left, large visual right — so the pinned
+crossfade reads as the *image transforming*, not the layout jumping. Each project shows
+only: number, name, one-line description, categories, visual, and **View case study →**.
+Everything else — role, tools, problem, approach, outcome — is progressive disclosure
+inside the panel.
 
-- `.case--stack` — number + title + one line, then a full-width visual, then tags and the link
-- `.case--split` — visual beside the copy; `.case--flip` mirrors it and swaps the column widths
+## The scroll experience
 
-Each project shows only: number, name, one-line description, categories, visual, and
-**View case study →**. Everything else — role, tools, problem, approach, outcome — is
-progressive disclosure inside the panel.
+Motion is a hierarchy, not a coat of paint — the strongest interaction belongs to the work:
 
-## Interactions
+| Section | Behaviour |
+|---|---|
+| Hero | Entrance reveal, then a cinematic exit: content drifts up and dims as you scroll away |
+| **Selected work** | **The pinned showcase** — the viewport pins for ~4.7 screens and the four projects crossfade into each other as one continuous story, with a `01 ━ 02 ━ 03 ━ 04` progress strip (numbers are jump links) |
+| About | The statement's words brighten progressively with scroll |
+| Skills | Panels reveal once; on hover the chosen side expands and the other mutes |
+| Experience | A scrolling timeline — a thin line fills with progress and the row nearest centre is bright |
+| Explorations / Contact | Simple reveals — deliberately calm |
+
+Everything is driven by one rAF-throttled scroll subscription mapping scroll position to
+`transform`/`opacity` (plus `IntersectionObserver` for one-shot reveals). No animation
+libraries, no scroll hijacking — the browser scrollbar stays honest.
+
+The pinned showcase is a progressive enhancement: the base layout is a plain stacked flow,
+and JS adds `.wstage--on` only on desktop with motion allowed. Mobile, no-JS and
+`prefers-reduced-motion` all get the static version.
+
+## Other interactions
 
 1s intro · masked line reveal on the hero headline · a light travelling around the hero badge ·
 layered hero light that drifts with the pointer · drifting ambient orbs and sparse dust ·
-scroll reveal via `IntersectionObserver` · custom cursor with a circular **VIEW** state over
-projects · magnetic buttons · nav that compacts on scroll and **hides going down, returns
-going up** · scroll spy · scroll progress bar · transform-only parallax on the two large
-visuals · image scale on project hover · hover-expanding Design/Code panels · case-study
-slide-over · certificate lightbox · live IST clock.
+custom cursor with a circular **VIEW** state over projects · magnetic buttons · nav that
+compacts on scroll and **hides going down, returns going up** · scroll spy · scroll progress
+bar · case-study slide-over · certificate lightbox · live IST clock.
 
 Everything is CSS transforms/opacity or `IntersectionObserver` — no animation libraries,
 no dependencies. All motion respects `prefers-reduced-motion`.
