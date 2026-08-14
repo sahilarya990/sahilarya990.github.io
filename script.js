@@ -8,9 +8,9 @@
    05  Nav (auto-hide, mobile menu, scroll spy) + chrome
    06  Scroll reveal
    07  Hero light
-   08  Parallax
+   08  Parallax (+ 08b work stage, 08c timeline, 08d about words)
    09  Case study panel
-   10  Lightbox
+   10  Lightbox (+ 10b vortex background)
    11  Live clock
    12  Init
    ========================================================================== */
@@ -801,6 +801,237 @@ const Dust = {
 
 
 /* ══════════════════════════════════════════════════════════════════════
+   10b. VORTEX  —  a persistent ambient background, independent of scroll
+   ----------------------------------------------------------------------
+   A canvas fixed to the viewport (see .vortex in the CSS — it never moves
+   with the page and is never reset between sections). The tools I work
+   with orbit a central glow and slowly fall inward, each on its own timer,
+   each getting "consumed" and reappearing after a random delay — so the
+   cycle never looks synchronised or like a looping slideshow.
+
+   Perf notes:
+     - One glow "sprite" is pre-rendered once and reused via drawImage for
+       every particle/icon every frame — no per-item gradient allocation.
+     - Orbit radius is stored as a 0..1 fraction of the stage, so resizing
+       (including the responsive tiers below 1024px/640px) needs no special
+       casing beyond rebuilding the item counts.
+     - dt is delta-time in seconds, clamped, so the simulation is frame-rate
+       independent and doesn't jump after the tab was hidden a while.
+     - prefers-reduced-motion: paint one static frame, no rAF loop at all.
+   ══════════════════════════════════════════════════════════════════════ */
+const Vortex = {
+  init() {
+    const root = $('#vortex'), cv = $('#vortexCv');
+    if (!root || !cv) return;
+    const ctx = cv.getContext('2d');
+    if (!ctx) return;
+
+    const TOOLS_ALL   = ['Figma', 'FigJam', 'HTML', 'CSS', 'JavaScript', 'GitHub', 'Photoshop', 'Framer', 'Claude', 'GPT'];
+    const TOOLS_SMALL = ['Figma', 'HTML', 'CSS', 'JavaScript', 'GitHub', 'Claude'];
+    const FONT = getComputedStyle(document.body).fontFamily;
+
+    const hexToRgb = (hex) => {
+      const h = (hex || '').trim().replace('#', '');
+      const s = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+      const n = parseInt(s || '8b5cf6', 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    };
+    const styles = getComputedStyle(document.documentElement);
+    const C_CORE = hexToRgb(styles.getPropertyValue('--acc-3') || '#c084fc');
+    const C_MID  = hexToRgb(styles.getPropertyValue('--acc')   || '#8b5cf6');
+    const C_TXT  = hexToRgb(styles.getPropertyValue('--text')  || '#f5f3ff');
+
+    /* One soft radial glow, pre-rendered once, reused everywhere via
+       drawImage — the cheap alternative to a per-item ctx.filter blur. */
+    const SPR = 128;
+    const sprite = document.createElement('canvas');
+    sprite.width = sprite.height = SPR;
+    const sctx = sprite.getContext('2d');
+    const sg = sctx.createRadialGradient(SPR / 2, SPR / 2, 0, SPR / 2, SPR / 2, SPR / 2);
+    sg.addColorStop(0,   `rgba(${C_CORE.join(',')},.95)`);
+    sg.addColorStop(.4,  `rgba(${C_CORE.join(',')},.5)`);
+    sg.addColorStop(1,   `rgba(${C_MID.join(',')},0)`);
+    sctx.fillStyle = sg;
+    sctx.fillRect(0, 0, SPR, SPR);
+    const drawGlow = (x, y, radius, alpha) => {
+      if (alpha <= .003 || radius <= 0) return;
+      ctx.globalAlpha = alpha;
+      ctx.drawImage(sprite, x - radius, y - radius, radius * 2, radius * 2);
+      ctx.globalAlpha = 1;
+    };
+
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const tierFor = () => innerWidth <= 640 ? 'mobile' : innerWidth <= 1024 ? 'tablet' : 'desktop';
+
+    let tier = null, particles = [], icons = [], rings = 3;
+    let W = 0, H = 0, R = 0;
+
+    const spawn = (isIcon, label, initial) => {
+      const maxR = rand(.72, 1);
+      return {
+        isIcon, label,
+        angle: rand(0, Math.PI * 2),
+        dir: Math.random() < .5 ? 1 : -1,
+        maxR,
+        r: initial ? rand(maxR * .3, maxR) : maxR,     // first pass: scattered: not everyone at the rim at once
+        minR: rand(.05, .09),
+        speed: rand(.09, .15) * (isIcon ? .8 : 1),     // base angular speed (rad/s) at the outer radius
+        fall: rand(.03, .045) * (isIcon ? .8 : 1),     // radius lost per second at the outer radius
+        waitUntil: null
+      };
+    };
+
+    const build = () => {
+      tier = tierFor();
+      const n = tier === 'mobile'   ? { icons: 6, particles: 8, rings: 1 }
+              : tier === 'tablet'   ? { icons: 10, particles: 14, rings: 2 }
+              :                        { icons: 10, particles: 24, rings: 3 };
+      const pool = tier === 'mobile' ? TOOLS_SMALL : TOOLS_ALL;
+      icons = pool.slice(0, n.icons).map((label) => spawn(true, label, true));
+      particles = Array.from({ length: n.particles }, () => spawn(false, null, true));
+      rings = n.rings;
+    };
+
+    const resize = () => {
+      const rect = root.getBoundingClientRect();
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      W = Math.max(1, Math.round(rect.width * dpr));
+      H = Math.max(1, Math.round(rect.height * dpr));
+      cv.width = W; cv.height = H;
+      R = Math.min(W, H) / 2;
+      if (tierFor() !== tier) build();
+    };
+
+    /* A very subtle cursor reaction — the whole field drifts a few px
+       toward the pointer and rotation gets a faint directional bias. */
+    let tmx = 0, tmy = 0, mx = 0, my = 0;
+    if (FINE) {
+      addEventListener('mousemove', (e) => {
+        tmx = (e.clientX / innerWidth - .5) * 2;
+        tmy = (e.clientY / innerHeight - .5) * 2;
+      }, { passive: true });
+    }
+
+    const step = (item, dt, cx, cy, spin) => {
+      if (item.r <= item.minR) {
+        if (item.waitUntil == null) item.waitUntil = performance.now() + rand(900, 4200);
+        if (performance.now() < item.waitUntil) return null;    // being drawn into the centre
+        Object.assign(item, spawn(item.isIcon, item.label, false));
+        return null;                                            // resumes drawing next frame
+      }
+
+      const pull = 1 + (1 - item.r / item.maxR) * 2.4;          // accelerates on the way in
+      item.angle += item.dir * item.speed * spin * pull * dt;
+      item.r -= item.fall * pull * dt;
+
+      const life = Math.min(1, 1 - item.r / item.maxR);         // 0 at the rim → 1 at the centre
+      const rad = Math.max(0, item.r) * R;
+      const x = cx + Math.cos(item.angle) * rad;
+      const y = cy + Math.sin(item.angle) * rad * .6;           // flattened into an ellipse
+      const scale = 1 - life * .42;
+      const glow = Math.max(0, life - .55) / .45;               // brightens only in the final approach
+      const fade = life > .93 ? Math.max(0, 1 - (life - .93) / .07) : 1;   // quick vanish at the core
+      const base = item.isIcon ? .3 : .16;
+      const alpha = Math.max(0, Math.min(1, base + glow * .5) * fade);
+
+      return { x, y, scale, alpha, glow };
+    };
+
+    let raf = null, last = 0, ringA = 0;
+
+    const frame = (now) => {
+      const dt = Math.min(.05, Math.max(0, (now - last) / 1000)) || 0;
+      last = now;
+
+      mx += (tmx - mx) * .05;
+      my += (tmy - my) * .05;
+      const cx = W / 2 + mx * R * .045;
+      const cy = H / 2 + my * R * .045;
+      const spin = 1 + mx * .12;                                // cursor gives rotation a faint bias
+
+      ctx.clearRect(0, 0, W, H);
+      ringA += dt * .05;
+
+      /* Orbital rings — a hint of gravity, not literal planetary rings */
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(ringA);
+      ctx.strokeStyle = `rgba(${C_MID.join(',')},.1)`;
+      ctx.lineWidth = Math.max(1, R * .0028);
+      for (let i = 0; i < rings; i++) {
+        const rr = R * (.5 + i * .17);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, rr, rr * .6, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      /* Core glow + faint rotating energy arcs */
+      drawGlow(cx, cy, R * .32, .22);
+      drawGlow(cx, cy, R * .15, .36);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.strokeStyle = `rgba(${C_CORE.join(',')},.2)`;
+      ctx.lineWidth = Math.max(1, R * .006);
+      for (let i = 0; i < 3; i++) {
+        ctx.rotate(ringA * (i % 2 ? -1.4 : 1.7) + i * 1.3);
+        ctx.beginPath();
+        ctx.arc(0, 0, R * (.13 + i * .05), 0, Math.PI * .6);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      /* Particles, then the labelled tool icons on top */
+      particles.forEach((p) => {
+        const s = step(p, dt, cx, cy, spin);
+        if (s) drawGlow(s.x, s.y, R * .05 * s.scale, s.alpha * .6);
+      });
+
+      ctx.font = `600 ${Math.max(9, R * .05)}px ${FONT}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      icons.forEach((it) => {
+        const s = step(it, dt, cx, cy, spin);
+        if (!s) return;
+        drawGlow(s.x, s.y, R * .09 * s.scale, s.alpha * .32);
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${C_CORE.join(',')},${(.5 + s.glow * .4) * s.alpha})`;
+        ctx.arc(s.x, s.y, Math.max(1.3, R * .011 * s.scale), 0, Math.PI * 2);
+        ctx.fill();
+        /* The label is capped independently — a bright near-centre glow
+           shouldn't make the still-legible text pop louder than the copy */
+        if (s.scale > .72) {
+          ctx.fillStyle = `rgba(${C_TXT.join(',')},${Math.min(.34, s.alpha * .45)})`;
+          ctx.fillText(it.label, s.x, s.y - R * .048 * s.scale);
+        }
+      });
+
+      if (!REDUCED) raf = requestAnimationFrame(frame);
+    };
+
+    const kick = () => { if (!REDUCED && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+
+    build();
+    resize();
+    if (REDUCED) { last = performance.now(); frame(last); }     // one static, settled frame
+    else kick();
+
+    let rTO = null;
+    addEventListener('resize', () => {
+      clearTimeout(rTO);
+      rTO = setTimeout(() => { resize(); if (REDUCED) frame(performance.now()); }, 120);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (REDUCED) return;
+      if (document.hidden) { if (raf) cancelAnimationFrame(raf); raf = null; }
+      else kick();
+    });
+  }
+};
+
+
+/* ══════════════════════════════════════════════════════════════════════
    11. LIVE CLOCK  (local time in the footer)
    ══════════════════════════════════════════════════════════════════════ */
 const Clock = {
@@ -840,6 +1071,7 @@ function init() {
   Panel.init();
   Lightbox.init();
   Dust.init();
+  Vortex.init();
   Clock.init();
 }
 

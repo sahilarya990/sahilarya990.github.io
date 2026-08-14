@@ -89,6 +89,29 @@ only: number, name, one-line description, categories, visual, and **View case st
 Everything else — role, tools, problem, approach, outcome — is progressive disclosure
 inside the panel.
 
+## The vortex background
+
+A persistent ambient layer, fixed to the viewport (`#vortex` in `index.html`, `Vortex` in
+`script.js`) — it never moves with the page and never resets between sections, deliberately
+independent of the scroll system below. A canvas paints a central glow with the tools I work
+with (Figma, FigJam, HTML, CSS, JavaScript, GitHub, Photoshop, Framer, Claude, GPT) orbiting
+and slowly falling in, each on its own randomised timer so the cycle never looks synchronised
+or like a looping slideshow — consumed at the centre, reappears at the rim after a delay.
+
+It sits behind the atmosphere (`.amb`) and every section, `aria-hidden` and
+`pointer-events: none` throughout, and stays deliberately dim: since it's fixed, whatever
+section is on screen may end up in front of it, so its brightest element (the centre) is
+tuned faint enough that it never competes with the text it happens to land behind. A soft
+cursor reaction nudges the whole field a few pixels and biases rotation speed on fine-pointer
+devices only.
+
+Perf: one glow sprite is pre-rendered once and reused via `drawImage` for every particle/icon
+every frame — never a per-item gradient. Orbit radius is a 0–1 fraction of the stage, so the
+responsive tiers (fewer particles and icons below 1024px/640px) need no special-casing beyond
+rebuilding the counts. The render loop uses delta-time (clamped, so it can't jump after the
+tab was hidden), pauses entirely on `visibilitychange`, and paints a single static frame under
+`prefers-reduced-motion` instead of looping.
+
 ## The scroll experience
 
 Motion is a hierarchy, not a coat of paint — the strongest interaction belongs to the work:
@@ -104,7 +127,9 @@ Motion is a hierarchy, not a coat of paint — the strongest interaction belongs
 
 Everything is driven by one rAF-throttled scroll subscription mapping scroll position to
 `transform`/`opacity` (plus `IntersectionObserver` for one-shot reveals). No animation
-libraries, no scroll hijacking — the browser scrollbar stays honest.
+libraries, no scroll hijacking — the browser scrollbar stays honest. The scroll-linked values
+are lerped (a persistent rAF loop trailing the true scroll-derived target) rather than snapped
+straight to `scrollY`, so the motion flows instead of jumping between scroll samples.
 
 The pinned showcase is a progressive enhancement: the base layout is a plain stacked flow,
 and JS adds `.wstage--on` only on desktop with motion allowed. Mobile, no-JS and
@@ -129,6 +154,7 @@ no dependencies. All motion respects `prefers-reduced-motion`.
 | Project cards, experience, recognition, all page copy | `index.html` |
 | Colours, type, spacing, motion | `:root` in `style.css` |
 | Project images | `images/` — see [the image guide](assets/projects/README.md) |
+| Vortex tool list | `TOOLS_ALL` / `TOOLS_SMALL` at the top of `Vortex` in `script.js` |
 
 ### Adding an exploration
 

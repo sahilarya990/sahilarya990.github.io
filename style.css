@@ -5,7 +5,7 @@
    01  Tokens                  09  Work
    02  Reset & base            10  About
    03  Primitives              11  Skills
-   04  Atmosphere              12  Experience & recognition
+   04  Vortex + atmosphere     12  Experience & recognition
    05  Intro / cursor / chrome 13  Contact / footer
    06  Nav                     14  Overlays
    07  Hero                    15  Responsive
@@ -197,8 +197,35 @@ html{scrollbar-color:#3b1f6b var(--bg);scrollbar-width:thin}
 .js .ready .ln > span{transform:none}
 .js .ready .ln:nth-child(2) > span{transition-delay:.09s}
 
-/* ══ 04. ATMOSPHERE ══════════════════════════════════════════════════ */
-.amb{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--bg)}
+/* ══ 04. VORTEX + ATMOSPHERE ═════════════════════════════════════════
+   The vortex is a persistent, fixed ambient layer — a living background
+   independent of scroll and of the section it happens to sit behind.
+   It never moves with content and never restarts between sections.
+   ════════════════════════════════════════════════════════════════════ */
+.vortex{
+  position:fixed;z-index:-1;pointer-events:none;
+  top:46%;left:50%;translate:-50% -50%;
+  width:clamp(280px,32vw,540px);aspect-ratio:1/1;
+}
+/* Plain alpha blending, not screen — predictable brightness that never
+   washes out the headline behind it (screen blend brightens unevenly and
+   fought with the hero text in testing) */
+.vortex canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* Deliberately faint — this sits fixed behind whatever section is on
+   screen, so it must never outshine the text it happens to land on */
+.vortex__mark{
+  position:absolute;top:50%;left:50%;translate:-50% -50%;
+  font-size:clamp(.7rem,1.05vw,.9rem);font-weight:700;letter-spacing:.16em;
+  color:var(--text);opacity:.5;
+  text-shadow:0 0 8px rgba(192,132,252,.35),0 0 18px rgba(139,92,246,.18);
+  animation:vortexMark 6.5s ease-in-out infinite;
+}
+@keyframes vortexMark{50%{opacity:.3}}
+
+/* No fill of its own — body already carries --bg. Left transparent so the
+   vortex layer beneath (same z-index, earlier in DOM so it paints first)
+   shows through. */
+.amb{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
 
 /* Slow cinematic gradient field */
 .amb__field{
@@ -841,6 +868,10 @@ body.cur-on .cur{opacity:1}
   .hero__light-a{filter:blur(42px);--lo:.85}
   .hero__light-b{width:min(160%,1100px)}
 
+  /* Vortex — smaller stage; JS reads the same breakpoint to thin out
+     particle/icon counts and orbit radius to match */
+  .vortex{width:clamp(200px,40vw,360px)}
+
   /* Work falls back to a stacked flow — visual first, copy after */
   .slide{grid-template-columns:minmax(0,1fr);gap:clamp(1.5rem,3.5vw,2.25rem)}
   .slide__media{order:-1;max-height:none}
@@ -883,6 +914,10 @@ body.cur-on .cur{opacity:1}
   .hero__light-a{filter:blur(36px);--lo:.62;width:155%;height:50vh;top:38%}
   .hero__light-b{--lo:.7;width:175%}
   .hero__mesh{height:46%;background-size:48px 48px}
+
+  /* Vortex — a small, simplified badge rather than the desktop cyclone */
+  .vortex{width:clamp(140px,46vw,200px);top:30%;opacity:.7}
+  .vortex__mark{font-size:.66rem}
 
   .sec__title{font-size:clamp(1.85rem,7.6vw,2.35rem)}
   .slide__t{font-size:clamp(1.6rem,7vw,2rem)}
@@ -932,4 +967,6 @@ body.cur-on .cur{opacity:1}
   .js .exp__i{opacity:1}
   .about__statement--live .w{opacity:1}
   .exp::after{display:none}
+  /* Vortex — JS paints one static frame instead of looping; stop the pulse too */
+  .vortex__mark{animation:none}
 }

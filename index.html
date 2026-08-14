@@ -44,6 +44,18 @@
 <body>
 
 <!-- ══════════════════════════════════════════════════════════════════
+     VORTEX — a persistent ambient system, fixed to the viewport and
+     independent of scroll. Tools I work with orbit and are drawn into
+     the centre, on a continuous asynchronous cycle. Purely decorative
+     (aria-hidden, pointer-events:none) and paints behind everything,
+     including the atmosphere below it.
+     ══════════════════════════════════════════════════════════════ -->
+<div class="vortex" id="vortex" aria-hidden="true">
+  <canvas id="vortexCv"></canvas>
+  <span class="vortex__mark">SD</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
      AMBIENT ATMOSPHERE — cinematic gradients, drifting light, dust
      ══════════════════════════════════════════════════════════════ -->
 <div class="amb" aria-hidden="true">
