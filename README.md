@@ -50,12 +50,18 @@ interactive states — never as a flat fill.
 | `--line` | `rgba(255,255,255,.08)` | Borders |
 | `--glass` | `rgba(255,255,255,.035)` | Glass fill (+ `blur(16px)`) |
 | `--font` | Plus Jakarta Sans | One family, weights 200–800 |
-| `--wrap` / `--wrap-wide` | 1400px / 1560px | Text column / project visuals |
-| `--pad` | 24 / 40 / 64px | Gutter at mobile / tablet / desktop |
-| `--sy` | 72 → 180px | Section rhythm |
+| `--content` / `--content-wide` | 1600px / 1720px | Content column / project visuals |
+| `--page-gutter` | `clamp(20px, 4.6vw, 96px)` | Fluid page gutter — no breakpoint steps |
+| `--bleed` | `max(gutter, (100% − content)/2)` | Viewport edge → content column, for full-bleed blocks |
+| `--sy` / `--py` | 64 → 140px / 48 → 112px | Section rhythm / gap between projects |
 
-Type scale: hero `clamp(48px,7vw,110px)` · section `clamp(40px,5vw,80px)` ·
-project `clamp(32px,4vw,64px)` · body 16–19px · metadata 11–13px.
+One grid drives everything: `.wrap` (content) and `.wrap--wide` (project media) sit on
+`--content`, and full-bleed elements — rails, section dividers, the ticker — align to the
+same column through `--bleed`. The nav uses `--content` so the brand lines up with every
+section eyebrow below it.
+
+Type scale: hero `clamp(38px,4.2vw,76px)` · section `clamp(40px,3.8vw,88px)` ·
+project `clamp(32px,2.6vw,60px)` · body 16–19px · metadata 11–13px.
 
 All tokens live in one `:root` block at the top of `style.css`. Change the accent there
 and it updates everywhere.

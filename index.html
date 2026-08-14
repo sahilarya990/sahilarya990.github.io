@@ -165,11 +165,37 @@
      ══════════════════════════════════════════════════════════════ -->
 <section class="sec" id="work" aria-labelledby="workTitle" data-name="Work">
   <div class="wrap">
-    <header class="sec__head">
-      <p class="eyebrow reveal"><span>01</span> Selected Work</p>
-      <h2 class="sec__title reveal" id="workTitle" data-delay="60">
-        Designing products.<br />Building interfaces.<br /><span class="mute">Shaping brands.</span>
-      </h2>
+    <header class="sec__head sec__head--split">
+      <div class="sec__head-main">
+        <p class="eyebrow reveal"><span>01</span> Selected Work</p>
+        <h2 class="sec__title reveal" id="workTitle" data-delay="60">
+          Designing products.<br />Building interfaces.<br /><span class="mute">Shaping brands.</span>
+        </h2>
+      </div>
+
+      <!-- Index of the case studies below — same content, quick access -->
+      <ol class="windex reveal" data-delay="140" aria-label="Selected work index">
+        <li><button class="windex__i" type="button" data-project="vidyapeeth360">
+          <span class="windex__n">01</span>
+          <span class="windex__t">Vidyapeeth360</span>
+          <span class="windex__c">Product Design</span>
+        </button></li>
+        <li><button class="windex__i" type="button" data-project="helprevx">
+          <span class="windex__n">02</span>
+          <span class="windex__t">HelpRevX</span>
+          <span class="windex__c">Brand Identity</span>
+        </button></li>
+        <li><button class="windex__i" type="button" data-project="healthpulse">
+          <span class="windex__n">03</span>
+          <span class="windex__t">HealthPulse</span>
+          <span class="windex__c">Mobile App</span>
+        </button></li>
+        <li><button class="windex__i" type="button" data-project="nexus-ai">
+          <span class="windex__n">04</span>
+          <span class="windex__t">Nexus AI</span>
+          <span class="windex__c">SaaS Dashboard</span>
+        </button></li>
+      </ol>
     </header>
   </div>
 
@@ -404,30 +430,28 @@
         &amp; <em class="hl">human</em>.
       </h2>
 
-      <div class="about__side">
-        <figure class="about__pic reveal" data-delay="120">
-          <img src="images/sahil-profile.avif" alt="Portrait of Sahil Das"
-               width="1024" height="992" loading="lazy" decoding="async" />
-        </figure>
+      <figure class="about__pic reveal" data-delay="120">
+        <img src="images/sahil-profile.avif" alt="Portrait of Sahil Das"
+             width="1024" height="992" loading="lazy" decoding="async" />
+      </figure>
 
-        <div class="about__bio reveal" data-delay="160">
-          <p>I'm a UI/UX Designer and Industrial Design student at NIT Rourkela, working at the
-             intersection of design, technology and user experience.</p>
-          <p>I've worked across brand identity, UI/UX, product design and frontend development —
-             including industry work at <strong>HelpRevX</strong>, where I contributed to branding and the
-             digital product experience of <strong>Vidyapeeth360</strong>.</p>
+      <div class="about__bio reveal" data-delay="160">
+        <p>I'm a UI/UX Designer and Industrial Design student at NIT Rourkela, working at the
+           intersection of design, technology and user experience.</p>
+        <p>I've worked across brand identity, UI/UX, product design and frontend development —
+           including industry work at <strong>HelpRevX</strong>, where I contributed to branding and the
+           digital product experience of <strong>Vidyapeeth360</strong>.</p>
 
-          <ul class="chips">
-            <li>NIT Rourkela</li><li>Industrial Design</li><li>UI/UX</li><li>Frontend</li>
-          </ul>
+        <ul class="chips">
+          <li>NIT Rourkela</li><li>Industrial Design</li><li>UI/UX</li><li>Frontend</li>
+        </ul>
 
-          <dl class="about__facts">
-            <div><dt>Degree</dt><dd>B.Tech · 2024–2028</dd></div>
-            <div><dt>CGPA</dt><dd>7.46</dd></div>
-            <div><dt>Primary tool</dt><dd>Figma</dd></div>
-            <div><dt>Also</dt><dd>VS Code · Android Studio · GitHub</dd></div>
-          </dl>
-        </div>
+        <dl class="about__facts">
+          <div><dt>Degree</dt><dd>B.Tech · 2024–2028</dd></div>
+          <div><dt>CGPA</dt><dd>7.46</dd></div>
+          <div><dt>Primary tool</dt><dd>Figma</dd></div>
+          <div><dt>Also</dt><dd>VS Code · Android Studio · GitHub</dd></div>
+        </dl>
       </div>
     </div>
   </div>
@@ -516,37 +540,52 @@
       <li class="exp__i reveal">
         <div class="exp__meta"><time>May 2026 — July 2026</time><span>Remote</span></div>
         <div class="exp__body">
-          <h3>HelpRevX</h3>
-          <p class="exp__role">Brand &amp; UI/UX Design Intern</p>
-          <ul class="tags tags--pill"><li>Brand Identity</li><li>UI/UX</li><li>Frontend</li></ul>
-          <p class="exp__txt">Designed the HelpRevX brand identity and Brand Kit, refined product interfaces,
-             and contributed to the frontend implementation of the Vidyapeeth360 landing page.</p>
+          <div class="exp__lead">
+            <h3>HelpRevX</h3>
+            <p class="exp__role">Brand &amp; UI/UX Design Intern</p>
+            <ul class="tags tags--pill"><li>Brand Identity</li><li>UI/UX</li><li>Frontend</li></ul>
+          </div>
+          <div class="exp__detail">
+            <p class="exp__txt">Designed the HelpRevX brand identity and Brand Kit, refined product interfaces,
+               and contributed to the frontend implementation of the Vidyapeeth360 landing page.</p>
+          </div>
         </div>
       </li>
 
       <li class="exp__i reveal">
         <div class="exp__meta"><time>May 2026 — Present</time><span>NIT Rourkela</span></div>
         <div class="exp__body">
-          <h3>ASME NIT Rourkela</h3>
-          <p class="exp__role">Creative Head</p>
-          <p class="exp__prev"><span>Previously</span> Designer &amp; Video Editor · Feb 2025 — May 2026</p>
+          <div class="exp__lead">
+            <h3>ASME NIT Rourkela</h3>
+            <p class="exp__role">Creative Head</p>
+          </div>
+          <div class="exp__detail">
+            <p class="exp__prev"><span>Previously</span> Designer &amp; Video Editor · Feb 2025 — May 2026</p>
+          </div>
         </div>
       </li>
 
       <li class="exp__i reveal">
         <div class="exp__meta"><time>May 2025 — Present</time><span>NIT Rourkela</span></div>
         <div class="exp__body">
-          <h3>Axiom NIT Rourkela</h3>
-          <p class="exp__role">Creative Head</p>
-          <p class="exp__prev"><span>Previously</span> Graphic Designer · Jan 2025 — May 2025</p>
+          <div class="exp__lead">
+            <h3>Axiom NIT Rourkela</h3>
+            <p class="exp__role">Creative Head</p>
+          </div>
+          <div class="exp__detail">
+            <p class="exp__prev"><span>Previously</span> Graphic Designer · Jan 2025 — May 2025</p>
+          </div>
         </div>
       </li>
 
       <li class="exp__i reveal">
         <div class="exp__meta"><time>NIT Rourkela</time></div>
         <div class="exp__body">
-          <h3>BlueStreak</h3>
-          <p class="exp__role">Aerodynamic Subsystem</p>
+          <div class="exp__lead">
+            <h3>BlueStreak</h3>
+            <p class="exp__role">Aerodynamic Subsystem</p>
+          </div>
+          <div class="exp__detail"></div>
         </div>
       </li>
     </ol>
