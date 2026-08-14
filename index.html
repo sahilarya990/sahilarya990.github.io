@@ -6,13 +6,13 @@
 <meta name="theme-color" content="#08050f" />
 <meta name="color-scheme" content="dark" />
 
-<title>Sahil Das — UI/UX Designer · Product Designer · Frontend Developer</title>
-<meta name="description" content="Sahil Das is a UI/UX Designer who brings designs to life with code. Product design, brand identity and frontend development — Vidyapeeth360, HelpRevX, HealthPulse, Nexus AI." />
+<title>Sahil Das — UI/UX Designer</title>
+<meta name="description" content="Sahil Das is a UI/UX designer focused on thoughtful interfaces, branding and digital products — Vidyapeeth360, HelpRevX, HealthPulse, Nexus AI." />
 <meta name="author" content="Sahil Das" />
 <link rel="canonical" href="https://sahilarya990.github.io/" />
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Sahil Das — UI/UX Designer · Product Designer · Frontend Developer" />
+<meta property="og:title" content="Sahil Das — UI/UX Designer" />
 <meta property="og:description" content="I design digital experiences that feel as good as they look." />
 <meta property="og:url" content="https://sahilarya990.github.io/" />
 <meta property="og:image" content="https://sahilarya990.github.io/assets/og-cover.svg" />
@@ -23,7 +23,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="style.css" />
 <!-- Content stays visible if JavaScript never runs -->
@@ -34,7 +34,7 @@
   "@context":"https://schema.org","@type":"Person","name":"Sahil Das",
   "url":"https://sahilarya990.github.io/",
   "jobTitle":"UI/UX Designer",
-  "description":"UI/UX Designer who brings designs to life with code.",
+  "description":"UI/UX designer focused on thoughtful interfaces, branding and digital products.",
   "alumniOf":"National Institute of Technology, Rourkela",
   "knowsAbout":["UI/UX Design","Product Design","Brand Identity","Design Systems","Frontend Development"]
 }
@@ -43,24 +43,17 @@
 
 <body>
 
-<!-- ══════════════════════════════════════════════════════════════════
-     AMBIENT ATMOSPHERE — cinematic gradients, drifting light, dust
-     ══════════════════════════════════════════════════════════════ -->
+<!-- Ambient atmosphere — two slow light sources, nothing more -->
 <div class="amb" aria-hidden="true">
-  <div class="amb__field"></div>
   <span class="orb orb--1"></span>
   <span class="orb orb--2"></span>
-  <span class="orb orb--3"></span>
-  <div class="amb__dust" id="dust"></div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════
-     INTRO
-     ══════════════════════════════════════════════════════════════ -->
+<!-- Intro -->
 <div class="intro" id="intro" aria-hidden="true">
   <div class="intro__stack">
     <span class="intro__name" id="introName">SAHIL DAS</span>
-    <span class="intro__tag" id="introTag">DESIGN <i>×</i> CODE</span>
+    <span class="intro__tag" id="introTag">UI/UX Designer</span>
   </div>
   <span class="intro__bar" id="introBar"></span>
 </div>
@@ -74,28 +67,27 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     NAV
+     NAV — hides on scroll down, returns on scroll up
      ══════════════════════════════════════════════════════════════ -->
 <header class="nav" id="nav">
   <div class="nav__in">
-    <a href="#top" class="brand" aria-label="Sahil Das — home">
-      <span class="brand__name">SAHIL DAS</span>
-      <span class="brand__role">UI/UX Designer</span>
-    </a>
+    <a href="#top" class="brand" aria-label="Sahil Das — home">Sahil Das</a>
 
     <nav class="menu" id="menu" aria-label="Primary">
       <ul class="menu__list">
-        <li><a href="#work"       class="menu__link"><span class="menu__i">01</span>Work</a></li>
-        <li><a href="#about"      class="menu__link"><span class="menu__i">02</span>About</a></li>
-        <li><a href="#skills"     class="menu__link"><span class="menu__i">03</span>Skills</a></li>
-        <li><a href="#experience" class="menu__link"><span class="menu__i">04</span>Experience</a></li>
-        <li><a href="#contact"    class="menu__link"><span class="menu__i">05</span>Contact</a></li>
+        <li><a href="#work"    class="menu__link">Work</a></li>
+        <li><a href="#about"   class="menu__link">About</a></li>
+        <li><a href="#skills"  class="menu__link">Skills</a></li>
+        <li><a href="#contact" class="menu__link">Contact</a></li>
       </ul>
-      <p class="status status--menu"><i class="dot"></i> Available for opportunities</p>
+      <a class="menu__cta" href="mailto:founder@helprevx.com">Let's talk <span aria-hidden="true">↗</span></a>
     </nav>
 
     <div class="nav__end">
-      <p class="status"><i class="dot"></i> Available for opportunities</p>
+      <!-- Add a PDF at assets/sahil-das-resume.pdf and uncomment to show a resume link
+      <a class="nav__link" href="assets/sahil-das-resume.pdf" target="_blank" rel="noopener">Resume</a>
+      -->
+      <a class="nav__cta" href="mailto:founder@helprevx.com" data-cursor="btn">Let's talk <span aria-hidden="true">↗</span></a>
       <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
         <span></span><span></span>
       </button>
@@ -103,643 +95,327 @@
   </div>
 </header>
 
-<!-- Live section indicator (desktop) -->
-<aside class="ticker" id="ticker" aria-hidden="true">
-  <span class="ticker__n" id="tickerNum">00</span>
-  <span class="ticker__l" id="tickerLabel">Intro</span>
-</aside>
-
 <main id="main">
 <span id="top"></span>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     HERO
+     HERO — headline, one supporting line, two buttons. Nothing else.
      ══════════════════════════════════════════════════════════════ -->
 <section class="hero" aria-labelledby="heroTitle">
-
-  <!-- Atmospheric light behind the product visual -->
-  <div class="hero__light" id="heroLight" aria-hidden="true">
-    <span class="hero__light-a"></span>
-    <span class="hero__light-b"></span>
-    <span class="hero__mesh"></span>
-  </div>
+  <div class="hero__light" id="heroLight" aria-hidden="true"></div>
 
   <div class="wrap hero__in">
-
-    <p class="hero__badge reveal">
-      <i aria-hidden="true">✦</i> UI/UX Designer · Product Designer · Frontend
-    </p>
-
     <h1 class="hero__title" id="heroTitle">
-      <span class="ln"><span>I design <em class="hl">digital experiences</em></span></span>
+      <span class="ln"><span>I design digital experiences</span></span>
       <span class="ln"><span>that feel as good as they look.</span></span>
     </h1>
 
     <p class="hero__lede reveal" data-delay="120">
-      I work across brand identity, product design, UI/UX and frontend development.
+      UI/UX designer focused on thoughtful interfaces, branding and digital products.
     </p>
 
     <div class="hero__cta reveal" data-delay="200">
-      <a href="#work" class="btn btn--fill btn--hero mag" data-cursor="btn">
-        View my work
+      <a href="#work" class="btn btn--fill mag" data-cursor="btn">
+        View selected work
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <a href="#contact" class="btn btn--out btn--hero mag" data-cursor="btn">Let's connect</a>
-    </div>
-
-  </div>
-
-  <a href="#work" class="hero__scroll" aria-label="Scroll to explore">
-    <span>Scroll to explore</span>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-  </a>
-</section>
-
-<!-- Discipline marquee -->
-<div class="strip" aria-hidden="true">
-  <div class="strip__t" id="strip"></div>
-</div>
-
-<!-- ══════════════════════════════════════════════════════════════════
-     SELECTED WORK
-     ══════════════════════════════════════════════════════════════ -->
-<section class="sec" id="work" aria-labelledby="workTitle" data-name="Work">
-  <div class="wrap">
-    <header class="sec__head sec__head--split">
-      <div class="sec__head-main">
-        <p class="eyebrow reveal"><span>01</span> Selected Work</p>
-        <h2 class="sec__title reveal" id="workTitle" data-delay="60">
-          Designing products.<br />Building interfaces.<br /><span class="mute">Shaping brands.</span>
-        </h2>
-      </div>
-
-      <!-- Index of the case studies below — same content, quick access -->
-      <ol class="windex reveal" data-delay="140" aria-label="Selected work index">
-        <li><button class="windex__i" type="button" data-project="vidyapeeth360">
-          <span class="windex__n">01</span>
-          <span class="windex__t">Vidyapeeth360</span>
-          <span class="windex__c">Product Design</span>
-        </button></li>
-        <li><button class="windex__i" type="button" data-project="helprevx">
-          <span class="windex__n">02</span>
-          <span class="windex__t">HelpRevX</span>
-          <span class="windex__c">Brand Identity</span>
-        </button></li>
-        <li><button class="windex__i" type="button" data-project="healthpulse">
-          <span class="windex__n">03</span>
-          <span class="windex__t">HealthPulse</span>
-          <span class="windex__c">Mobile App</span>
-        </button></li>
-        <li><button class="windex__i" type="button" data-project="nexus-ai">
-          <span class="windex__n">04</span>
-          <span class="windex__t">Nexus AI</span>
-          <span class="windex__c">SaaS Dashboard</span>
-        </button></li>
-      </ol>
-    </header>
-  </div>
-
-  <!-- ── 01 · VIDYAPEETH360 ─────────────────────────────────────── -->
-  <article class="lead reveal" data-project="vidyapeeth360">
-    <div class="wrap wrap--wide">
-      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Vidyapeeth360">Open case study</button>
-
-      <div class="lead__row">
-        <div class="lead__id">
-          <span class="pnum">01</span>
-          <h3 class="lead__title">Vidyapeeth360</h3>
-          <p class="lead__sub">Institution Management SaaS</p>
-          <ul class="tags">
-            <li>UI/UX</li><li>Product Design</li><li>Frontend</li>
-          </ul>
-          <span class="arrow">View case study
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </div>
-
-        <figure class="shot shot--browser" data-parallax="0.03">
-          <span class="chrome"><i></i><i></i><i></i><b>vidyapeeth360</b></span>
-          <div class="shot__box">
-            <img src="images/vidyapeeth-landingpage.jpg"
-                 alt="Vidyapeeth360 landing page — institution management SaaS"
-                 width="480" height="309" loading="lazy" decoding="async" />
-          </div>
-          <span class="badge-view">View case study <b>→</b></span>
-        </figure>
-      </div>
-
-      <dl class="lead__facts">
-        <div><dt>My role</dt><dd>UI/UX Designer + Frontend</dd></div>
-        <div><dt>Tools</dt><dd>Figma · HTML · CSS · JavaScript</dd></div>
-        <div><dt>Contribution</dt><dd>Landing page · Dashboard showcase · Responsive UI · Frontend implementation</dd></div>
-      </dl>
-    </div>
-  </article>
-
-  <!-- ── 02 · HELPREVX BRAND IDENTITY ───────────────────────────── -->
-  <article class="brand-case reveal" data-project="helprevx">
-    <div class="wrap wrap--wide">
-      <div class="brand-case__panel">
-        <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HelpRevX brand identity">Open case study</button>
-
-        <div class="brand-case__grid">
-          <div class="brand-case__copy">
-            <span class="pnum pnum--inv">02</span>
-            <h3 class="brand-case__title">HelpRevX</h3>
-            <p class="brand-case__sub">Brand Identity</p>
-            <ul class="brand-case__facets">
-              <li><span>01</span> Logo</li>
-              <li><span>02</span> Colour</li>
-              <li><span>03</span> Typography</li>
-              <li><span>04</span> Visual System</li>
-            </ul>
-            <ul class="tags tags--inv">
-              <li>Brand Identity</li><li>UI/UX</li><li>Visual Design</li>
-            </ul>
-            <span class="arrow arrow--inv">View case study
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-
-          <div class="brand-case__assets" data-parallax="0.02">
-            <figure class="brand-case__mark">
-              <img src="images/HelpRevX-logo.jpg" alt="HelpRevX logo mark"
-                   width="800" height="800" loading="lazy" decoding="async" />
-            </figure>
-            <figure class="brand-case__sys">
-              <img src="images/helprevx-design-system.png" alt="HelpRevX visual system — colour, typography and iconography"
-                   width="778" height="861" loading="lazy" decoding="async" />
-            </figure>
-          </div>
-        </div>
-      </div>
-    </div>
-  </article>
-
-  <!-- ── 03 · HEALTHPULSE ───────────────────────────────────────── -->
-  <article class="duo duo--flip reveal" data-project="healthpulse">
-    <div class="wrap wrap--wide">
-      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HealthPulse">Open case study</button>
-
-      <div class="duo__row">
-        <figure class="shot shot--device" data-parallax="0.04">
-          <div class="shot__box">
-            <img src="images/healthplus-app.avif" alt="HealthPulse fitness mobile app screens"
-                 width="1024" height="856" loading="lazy" decoding="async" />
-          </div>
-          <span class="badge-view">View case study <b>→</b></span>
-        </figure>
-
-        <div class="duo__copy">
-          <span class="pnum">03</span>
-          <h3 class="duo__title">HealthPulse</h3>
-          <p class="duo__sub">Fitness Mobile App</p>
-          <ul class="tags"><li>UI/UX</li><li>Mobile Product Design</li></ul>
-          <p class="duo__desc">An internship project focused on designing a fitness-oriented mobile product experience.</p>
-          <span class="arrow">View case study
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </div>
-      </div>
-    </div>
-  </article>
-
-  <!-- ── 04 · NEXUS AI ──────────────────────────────────────────── -->
-  <article class="wide reveal" data-project="nexus-ai">
-    <div class="wrap wrap--wide">
-      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Nexus AI">Open case study</button>
-
-      <div class="wide__head">
-        <div>
-          <span class="pnum">04</span>
-          <h3 class="wide__title">Nexus AI</h3>
-          <p class="wide__sub">SaaS Web Dashboard</p>
-        </div>
-        <div class="wide__meta">
-          <ul class="tags"><li>UI/UX</li><li>SaaS</li><li>Dashboard</li></ul>
-          <p class="wide__desc">A dashboard concept focused on structured navigation, information hierarchy and AI-product experience.</p>
-          <span class="arrow">View case study
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </div>
-      </div>
-
-      <figure class="shot shot--wide" data-parallax="0.03">
-        <span class="chrome"><i></i><i></i><i></i><b>nexus-ai · dashboard</b></span>
-        <div class="shot__box">
-          <img src="images/nexus-ai-dashboard.avif" alt="Nexus AI SaaS dashboard interface"
-               width="1024" height="874" loading="lazy" decoding="async" />
-        </div>
-        <span class="badge-view">View case study <b>→</b></span>
-      </figure>
-    </div>
-  </article>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════════════
-     SECONDARY WORK
-     ══════════════════════════════════════════════════════════════ -->
-<section class="sec sec--tight" id="more" aria-labelledby="moreTitle" data-name="More work">
-  <div class="wrap">
-    <header class="sec__head sec__head--row">
-      <div>
-        <p class="eyebrow reveal"><span>02</span> Also designed</p>
-        <h2 class="sec__title sec__title--sm reveal" id="moreTitle" data-delay="60">Training projects<br />&amp; explorations</h2>
-      </div>
-      <div class="rail__ctl reveal" data-delay="100">
-        <button class="rbtn" id="railPrev" type="button" aria-label="Previous projects" data-cursor="btn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-        </button>
-        <button class="rbtn" id="railNext" type="button" aria-label="Next projects" data-cursor="btn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-    </header>
-  </div>
-
-  <div class="rail" id="rail" tabindex="0" role="region" aria-label="Other projects, horizontally scrollable">
-    <ul class="rail__t">
-      <li class="mini" data-project="grocery">
-        <button class="hit" type="button" data-cursor="view" aria-label="Open project: Grocery Food Delivery App">Open</button>
-        <figure class="mini__shot">
-          <img src="images/grocery-app.png.avif" alt="Grocery food delivery app interface"
-               width="1024" height="1024" loading="lazy" decoding="async" />
-        </figure>
-        <p class="mini__cat">Mobile App · UI/UX</p>
-        <h3 class="mini__title">Grocery Food Delivery App</h3>
-        <p class="mini__desc">Browsing, search and repeat ordering in one mobile flow.</p>
-      </li>
-
-      <li class="mini" data-project="edtech">
-        <button class="hit" type="button" data-cursor="view" aria-label="Open project: EdTech Landing Page">Open</button>
-        <figure class="mini__shot">
-          <img src="images/edtech-landingpage.avif" alt="EdTech landing page interface"
-               width="1024" height="802" loading="lazy" decoding="async" />
-        </figure>
-        <p class="mini__cat">Landing Page · UI/UX</p>
-        <h3 class="mini__title">EdTech Landing Page</h3>
-        <p class="mini__desc">Structured sections built around one clear call to action.</p>
-      </li>
-
-      <li class="mini" data-project="salon">
-        <button class="hit" type="button" data-cursor="view" aria-label="Open project: Responsive Salon Website">Open</button>
-        <figure class="mini__shot">
-          <img src="images/saloon-responsive.avif" alt="Responsive salon website interface"
-               width="1024" height="687" loading="lazy" decoding="async" />
-        </figure>
-        <p class="mini__cat">Web · UI/UX</p>
-        <h3 class="mini__title">Responsive Salon Website</h3>
-        <p class="mini__desc">Visual-first layout with booking always within reach.</p>
-      </li>
-
-      <li class="mini" data-project="seller-dashboard">
-        <button class="hit" type="button" data-cursor="view" aria-label="Open project: Ecommerce Seller Dashboard">Open</button>
-        <figure class="mini__shot">
-          <img src="images/Ecommerce%20Seller%20Dashboard.avif" alt="Ecommerce seller dashboard interface"
-               width="572" height="1024" loading="lazy" decoding="async" />
-        </figure>
-        <p class="mini__cat">Dashboard · UI/UX</p>
-        <h3 class="mini__title">Ecommerce Seller Dashboard</h3>
-        <p class="mini__desc">Orders, listings and performance in one clear structure.</p>
-      </li>
-
-      <li class="mini" data-project="responsive-website">
-        <button class="hit" type="button" data-cursor="view" aria-label="Open project: Responsive Multi-Page Website">Open</button>
-        <figure class="mini__shot">
-          <img src="assets/projects/responsive-website/cover.svg" alt="Responsive multi-page website interface"
-               width="1200" height="900" loading="lazy" decoding="async" />
-        </figure>
-        <p class="mini__cat">Web · Frontend</p>
-        <h3 class="mini__title">Responsive Multi-Page Website</h3>
-        <p class="mini__desc">One component system reused across every page.</p>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════════════
-     ABOUT
-     ══════════════════════════════════════════════════════════════ -->
-<section class="sec" id="about" aria-labelledby="aboutTitle" data-name="About">
-  <div class="wrap">
-    <p class="eyebrow reveal"><span>03</span> About</p>
-
-    <div class="about">
-      <h2 class="about__statement reveal" id="aboutTitle" data-delay="60">
-        Designing experiences that feel <em class="hl">simple, useful</em>
-        &amp; <em class="hl">human</em>.
-      </h2>
-
-      <figure class="about__pic reveal" data-delay="120">
-        <img src="images/sahil-profile.avif" alt="Portrait of Sahil Das"
-             width="1024" height="992" loading="lazy" decoding="async" />
-      </figure>
-
-      <div class="about__bio reveal" data-delay="160">
-        <p>I'm a UI/UX Designer and Industrial Design student at NIT Rourkela, working at the
-           intersection of design, technology and user experience.</p>
-        <p>I've worked across brand identity, UI/UX, product design and frontend development —
-           including industry work at <strong>HelpRevX</strong>, where I contributed to branding and the
-           digital product experience of <strong>Vidyapeeth360</strong>.</p>
-
-        <ul class="chips">
-          <li>NIT Rourkela</li><li>Industrial Design</li><li>UI/UX</li><li>Frontend</li>
-        </ul>
-
-        <dl class="about__facts">
-          <div><dt>Degree</dt><dd>B.Tech · 2024–2028</dd></div>
-          <div><dt>CGPA</dt><dd>7.46</dd></div>
-          <div><dt>Primary tool</dt><dd>Figma</dd></div>
-          <div><dt>Also</dt><dd>VS Code · Android Studio · GitHub</dd></div>
-        </dl>
-      </div>
+      <a href="#contact" class="btn btn--out mag" data-cursor="btn">Let's talk</a>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     DESIGN × CODE
+     01 · SELECTED WORK
      ══════════════════════════════════════════════════════════════ -->
-<section class="sec sec--tight" id="skills" aria-labelledby="skillsTitle" data-name="Design × Code">
+<section class="sec" id="work" aria-labelledby="workTitle">
   <div class="wrap">
     <header class="sec__head">
-      <p class="eyebrow reveal"><span>04</span> Design × Code</p>
-      <h2 class="sec__title reveal" id="skillsTitle" data-delay="60">
-        A designer who<br /><span class="mute">ships the interface.</span>
+      <p class="eyebrow reveal"><span>01</span> Selected work</p>
+      <h2 class="sec__title reveal" id="workTitle" data-delay="60">
+        Products, interfaces and brands I've shaped.
       </h2>
     </header>
   </div>
 
   <div class="wrap wrap--wide">
-    <div class="panels" id="panels">
-      <div class="panel" data-panel="design">
-        <!-- Abstract Figma-style shapes -->
-        <svg class="panel__art" viewBox="0 0 300 300" aria-hidden="true">
-          <circle cx="228" cy="66" r="44"/>
-          <rect x="150" y="130" width="88" height="88" rx="10"/>
-          <rect x="196" y="196" width="72" height="72" rx="36"/>
-          <path d="M60 250h120M60 274h72"/>
-        </svg>
-        <div class="panel__in">
-          <span class="panel__n">01</span>
-          <h3 class="panel__w">DESIGN</h3>
-          <p class="panel__r">UI/UX Designer</p>
-          <ul class="panel__l">
-            <li>Figma</li><li>Wireframing</li><li>Prototyping</li><li>Design Systems</li>
-            <li>Brand Identity</li><li>Product Design</li><li>Visual Design</li>
-          </ul>
-        </div>
+
+    <!-- 01 — Vidyapeeth360 · full-width composition -->
+    <article class="case case--stack reveal" data-project="vidyapeeth360">
+      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Vidyapeeth360">Open case study</button>
+
+      <header class="case__head">
+        <span class="case__n">01</span>
+        <h3 class="case__t">Vidyapeeth360</h3>
+        <p class="case__d">Institution management platform — landing page and product showcase.</p>
+      </header>
+
+      <figure class="case__media" data-parallax="0.02">
+        <img src="images/vidyapeeth-landingpage.jpg"
+             alt="Vidyapeeth360 landing page — institution management platform"
+             width="480" height="309" loading="lazy" decoding="async" />
+      </figure>
+
+      <footer class="case__foot">
+        <ul class="tags"><li>UI/UX</li><li>SaaS</li><li>Web</li></ul>
+        <span class="arrow">View case study
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </footer>
+    </article>
+
+    <!-- 02 — HelpRevX · visual left, copy right -->
+    <article class="case case--split reveal" data-project="helprevx">
+      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HelpRevX">Open case study</button>
+
+      <figure class="case__media case__media--square case__media--center">
+        <img src="images/HelpRevX-logo.jpg"
+             alt="HelpRevX brand direction — logo mark and wordmark"
+             width="800" height="800" loading="lazy" decoding="async" />
+      </figure>
+
+      <div class="case__body">
+        <span class="case__n">02</span>
+        <h3 class="case__t">HelpRevX</h3>
+        <p class="case__d">A complete brand system — logo, colour, typography and guidelines.</p>
+        <ul class="tags"><li>Branding</li><li>Product Design</li></ul>
+        <span class="arrow">View case study
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </div>
-      <div class="panel" data-panel="code">
-        <!-- Decorative code lines -->
-        <div class="panel__code" aria-hidden="true">
-          <i style="--w:62%"></i><i style="--w:44%"></i><i style="--w:78%"></i>
-          <i style="--w:36%"></i><i style="--w:70%"></i><i style="--w:52%"></i>
-          <i style="--w:84%"></i><i style="--w:40%"></i>
-        </div>
-        <div class="panel__in">
-          <span class="panel__n">02</span>
-          <h3 class="panel__w">CODE</h3>
-          <p class="panel__r">Frontend Developer</p>
-          <ul class="panel__l">
-            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Responsive UI</li>
-            <li>Interactions</li><li>Design → Code</li>
-          </ul>
-        </div>
+    </article>
+
+    <!-- 03 — HealthPulse · copy left, visual right -->
+    <article class="case case--split case--flip reveal" data-project="healthpulse">
+      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HealthPulse">Open case study</button>
+
+      <figure class="case__media case__media--tall">
+        <img src="images/healthplus-app.avif" alt="HealthPulse fitness mobile app screens"
+             width="1024" height="856" loading="lazy" decoding="async" />
+      </figure>
+
+      <div class="case__body">
+        <span class="case__n">03</span>
+        <h3 class="case__t">HealthPulse</h3>
+        <p class="case__d">A fitness app that keeps progress readable mid-workout.</p>
+        <ul class="tags"><li>Mobile App</li><li>UX</li></ul>
+        <span class="arrow">View case study
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </div>
-    </div>
+    </article>
+
+    <!-- 04 — Nexus AI · full-width composition -->
+    <article class="case case--stack reveal" data-project="nexus-ai">
+      <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Nexus AI">Open case study</button>
+
+      <header class="case__head">
+        <span class="case__n">04</span>
+        <h3 class="case__t">Nexus AI</h3>
+        <p class="case__d">A dashboard built around hierarchy, not panels.</p>
+      </header>
+
+      <figure class="case__media case__media--center" data-parallax="0.02">
+        <img src="images/nexus-ai-dashboard.avif" alt="Nexus AI SaaS dashboard interface"
+             width="1024" height="874" loading="lazy" decoding="async" />
+      </figure>
+
+      <footer class="case__foot">
+        <ul class="tags"><li>SaaS</li><li>Dashboard</li><li>UI/UX</li></ul>
+        <span class="arrow">View case study
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </footer>
+    </article>
   </div>
 
-  <!-- Design → Code pipeline -->
+  <!-- Explorations — four selected experiments, nothing more -->
   <div class="wrap">
-    <div class="flow" id="flow" aria-label="From design to live interface">
-      <p class="flow__k">Design becoming interface</p>
-      <ol class="flow__t">
-        <li class="flow__s reveal"><span>Figma</span></li>
-        <li class="flow__s reveal" data-delay="70"><span>Design</span></li>
-        <li class="flow__s reveal" data-delay="140"><span>HTML</span></li>
-        <li class="flow__s reveal" data-delay="210"><span>CSS</span></li>
-        <li class="flow__s reveal" data-delay="280"><span>JavaScript</span></li>
-        <li class="flow__s flow__s--end reveal" data-delay="350"><span>Live UI</span></li>
-      </ol>
+    <section class="expl reveal" aria-labelledby="explTitle">
+      <h3 class="expl__k" id="explTitle">Explorations</h3>
+      <ul class="expl__g">
+        <li class="expl__i" data-project="grocery">
+          <button class="hit" type="button" data-cursor="view" aria-label="Open project: Grocery delivery app">Open</button>
+          <figure><img src="images/grocery-app.png.avif" alt="Grocery delivery app interface"
+                       width="1024" height="1024" loading="lazy" decoding="async" /></figure>
+          <h4>Grocery Delivery App</h4>
+          <p>Mobile UI</p>
+        </li>
+        <li class="expl__i" data-project="edtech">
+          <button class="hit" type="button" data-cursor="view" aria-label="Open project: EdTech landing page">Open</button>
+          <figure><img src="images/edtech-landingpage.avif" alt="EdTech landing page interface"
+                       width="1024" height="802" loading="lazy" decoding="async" /></figure>
+          <h4>EdTech Landing Page</h4>
+          <p>Landing page</p>
+        </li>
+        <li class="expl__i" data-project="seller-dashboard">
+          <button class="hit" type="button" data-cursor="view" aria-label="Open project: Ecommerce seller dashboard">Open</button>
+          <figure><img src="images/Ecommerce%20Seller%20Dashboard.avif" alt="Ecommerce seller dashboard interface"
+                       width="572" height="1024" loading="lazy" decoding="async" /></figure>
+          <h4>Seller Dashboard</h4>
+          <p>Dashboard concept</p>
+        </li>
+        <li class="expl__i" data-project="salon">
+          <button class="hit" type="button" data-cursor="view" aria-label="Open project: Responsive salon website">Open</button>
+          <figure><img src="images/saloon-responsive.avif" alt="Responsive salon website interface"
+                       width="1024" height="687" loading="lazy" decoding="async" /></figure>
+          <h4>Salon Website</h4>
+          <p>Responsive web</p>
+        </li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     02 · ABOUT
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec" id="about" aria-labelledby="aboutTitle">
+  <div class="wrap">
+    <p class="eyebrow reveal"><span>02</span> About</p>
+
+    <div class="about">
+      <div class="about__copy">
+        <h2 class="sec__title reveal" id="aboutTitle" data-delay="60">
+          Designing experiences that feel simple, useful and human.
+        </h2>
+
+        <div class="about__bio reveal" data-delay="120">
+          <p>I'm a UI/UX designer who enjoys turning complex ideas into simple, usable digital
+             experiences. I work across product design, visual design and frontend development.</p>
+          <p>I'm an Industrial Design student at NIT Rourkela. Most recently I designed the brand
+             identity at <strong>HelpRevX</strong> and shaped the product experience for
+             <strong>Vidyapeeth360</strong>.</p>
+        </div>
+
+        <dl class="about__facts reveal" data-delay="160">
+          <div><dt>Education</dt><dd>B.Tech Industrial Design · NIT Rourkela</dd></div>
+          <div><dt>Based in</dt><dd>Rourkela, India</dd></div>
+          <div><dt>Tools</dt><dd>Figma · VS Code · GitHub</dd></div>
+        </dl>
+      </div>
+
+      <figure class="about__pic reveal" data-delay="140">
+        <img src="images/sahil-profile.avif" alt="Portrait of Sahil Das"
+             width="1024" height="992" loading="lazy" decoding="async" />
+      </figure>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     EXPERIENCE
+     03 · SKILLS — design / code
      ══════════════════════════════════════════════════════════════ -->
-<section class="sec" id="experience" aria-labelledby="expTitle" data-name="Experience">
+<section class="sec" id="skills" aria-labelledby="skillsTitle">
   <div class="wrap">
     <header class="sec__head">
-      <p class="eyebrow reveal"><span>05</span> Experience</p>
-      <h2 class="sec__title reveal" id="expTitle" data-delay="60">Where I've designed,<br /><span class="mute">built and led.</span></h2>
+      <p class="eyebrow reveal"><span>03</span> Skills</p>
+      <h2 class="sec__title reveal" id="skillsTitle" data-delay="60">A designer who ships the interface.</h2>
+    </header>
+
+    <div class="panels reveal" data-delay="100">
+      <div class="panel">
+        <h3 class="panel__w">Design</h3>
+        <p class="panel__r">UI/UX Designer</p>
+        <ul class="panel__l">
+          <li>Figma</li><li>UI/UX</li><li>Prototyping</li><li>Design Systems</li><li>Branding</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3 class="panel__w">Code</h3>
+        <p class="panel__r">Frontend Developer</p>
+        <ul class="panel__l">
+          <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Responsive Design</li><li>Frontend</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     04 · EXPERIENCE & RECOGNITION
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec" id="experience" aria-labelledby="expTitle">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="eyebrow reveal"><span>04</span> Experience</p>
+      <h2 class="sec__title reveal" id="expTitle" data-delay="60">Where I've designed, built and learned.</h2>
     </header>
 
     <ol class="exp">
       <li class="exp__i reveal">
-        <div class="exp__meta"><time>May 2026 — July 2026</time><span>Remote</span></div>
-        <div class="exp__body">
-          <div class="exp__lead">
-            <h3>HelpRevX</h3>
-            <p class="exp__role">Brand &amp; UI/UX Design Intern</p>
-            <ul class="tags tags--pill"><li>Brand Identity</li><li>UI/UX</li><li>Frontend</li></ul>
-          </div>
-          <div class="exp__detail">
-            <p class="exp__txt">Designed the HelpRevX brand identity and Brand Kit, refined product interfaces,
-               and contributed to the frontend implementation of the Vidyapeeth360 landing page.</p>
-          </div>
+        <div class="exp__lead">
+          <h3>HelpRevX</h3>
+          <p class="exp__role">Brand &amp; UI/UX Design</p>
         </div>
+        <p class="exp__txt">Designed the brand identity and Brand Kit, and shaped the Vidyapeeth360 product experience.</p>
+        <time class="exp__y">2026</time>
       </li>
 
       <li class="exp__i reveal">
-        <div class="exp__meta"><time>May 2026 — Present</time><span>NIT Rourkela</span></div>
-        <div class="exp__body">
-          <div class="exp__lead">
-            <h3>ASME NIT Rourkela</h3>
-            <p class="exp__role">Creative Head</p>
-          </div>
-          <div class="exp__detail">
-            <p class="exp__prev"><span>Previously</span> Designer &amp; Video Editor · Feb 2025 — May 2026</p>
-          </div>
+        <div class="exp__lead">
+          <h3>ASME NIT Rourkela</h3>
+          <p class="exp__role">Creative Head</p>
         </div>
+        <p class="exp__txt">Leading the creative direction after a year as designer and video editor.</p>
+        <time class="exp__y">2025 — Now</time>
       </li>
 
       <li class="exp__i reveal">
-        <div class="exp__meta"><time>May 2025 — Present</time><span>NIT Rourkela</span></div>
-        <div class="exp__body">
-          <div class="exp__lead">
-            <h3>Axiom NIT Rourkela</h3>
-            <p class="exp__role">Creative Head</p>
-          </div>
-          <div class="exp__detail">
-            <p class="exp__prev"><span>Previously</span> Graphic Designer · Jan 2025 — May 2025</p>
-          </div>
+        <div class="exp__lead">
+          <h3>Axiom NIT Rourkela</h3>
+          <p class="exp__role">Creative Head</p>
         </div>
+        <p class="exp__txt">Design direction for the society's visual and campaign work.</p>
+        <time class="exp__y">2025 — Now</time>
       </li>
 
       <li class="exp__i reveal">
-        <div class="exp__meta"><time>NIT Rourkela</time></div>
-        <div class="exp__body">
-          <div class="exp__lead">
-            <h3>BlueStreak</h3>
-            <p class="exp__role">Aerodynamic Subsystem</p>
-          </div>
-          <div class="exp__detail"></div>
+        <div class="exp__lead">
+          <h3>1stop.ai</h3>
+          <p class="exp__role">UI/UX Design Intern</p>
         </div>
+        <p class="exp__txt">Three training projects and two live industry products — HealthPulse and Nexus AI.</p>
+        <time class="exp__y">2025 — 26</time>
       </li>
     </ol>
 
-    <!-- HelpRevX highlight -->
-    <div class="worked reveal">
-      <p class="worked__k">What I worked on at HelpRevX</p>
-      <ol class="worked__g">
-        <li><span>01</span><h3>Brand Identity</h3><p>HelpRevX Brand Kit</p></li>
-        <li><span>02</span><h3>Product Design</h3><p>Vidyapeeth360</p></li>
-        <li><span>03</span><h3>UI/UX</h3><p>Landing page + dashboard</p></li>
-        <li><span>04</span><h3>Frontend</h3><p>HTML + CSS + JavaScript</p></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════════════
-     PROCESS
-     ══════════════════════════════════════════════════════════════ -->
-<section class="sec sec--tight" id="process" aria-labelledby="procTitle" data-name="Process">
-  <div class="wrap">
-    <header class="sec__head sec__head--row">
-      <div>
-        <p class="eyebrow reveal"><span>06</span> Process</p>
-        <h2 class="sec__title sec__title--sm reveal" id="procTitle" data-delay="60">How the work<br />gets made.</h2>
-      </div>
-      <div class="rail__ctl reveal" data-delay="100">
-        <button class="rbtn" id="procPrev" type="button" aria-label="Previous step" data-cursor="btn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-        </button>
-        <button class="rbtn" id="procNext" type="button" aria-label="Next step" data-cursor="btn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-    </header>
-  </div>
-
-  <div class="proc" id="proc" tabindex="0" role="region" aria-label="Design process, horizontally scrollable">
-    <ol class="proc__t">
-      <li class="step reveal"><span class="step__n">01</span><h3>Understand</h3><p>Understand users, context and requirements.</p></li>
-      <li class="step reveal" data-delay="60"><span class="step__n">02</span><h3>Define</h3><p>Structure the problem and experience goals.</p></li>
-      <li class="step reveal" data-delay="120"><span class="step__n">03</span><h3>Explore</h3><p>Wireframes, flows and design directions.</p></li>
-      <li class="step reveal" data-delay="180"><span class="step__n">04</span><h3>Design</h3><p>High-fidelity interfaces, components and visual systems.</p></li>
-      <li class="step reveal" data-delay="240"><span class="step__n">05</span><h3>Prototype</h3><p>Create realistic interactive product experiences.</p></li>
-      <li class="step reveal" data-delay="300"><span class="step__n">06</span><h3>Build</h3><p>Translate designs into responsive frontend interfaces.</p></li>
-    </ol>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════════════
-     CERTIFICATIONS
-     ══════════════════════════════════════════════════════════════ -->
-<section class="sec" id="certifications" aria-labelledby="certTitle" data-name="Certifications">
-  <div class="wrap">
-    <header class="sec__head">
-      <p class="eyebrow reveal"><span>07</span> Certifications</p>
-      <h2 class="sec__title sec__title--sm reveal" id="certTitle" data-delay="60">Training &amp; recognition.</h2>
-    </header>
-
-    <div class="certs">
-      <article class="cert cert--main reveal">
-        <button class="cert__open" type="button" data-cursor="view"
-                data-lightbox="assets/certificates/helprevx-certificate.svg"
-                data-lightbox-alt="HelpRevX internship completion certificate"
-                aria-label="Enlarge HelpRevX internship completion certificate">
-          <img src="assets/certificates/helprevx-certificate.svg"
-               alt="HelpRevX internship completion certificate"
-               width="1200" height="850" loading="lazy" decoding="async" />
-          <span class="cert__zoom">Click to enlarge</span>
-        </button>
-        <div class="cert__txt">
-          <h3>Internship Completion</h3>
-          <p class="cert__org">HelpRevX · UI/UX Developer</p>
-          <time>May 2026 — July 2026</time>
-        </div>
-      </article>
-
-      <article class="cert reveal" data-delay="60">
-        <div class="cert__txt">
-          <h3>UI/UX Internship</h3>
-          <p class="cert__org">1stop.ai</p>
-          <time>December 2025 — April 2026</time>
-        </div>
-        <div class="cert__split">
-          <div><b>3</b><span>Training projects</span></div>
-          <div><b>2</b><span>Live industry projects</span></div>
-        </div>
-        <div class="cert__lists">
-          <div><h4>Training</h4><ul><li>Grocery Food Delivery App</li><li>EdTech Landing Page</li><li>Responsive Salon Website</li></ul></div>
-          <div><h4>Live</h4><ul><li>HealthPulse</li><li>Nexus AI</li></ul></div>
-        </div>
-      </article>
-
-      <article class="cert cert--sm reveal" data-delay="120">
-        <div class="cert__txt">
-          <h3>ASME EFx India 2026</h3>
-          <p class="cert__org">Human-Powered Vehicle Project</p>
-        </div>
-        <p class="cert__note">Participated in the ASME EFx India 2026 human-powered vehicle project.</p>
-      </article>
-
-      <article class="cert cert--sm reveal" data-delay="160">
-        <div class="cert__txt">
-          <h3>Discover Yourself</h3>
-          <p class="cert__org">Personality Development</p>
-        </div>
-        <p class="cert__note">Personality development and smart outreach course.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════════════
-     CURRENTLY EXPLORING
-     ══════════════════════════════════════════════════════════════ -->
-<section class="sec sec--tight" id="exploring" aria-labelledby="expLabel" data-name="Exploring">
-  <div class="wrap">
-    <div class="explore reveal">
-      <p class="eyebrow"><span>08</span> Currently exploring</p>
-      <h2 class="explore__t" id="expLabel">Design <span class="x">×</span> Technology</h2>
-      <ul class="explore__l">
-        <li>UI/UX</li><li>Product Design</li><li>Frontend Development</li>
-        <li>Design Systems</li><li>Interactive Interfaces</li>
+    <div class="rec reveal">
+      <h3 class="rec__k">Recognition</h3>
+      <ul class="rec__l">
+        <li>
+          <button type="button" class="rec__open" data-cursor="btn"
+                  data-lightbox="assets/certificates/helprevx-certificate.svg"
+                  data-lightbox-alt="HelpRevX internship completion certificate">
+            <span>Internship Completion — HelpRevX</span>
+            <em>View certificate</em>
+          </button>
+        </li>
+        <li><span>UI/UX Internship — 1stop.ai</span></li>
+        <li><span>ASME EFx India 2026 — Human-Powered Vehicle</span></li>
+        <li><span>Discover Yourself — Personality Development</span></li>
       </ul>
-      <p class="explore__p">Building better digital experiences by combining thoughtful design with frontend development.</p>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     CONTACT
+     05 · CONTACT
      ══════════════════════════════════════════════════════════════ -->
-<section class="contact" id="contact" aria-labelledby="contactTitle" data-name="Contact">
-  <div class="contact__bg" aria-hidden="true"><i></i><i></i></div>
+<section class="contact" id="contact" aria-labelledby="contactTitle">
+  <div class="contact__bg" aria-hidden="true"></div>
   <div class="wrap contact__in">
-    <p class="eyebrow eyebrow--inv reveal"><span>09</span> Contact</p>
-    <h2 class="contact__t reveal" id="contactTitle" data-delay="60">Have an idea <em class="hl">worth designing?</em></h2>
+    <p class="eyebrow reveal"><span>05</span> Contact</p>
+    <h2 class="contact__t reveal" id="contactTitle" data-delay="60">Have an idea worth designing?</h2>
     <p class="contact__s reveal" data-delay="120">Let's turn it into something people enjoy using.</p>
 
     <div class="contact__cta reveal" data-delay="180">
-      <a class="btn btn--fill btn--big mag" href="mailto:founder@helprevx.com" data-cursor="btn">
+      <a class="btn btn--fill mag" href="mailto:founder@helprevx.com" data-cursor="btn">
         Email me
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
       <!-- TODO: replace with your LinkedIn profile URL -->
-      <a class="btn btn--out btn--big mag" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" data-cursor="btn">LinkedIn</a>
-      <a class="btn btn--out btn--big mag" href="https://github.com/sahilarya990" target="_blank" rel="noopener noreferrer" data-cursor="btn">GitHub</a>
-    </div>
-
-    <div class="contact__card reveal" data-delay="240">
-      <p class="contact__name">Sahil Das</p>
-      <p class="contact__disc">UI/UX Designer · Product Designer · Frontend Developer</p>
-      <p class="contact__time"><i class="dot"></i> <span id="localTime">Rourkela, India</span></p>
+      <a class="btn btn--out mag" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" data-cursor="btn">LinkedIn</a>
+      <a class="btn btn--out mag" href="https://github.com/sahilarya990" target="_blank" rel="noopener noreferrer" data-cursor="btn">GitHub</a>
     </div>
   </div>
 </section>
@@ -748,11 +424,8 @@
 
 <footer class="foot">
   <div class="wrap foot__in">
-    <div>
-      <p class="foot__name">SAHIL DAS</p>
-      <p class="foot__role">UI/UX Designer · Product Designer · Frontend Developer</p>
-    </div>
-    <p class="foot__tag">Designing experiences.<br />Building interfaces.</p>
+    <p class="foot__name">Sahil Das</p>
+    <p class="foot__time"><i class="dot"></i> <span id="localTime">Rourkela, India</span></p>
     <p class="foot__c">© <span id="year">2026</span> Sahil Das</p>
   </div>
 </footer>

@@ -1,25 +1,24 @@
 /* ==========================================================================
    SAHIL DAS — PORTFOLIO / script.js
    --------------------------------------------------------------------------
-   01  Content       — case studies + marquee (edit copy here)
+   01  Content — case studies (edit copy here)
    02  Utilities
    03  Intro
    04  Cursor + magnetic
-   05  Nav + scroll chrome (progress, ticker, back-to-top)
+   05  Nav (auto-hide, mobile menu, scroll spy) + chrome
    06  Scroll reveal
-   07  Hero morph
+   07  Hero light
    08  Parallax
-   09  Horizontal rails (secondary work + process)
-   10  Case study panel
-   11  Lightbox
-   12  Live clock
-   13  Init
+   09  Case study panel
+   10  Lightbox
+   11  Live clock
+   12  Init
    ========================================================================== */
 
 /* ══════════════════════════════════════════════════════════════════════
    01. CONTENT
    ----------------------------------------------------------------------
-   `cover` / `gallery` paths point at real exports in /images/.
+   The page shows the short version; the panel holds the detail.
    Add a project: copy a block, then give its card data-project="<key>".
    ══════════════════════════════════════════════════════════════════════ */
 const CASE_STUDIES = {
@@ -27,13 +26,13 @@ const CASE_STUDIES = {
   'vidyapeeth360': {
     num: '01',
     title: 'Vidyapeeth360',
-    sub: 'Institution Management SaaS',
-    tags: ['UI/UX', 'Product Design', 'Frontend'],
+    sub: 'Institution Management Platform',
+    tags: ['UI/UX', 'SaaS', 'Web'],
     cover: 'images/vidyapeeth-landingpage.jpg',
     role: 'UI/UX Designer + Frontend',
-    tools: 'Figma · HTML · CSS · JavaScript · VS Code · GitHub',
+    tools: 'Figma · HTML · CSS · JavaScript',
     timeline: 'HelpRevX internship, 2026',
-    overview: 'Vidyapeeth360 is an institution management SaaS product. I designed the landing page and the product showcase experience — the surface where a visiting institution first understands what the product does.',
+    overview: 'Vidyapeeth360 is an institution management platform. I designed the landing page and the product showcase experience — the surface where a visiting institution first understands what the product does.',
     problem: 'A management platform covers a lot of ground, and that breadth is difficult to communicate on a single page. The landing experience needed to explain the product clearly, show the interface honestly, and hold together across every screen size.',
     approach: [
       'Structured the page around a clear content hierarchy, from positioning to product detail',
@@ -48,10 +47,8 @@ const CASE_STUDIES = {
       'Dashboard showcase',
       'Visual hierarchy',
       'Responsive layouts',
-      'Frontend implementation',
-      'HTML / CSS / JavaScript'
+      'Frontend implementation'
     ],
-    /* Add more screens as you export them, e.g. 'images/vidyapeeth-dashboard.jpg' */
     gallery: []
   },
 
@@ -59,12 +56,12 @@ const CASE_STUDIES = {
     num: '02',
     title: 'HelpRevX',
     sub: 'Brand Identity System',
-    tags: ['Brand Identity', 'Visual Design', 'UI/UX'],
-    cover: 'images/helprevx-design-system.png',
+    tags: ['Branding', 'Product Design'],
+    cover: 'images/HelpRevX-logo.jpg',
     role: 'Brand & Visual Design',
     tools: 'Figma · Illustrator',
     timeline: 'HelpRevX internship, 2026',
-    overview: 'I designed and developed the HelpRevX brand identity and visual system, including the logo, colour system, typography, iconography and brand guidelines.',
+    overview: 'I designed the HelpRevX brand identity and visual system — logo, colour system, typography, iconography and brand guidelines.',
     problem: 'The company needed one coherent identity that would hold up across product interfaces, marketing surfaces and internal documents — not just a logo.',
     approach: [
       'Defined the logo and its construction, spacing and usage rules',
@@ -76,14 +73,14 @@ const CASE_STUDIES = {
     design: 'The system is built to be applied, not admired: every token has a stated role, and the guidelines show correct and incorrect usage side by side so the identity survives contact with real work.',
     outcome: 'Delivered as the HelpRevX brand identity and Brand Kit, used across the company\'s digital product experience.',
     contribution: ['Logo design', 'Colour system', 'Typography', 'Iconography', 'Brand guidelines'],
-    gallery: ['images/HelpRevX-logo.jpg']
+    gallery: ['images/helprevx-design-system.png']
   },
 
   'healthpulse': {
     num: '03',
     title: 'HealthPulse',
     sub: 'Fitness Mobile App',
-    tags: ['UI/UX', 'Mobile Product Design'],
+    tags: ['Mobile App', 'UX'],
     cover: 'images/healthplus-app.avif',
     role: 'UI/UX Design',
     tools: 'Figma',
@@ -106,7 +103,7 @@ const CASE_STUDIES = {
     num: '04',
     title: 'Nexus AI',
     sub: 'SaaS Web Dashboard',
-    tags: ['UI/UX', 'SaaS', 'Dashboard'],
+    tags: ['SaaS', 'Dashboard', 'UI/UX'],
     cover: 'images/nexus-ai-dashboard.avif',
     role: 'UI/UX Design',
     tools: 'Figma',
@@ -127,9 +124,9 @@ const CASE_STUDIES = {
 
   'grocery': {
     num: '05',
-    title: 'Grocery Food Delivery App',
-    sub: 'Mobile App · UI/UX',
-    tags: ['UI/UX', 'Mobile App'],
+    title: 'Grocery Delivery App',
+    sub: 'Mobile UI',
+    tags: ['Mobile App', 'UI/UX'],
     cover: 'images/grocery-app.png.avif',
     role: 'UI/UX Design',
     tools: 'Figma',
@@ -150,8 +147,8 @@ const CASE_STUDIES = {
   'edtech': {
     num: '06',
     title: 'EdTech Landing Page',
-    sub: 'Landing Page · UI/UX',
-    tags: ['UI/UX', 'Landing Page'],
+    sub: 'Landing page',
+    tags: ['Landing Page', 'UI/UX'],
     cover: 'images/edtech-landingpage.avif',
     role: 'UI/UX Design',
     tools: 'Figma',
@@ -169,33 +166,11 @@ const CASE_STUDIES = {
     gallery: []
   },
 
-  'responsive-website': {
-    num: '07',
-    title: 'Responsive Multi-Page Website',
-    sub: 'Web · Frontend',
-    tags: ['Frontend', 'Responsive Design'],
-    cover: 'assets/projects/responsive-website/cover.svg',
-    role: 'UI/UX Design · Frontend',
-    tools: 'Figma · HTML · CSS · JavaScript',
-    timeline: 'Self-directed project',
-    overview: 'A multi-page website designed and implemented with responsive layouts across mobile, tablet and desktop.',
-    problem: 'Multi-page sites drift — navigation, spacing and type quietly diverge from page to page unless the system is defined up front.',
-    approach: [
-      'Designed a shared header, footer and section system across pages',
-      'Defined breakpoints and layout behaviour before implementation',
-      'Implemented the design in semantic HTML and CSS'
-    ],
-    design: 'One component vocabulary reused across every page, so the site reads as a single product.',
-    outcome: 'Designed and implemented as a complete responsive website.',
-    contribution: ['UI design', 'Responsive layout system', 'HTML / CSS / JavaScript'],
-    gallery: []
-  },
-
   'seller-dashboard': {
-    num: '08',
-    title: 'Ecommerce Seller Dashboard',
-    sub: 'Dashboard · UI/UX',
-    tags: ['UI/UX', 'Dashboard'],
+    num: '07',
+    title: 'Seller Dashboard',
+    sub: 'Dashboard concept',
+    tags: ['Dashboard', 'UI/UX'],
     cover: 'images/Ecommerce%20Seller%20Dashboard.avif',
     role: 'UI/UX Design',
     tools: 'Figma',
@@ -214,10 +189,10 @@ const CASE_STUDIES = {
   },
 
   'salon': {
-    num: '09',
-    title: 'Responsive Salon Website',
-    sub: 'Web · UI/UX',
-    tags: ['UI/UX', 'Responsive Design'],
+    num: '08',
+    title: 'Salon Website',
+    sub: 'Responsive web',
+    tags: ['Responsive Design', 'UI/UX'],
     cover: 'images/saloon-responsive.avif',
     role: 'UI/UX Design',
     tools: 'Figma',
@@ -234,14 +209,10 @@ const CASE_STUDIES = {
     contribution: ['Visual design', 'Responsive layouts', 'Service & booking flow'],
     gallery: []
   }
-};
 
-/* Scrolling discipline strip under the hero */
-const STRIP = [
-  'UI/UX Design', 'Product Design', 'Brand Identity', 'Design Systems',
-  'Wireframing', 'Prototyping', 'Frontend Development', 'Responsive UI',
-  'Interaction Design', 'Design → Code'
-];
+  /* 'responsive-website' was retired from the page to keep Explorations to
+     four selected pieces. Re-add a card with data-project to bring it back. */
+};
 
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -250,9 +221,9 @@ const STRIP = [
 const $  = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-const REDUCED  = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const FINE     = matchMedia('(hover: hover) and (pointer: fine)').matches;
-const DESKTOP  = () => innerWidth > 1024;
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE    = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const DESKTOP = () => innerWidth > 1024;
 
 const esc = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -271,7 +242,7 @@ function onScroll(fn) {
 
 
 /* ══════════════════════════════════════════════════════════════════════
-   03. INTRO  —  SAHIL DAS → DESIGN × CODE  (≤ 1.4s)
+   03. INTRO  (≤ 1.3s)
    ══════════════════════════════════════════════════════════════════════ */
 const Intro = {
   init() {
@@ -292,9 +263,9 @@ const Intro = {
 
     const at = (ms, fn) => setTimeout(fn, ms);
     at(80,   () => { name.classList.add('on'); bar.style.width = '100%'; });
-    at(480,  () => tag.classList.add('on'));
-    at(1150, () => { el.classList.add('gone'); done(); });
-    at(2100, () => el.remove());
+    at(430,  () => tag.classList.add('on'));
+    at(1050, () => { el.classList.add('gone'); done(); });
+    at(1950, () => el.remove());
   }
 };
 
@@ -339,8 +310,8 @@ const Magnetic = {
     $$('.mag').forEach((el) => {
       el.addEventListener('mousemove', (e) => {
         const r = el.getBoundingClientRect();
-        const dx = (e.clientX - r.left - r.width / 2) * 0.2;
-        const dy = (e.clientY - r.top - r.height / 2) * 0.28;
+        const dx = (e.clientX - r.left - r.width / 2) * 0.18;
+        const dy = (e.clientY - r.top - r.height / 2) * 0.24;
         el.style.transform = `translate(${dx}px, ${dy}px)`;
       });
       el.addEventListener('mouseleave', () => { el.style.transform = ''; });
@@ -356,16 +327,22 @@ const Nav = {
   init() {
     const nav = $('#nav'), burger = $('#burger'), menu = $('#menu');
     const bar = $('#progressBar'), top = $('#toTop');
-    const ticker = $('#ticker'), tNum = $('#tickerNum'), tLabel = $('#tickerLabel');
 
-    /* Scroll state: compact nav, progress bar, back-to-top */
+    /* Compact on scroll, hidden while reading down, back on the way up */
+    let lastY = scrollY;
     onScroll(() => {
       const y = scrollY;
       const h = document.documentElement.scrollHeight - innerHeight;
+
       nav.classList.toggle('stuck', y > 16);
+      const goingDown = y > lastY + 4;
+      const goingUp   = y < lastY - 4;
+      if (goingDown && y > 220 && !menu.classList.contains('open')) nav.classList.add('hide');
+      else if (goingUp || y <= 220) nav.classList.remove('hide');
+      lastY = y;
+
       if (bar) bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
-      if (top) top.classList.toggle('on', y > 700);
-      if (ticker) ticker.classList.toggle('on', y > 700);
+      if (top) top.classList.toggle('on', y > 800);
     });
 
     top?.addEventListener('click', () => scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' }));
@@ -385,12 +362,13 @@ const Nav = {
       burger.setAttribute('aria-expanded', String(open));
       burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       document.body.classList.toggle('lock', open);
+      if (open) nav.classList.remove('hide');
     });
     menu.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
     addEventListener('resize', () => { if (innerWidth > 1024) close(); });
     addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 
-    /* Scroll spy — nav links */
+    /* Scroll spy */
     const links = $$('.menu__link');
     const map = new Map();
     links.forEach((l) => {
@@ -406,20 +384,6 @@ const Nav = {
         });
       }, { rootMargin: '-45% 0px -50% 0px' });
       map.forEach((_, sec) => spy.observe(sec));
-    }
-
-    /* Live section ticker */
-    const named = $$('[data-name]');
-    if ('IntersectionObserver' in window && named.length && tNum) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (!en.isIntersecting) return;
-          const i = named.indexOf(en.target) + 1;
-          tNum.textContent = String(i).padStart(2, '0');
-          tLabel.textContent = en.target.dataset.name;
-        });
-      }, { rootMargin: '-45% 0px -50% 0px' });
-      named.forEach((s) => io.observe(s));
     }
   }
 };
@@ -443,43 +407,34 @@ const Reveal = {
         el.classList.add('in');
         obs.unobserve(el);
       });
-    }, { threshold: 0.14, rootMargin: '0px 0px -70px 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -70px 0px' });
     items.forEach((el) => io.observe(el));
   }
 };
 
 
 /* ══════════════════════════════════════════════════════════════════════
-   07. HERO — light parallax + marquee
+   07. HERO — light follows the pointer, gently
    ══════════════════════════════════════════════════════════════════════ */
 const Hero = {
   init() {
-    /* Mouse parallax on the atmospheric light (desktop only, max 15px) */
     const light = $('#heroLight');
-    const hero = $('.hero');
-    if (light && hero && FINE && !REDUCED && DESKTOP()) {
+    if (light && FINE && !REDUCED && DESKTOP()) {
       let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
 
       const loop = () => {
         cx += (tx - cx) * 0.06;
         cy += (ty - cy) * 0.06;
-        light.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
+        light.style.translate = `calc(-50% + ${cx.toFixed(2)}px) calc(-50% + ${cy.toFixed(2)}px)`;
         raf = (Math.abs(tx - cx) > .1 || Math.abs(ty - cy) > .1) ? requestAnimationFrame(loop) : null;
       };
 
       addEventListener('mousemove', (e) => {
         if (scrollY > innerHeight) return;              // only while the hero is on screen
-        tx = ((e.clientX / innerWidth) - .5) * 30;      // ±15px
-        ty = ((e.clientY / innerHeight) - .5) * 30;
+        tx = ((e.clientX / innerWidth) - .5) * 26;      // ±13px
+        ty = ((e.clientY / innerHeight) - .5) * 26;
         if (!raf) raf = requestAnimationFrame(loop);
       }, { passive: true });
-    }
-
-    /* Marquee — duplicated once so the loop is seamless */
-    const strip = $('#strip');
-    if (strip) {
-      const row = STRIP.map((t) => `<span>${esc(t)}</span>`).join('');
-      strip.innerHTML = row + row;
     }
 
     const year = $('#year');
@@ -501,7 +456,7 @@ const Parallax = {
       items.forEach((el) => {
         const r = el.getBoundingClientRect();
         if (r.bottom < -240 || r.top > vh + 240) return;
-        const speed = parseFloat(el.dataset.parallax) || 0.03;
+        const speed = parseFloat(el.dataset.parallax) || 0.02;
         const offset = (r.top + r.height / 2 - vh / 2) * -speed;
         el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
       });
@@ -511,65 +466,7 @@ const Parallax = {
 
 
 /* ══════════════════════════════════════════════════════════════════════
-   09. HORIZONTAL RAILS
-   ══════════════════════════════════════════════════════════════════════ */
-function makeRail(rail, prev, next, itemSel) {
-  if (!rail) return;
-
-  const step = () => {
-    const item = $(itemSel, rail);
-    return item ? item.getBoundingClientRect().width + 24 : rail.clientWidth * 0.8;
-  };
-
-  prev?.addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: 'smooth' }));
-  next?.addEventListener('click', () => rail.scrollBy({ left:  step(), behavior: 'smooth' }));
-
-  const sync = () => {
-    const max = rail.scrollWidth - rail.clientWidth - 4;
-    if (prev) prev.disabled = rail.scrollLeft <= 4;
-    if (next) next.disabled = rail.scrollLeft >= max;
-  };
-  rail.addEventListener('scroll', sync, { passive: true });
-  addEventListener('resize', sync);
-  sync();
-
-  /* Drag to scroll (pointer devices only) */
-  if (!FINE) return;
-  let down = false, startX = 0, startLeft = 0, moved = 0;
-
-  rail.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('button:not(.hit)')) return;
-    down = true; moved = 0;
-    startX = e.clientX;
-    startLeft = rail.scrollLeft;
-    rail.classList.add('drag');
-  });
-  rail.addEventListener('pointermove', (e) => {
-    if (!down) return;
-    const dx = e.clientX - startX;
-    moved = Math.abs(dx);
-    rail.scrollLeft = startLeft - dx;
-  });
-  const release = () => { down = false; rail.classList.remove('drag'); };
-  rail.addEventListener('pointerup', release);
-  rail.addEventListener('pointerleave', release);
-  rail.addEventListener('pointercancel', release);
-  /* Swallow the click that ends a drag so it doesn't open a case study */
-  rail.addEventListener('click', (e) => {
-    if (moved > 8) { e.preventDefault(); e.stopPropagation(); moved = 0; }
-  }, true);
-}
-
-const Rails = {
-  init() {
-    makeRail($('#rail'), $('#railPrev'), $('#railNext'), '.mini');
-    makeRail($('#proc'), $('#procPrev'), $('#procNext'), '.step');
-  }
-};
-
-
-/* ══════════════════════════════════════════════════════════════════════
-   10. CASE STUDY PANEL
+   09. CASE STUDY PANEL  —  progressive disclosure: the detail lives here
    ══════════════════════════════════════════════════════════════════════ */
 const Panel = {
   last: null,
@@ -661,7 +558,7 @@ const Panel = {
 
 
 /* ══════════════════════════════════════════════════════════════════════
-   11. LIGHTBOX  —  any [data-lightbox="path"] trigger
+   10. LIGHTBOX  —  any [data-lightbox="path"] trigger
    ══════════════════════════════════════════════════════════════════════ */
 const Lightbox = {
   last: null,
@@ -695,32 +592,7 @@ const Lightbox = {
 
 
 /* ══════════════════════════════════════════════════════════════════════
-   11b. AMBIENT DUST  —  ~26 slow-drifting particles, desktop only
-   ══════════════════════════════════════════════════════════════════════ */
-const Dust = {
-  init() {
-    const box = $('#dust');
-    if (!box || REDUCED || innerWidth < 700) return;
-
-    const COUNT = 9;   /* kept sparse so the hero stays calm */
-    const rand = (min, max) => min + Math.random() * (max - min);
-    let html = '';
-
-    for (let i = 0; i < COUNT; i++) {
-      const dur = rand(16, 30);
-      html +=
-        `<i style="left:${rand(0, 100).toFixed(2)}%;top:${rand(50, 100).toFixed(2)}%;` +
-        `--o:${rand(.12, .32).toFixed(2)};` +
-        `width:${Math.random() < .22 ? 3 : 2}px;height:${Math.random() < .22 ? 3 : 2}px;` +
-        `animation-duration:${dur.toFixed(1)}s;animation-delay:${(-Math.random() * dur).toFixed(1)}s"></i>`;
-    }
-    box.innerHTML = html;
-  }
-};
-
-
-/* ══════════════════════════════════════════════════════════════════════
-   12. LIVE CLOCK  (local time in the contact card)
+   11. LIVE CLOCK  (local time in the footer)
    ══════════════════════════════════════════════════════════════════════ */
 const Clock = {
   init() {
@@ -743,7 +615,7 @@ const Clock = {
 
 
 /* ══════════════════════════════════════════════════════════════════════
-   13. INIT
+   12. INIT
    ══════════════════════════════════════════════════════════════════════ */
 function init() {
   Intro.init();
@@ -753,10 +625,8 @@ function init() {
   Cursor.init();
   Magnetic.init();
   Parallax.init();
-  Rails.init();
   Panel.init();
   Lightbox.init();
-  Dust.init();
   Clock.init();
 }
 

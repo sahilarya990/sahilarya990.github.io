@@ -8,37 +8,35 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 <meta name="theme-color" content="#08050f" />
 <style>
-  .nf{min-height:100svh;display:grid;align-content:center;gap:1.5rem;padding:7rem 0;position:relative}
-  .nf__code{
-    font-size:clamp(5rem,20vw,14rem);font-weight:200;letter-spacing:-.06em;line-height:.85;
-    background:linear-gradient(120deg,var(--acc-3),var(--acc) 55%,var(--indigo));
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  }
-  .nf h1{font-size:clamp(1.75rem,1.2rem + 2.6vw,3rem);max-width:18ch;letter-spacing:-.04em}
+  /* padding-block only — the inline gutter belongs to .wrap */
+  .nf{min-height:100svh;display:grid;align-content:center;gap:1.25rem;padding-block:7rem;position:relative}
+  .nf__code{font-size:clamp(3.5rem,10vw,7rem);font-weight:300;letter-spacing:-.05em;
+    line-height:.9;color:var(--text-3)}
+  .nf h1{font-size:var(--fs-sec);max-width:20ch}
   .nf p{color:var(--text-2);max-width:46ch}
-  .nf__act{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
-  .nf__rule{height:1px;background:var(--line);margin:.75rem 0}
+  .nf__act{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.25rem}
+  .nf__rule{height:1px;background:var(--line);margin:.5rem 0}
+  /* No burger on this page, so the CTA stays visible at every width */
+  .nav__end .nav__cta{display:inline-flex}
 </style>
 </head>
 <body>
 
 <div class="amb" aria-hidden="true">
-  <div class="amb__field"></div>
   <span class="orb orb--1"></span>
   <span class="orb orb--2"></span>
 </div>
 
 <header class="nav stuck">
   <div class="nav__in">
-    <a href="/" class="brand">
-      <span class="brand__name">SAHIL DAS</span>
-      <span class="brand__role">UI/UX Designer</span>
-    </a>
-    <p class="status"><i class="dot"></i> Available for opportunities</p>
+    <a href="/" class="brand">Sahil Das</a>
+    <div class="nav__end">
+      <a class="nav__cta" href="mailto:founder@helprevx.com">Let's talk <span aria-hidden="true">↗</span></a>
+    </div>
   </div>
 </header>
 
@@ -58,11 +56,7 @@
 
 <footer class="foot">
   <div class="wrap foot__in">
-    <div>
-      <p class="foot__name">SAHIL DAS</p>
-      <p class="foot__role">UI/UX Designer · Product Designer · Frontend Developer</p>
-    </div>
-    <p class="foot__tag">Designing experiences.<br />Building interfaces.</p>
+    <p class="foot__name">Sahil Das</p>
     <p class="foot__c">© 2026 Sahil Das</p>
   </div>
 </footer>
