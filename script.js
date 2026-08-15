@@ -829,9 +829,9 @@ const Beams = {
 
     const build = () => {
       tier = tierFor();
-      const n = tier === 'mobile' ? { tracks: 12, beams: 5, dots: 4 }
-              : tier === 'tablet' ? { tracks: 18, beams: 8, dots: 6 }
-              :                     { tracks: 26, beams: 12, dots: 8 };
+      const n = tier === 'mobile' ? { tracks: 18, beams: 9, dots: 6 }
+              : tier === 'tablet' ? { tracks: 28, beams: 15, dots: 8 }
+              :                     { tracks: 40, beams: 22, dots: 10 };
 
       /* Near-even spacing with jitter, so beams always ride a visible track */
       const xs = Array.from({ length: n.tracks }, (_, i) =>
@@ -846,7 +846,7 @@ const Beams = {
       xs.forEach((x, i) => {
         let cls = '', vars = `--x:${x.toFixed(2)}%`;
         if (!REDUCED && beamIdx.has(i)) {
-          cls += Math.random() < .5 ? ' b-up' : ' b-dn';
+          cls += ' b-up';   /* travels bottom → top only */
           vars += `;--c:${COLORS[i % COLORS.length]}`
                 + `;--bh:${rand(16, 32).toFixed(0)}vh`
                 + `;--d:${rand(7, 15).toFixed(1)}s`

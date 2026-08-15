@@ -414,8 +414,8 @@ body.cur-on .cur{opacity:1}
 /* — Beam tracks —
    Injected by JS into #heroBeams: one <i> per vertical track.
    The <i> itself is the resting line; ::before is a glowing streak that
-   travels along it (.b-up / .b-dn); ::after is a floating dot (.b-dot).
-   Custom props set inline per track:
+   travels up it (.b-up, bottom → top only); ::after is a floating dot
+   (.b-dot). Custom props set inline per track:
      --x  left position          --c    streak colour
      --bh streak length          --d    travel duration   --bdl delay
      --py dot resting height     --pd   dot duration      --pdl delay  */
@@ -423,33 +423,23 @@ body.cur-on .cur{opacity:1}
 .hero__beams i{
   position:absolute;top:0;bottom:0;left:var(--x,50%);width:1px;
   background:linear-gradient(180deg,
-    transparent, rgba(167,139,250,.05) 16%, rgba(167,139,250,.11) 52%,
-    rgba(167,139,250,.06) 84%, transparent);
+    transparent, rgba(167,139,250,.04) 16%, rgba(167,139,250,.09) 52%,
+    rgba(167,139,250,.05) 84%, transparent);
 }
 .hero__beams i::before{
-  content:"";position:absolute;top:0;left:-.5px;width:2px;
+  content:"";position:absolute;top:0;left:0;width:1px;
   height:var(--bh,26vh);border-radius:99px;opacity:0;
 }
-.b-dn::before{
-  background:linear-gradient(180deg, transparent, var(--c,rgba(168,85,247,.9)) 72%, #f5f3ff);
-  filter:drop-shadow(0 0 6px var(--c,rgba(168,85,247,.9)));
-  animation:beamDn var(--d,9s) linear var(--bdl,0s) infinite;
-}
 .b-up::before{
-  background:linear-gradient(0deg, transparent, var(--c,rgba(168,85,247,.9)) 72%, #f5f3ff);
-  filter:drop-shadow(0 0 6px var(--c,rgba(168,85,247,.9)));
+  background:linear-gradient(0deg,
+    transparent, var(--c,rgba(168,85,247,.85)) 68%, #fbf7ff 94%, #fff);
+  filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 -2px 5px var(--c,rgba(168,85,247,.85)));
   animation:beamUp var(--d,9s) linear var(--bdl,0s) infinite;
-}
-@keyframes beamDn{
-  0%  {transform:translateY(-100%);opacity:0}
-  8%  {opacity:1}
-  82% {opacity:1}
-  100%{transform:translateY(100vh);opacity:0}
 }
 @keyframes beamUp{
   0%  {transform:translateY(100vh);opacity:0}
-  8%  {opacity:1}
-  82% {opacity:1}
+  8%  {opacity:.55}
+  82% {opacity:.55}
   100%{transform:translateY(-100%);opacity:0}
 }
 /* Floating particle pinned to a track, drifting upward and back */
