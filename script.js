@@ -679,6 +679,42 @@ const Certs = {
     }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
 
     items.forEach((it) => spy.observe(it));
+
+    /* Continuous proximity fade — each item eases its opacity/lift toward
+       the viewport centre as you scroll, instead of snapping the moment
+       it crosses the IntersectionObserver band above. A lerp'd rAF loop
+       (rather than writing scroll position straight to style) is what
+       keeps fast/trackpad scrolling from feeling stepped. */
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const targets = items.map(() => 0);
+    const current = items.map(() => 0);
+    let queued = false;
+
+    const measure = () => {
+      const vh = innerHeight, mid = vh / 2;
+      items.forEach((it, i) => {
+        const r = it.getBoundingClientRect();
+        const dist = Math.abs((r.top + r.height / 2) - mid);
+        targets[i] = 1 - Math.min(dist / (vh * .65), 1);
+      });
+      queued = false;
+    };
+
+    const tick = () => {
+      items.forEach((it, i) => {
+        current[i] += (targets[i] - current[i]) * .12;
+        it.style.setProperty('--prox', current[i].toFixed(4));
+      });
+      requestAnimationFrame(tick);
+    };
+
+    const queueMeasure = () => { if (!queued) { queued = true; requestAnimationFrame(measure); } };
+
+    addEventListener('scroll', queueMeasure, { passive: true });
+    addEventListener('resize', queueMeasure, { passive: true });
+    measure();
+    requestAnimationFrame(tick);
   }
 };
 

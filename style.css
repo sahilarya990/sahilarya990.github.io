@@ -757,21 +757,6 @@ body.cur-on .cur{opacity:1}
   font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;
 }
 
-.rec{margin-top:clamp(3rem,6vw,5rem)}
-.rec__k{
-  font-size:var(--fs-meta);font-weight:600;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--text-3);margin-bottom:1.25rem;
-}
-.rec__l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(2rem,5vw,4.5rem)}
-.rec__l li{border-top:1px solid var(--line-2)}
-.rec__l li > span,.rec__open{
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;
-  padding:.95rem 0;font-size:.95rem;color:var(--text-2);text-align:left;
-}
-.rec__open{transition:color var(--t-s)}
-.rec__open em{font-style:normal;font-size:var(--fs-meta);color:var(--acc-3);white-space:nowrap}
-.rec__open:hover{color:var(--text)}
-
 /* ══ 12b. CERTIFICATIONS ═════════════════════════════════════════════
    Left column scrolls; the right frame is a sticky, glassmorphic stage.
    JS/Certs (script.js) tracks which .certs__item sits at the viewport
@@ -786,7 +771,10 @@ body.cur-on .cur{opacity:1}
 .certs__list{display:flex;flex-direction:column}
 .certs__item{
   padding:clamp(2.25rem,4vw,3rem) 0;border-top:1px solid var(--line);
-  opacity:.4;transition:opacity .6s var(--e);
+  --prox:0;
+  opacity:calc(.4 + var(--prox) * .6);
+  transform:translateY(calc((1 - var(--prox)) * 14px));
+  will-change:opacity,transform;
 }
 .certs__item:last-child{border-bottom:1px solid var(--line)}
 .certs__item.is-on{opacity:1}
@@ -1009,7 +997,7 @@ body.cur-on .cur{opacity:1}
      image directly beneath it instead of sharing the (now hidden) frame */
   .certs__grid{grid-template-columns:minmax(0,1fr)}
   .certs__stage{display:none}
-  .certs__item{opacity:1}
+  .certs__item{opacity:1;transform:none}
   .certs__shot{
     display:block;margin-top:1.5rem;border-radius:var(--r-s);overflow:hidden;
     border:1px solid var(--line);aspect-ratio:1200/850;
@@ -1025,7 +1013,6 @@ body.cur-on .cur{opacity:1}
 }
 
 @media (max-width:760px){
-  .rec__l{grid-template-columns:minmax(0,1fr)}
   .foot__in{flex-direction:column;align-items:flex-start;gap:.75rem}
 }
 
