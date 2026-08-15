@@ -372,7 +372,7 @@ body.cur-on .cur{opacity:1}
    Paint order (DOM order): grid → glows → ground → beams.
    The glows are soft radial fields (violet / indigo / magenta); the grid
    and beams give the light something to travel along. */
-.hero__light{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.hero__light{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;--lo:.85}
 
 /* Faint vertical grid across the whole stage, fading out at the edges */
 .hero__grid{
