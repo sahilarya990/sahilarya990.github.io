@@ -118,7 +118,6 @@
     <span class="hero__glow hero__glow--c"></span>
     <span class="hero__ground"></span>
     <div class="hero__beams" id="heroBeams"></div>
-    <span class="hero__horizon"></span>
   </div>
 
   <div class="wrap hero__in">
@@ -412,14 +411,28 @@
       <ul class="rec__l">
         <li>
           <button type="button" class="rec__open" data-cursor="btn"
-                  data-lightbox="assets/certificates/helprevx-certificate.svg"
+                  data-lightbox="assets/certificates/helprevx-certificate.jpg"
                   data-lightbox-alt="HelpRevX internship completion certificate">
             <span>Internship Completion — HelpRevX</span>
             <em>View certificate</em>
           </button>
         </li>
-        <li><span>UI/UX Internship — 1stop.ai</span></li>
-        <li><span>ASME EFx India 2026 — Human-Powered Vehicle</span></li>
+        <li>
+          <button type="button" class="rec__open" data-cursor="btn"
+                  data-lightbox="assets/certificates/1stop-certificate.jpg"
+                  data-lightbox-alt="1stop UI-UX internship program certificate">
+            <span>UI-UX Internship Program — 1stop</span>
+            <em>View certificate</em>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="rec__open" data-cursor="btn"
+                  data-lightbox="assets/certificates/design-prototype-certificate.jpg"
+                  data-lightbox-alt="Design, Prototyping and Advance Manufacturing certificate of participation">
+            <span>Design, Prototyping &amp; Advance Manufacturing — NIT Rourkela</span>
+            <em>View certificate</em>
+          </button>
+        </li>
         <li><span>Discover Yourself — Personality Development</span></li>
       </ul>
     </div>
@@ -427,12 +440,103 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     05 · CONTACT
+     05 · CERTIFICATIONS
+     ----------------------------------------------------------------
+     Two-column sticky-scroll: the right frame stays pinned while the
+     left list scrolls; JS/Certs (script.js) tracks which item sits at
+     the viewport centre and swaps the active text + framed image.
+     To add or replace a certificate: edit one <li class="certs__item">
+     below (title, description, meta, lightbox path) and its matching
+     <img class="certs__img" data-cert="n"> in the sticky frame — the
+     data-cert values on both sides must match.
+     ══════════════════════════════════════════════════════════════ -->
+<section class="sec certs" id="certifications" aria-labelledby="certsTitle">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="eyebrow reveal"><span>05</span> Certifications</p>
+      <h2 class="sec__title reveal" id="certsTitle" data-delay="60">
+        Programmes I've completed and been recognised for.
+      </h2>
+    </header>
+
+    <div class="certs__grid">
+      <ol class="certs__list" id="certsList">
+
+        <li class="certs__item is-on" data-cert="1">
+          <span class="certs__ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4.5"/><path d="M9 12.6 7.2 21l4.8-2.7L16.8 21l-1.8-8.4"/></svg>
+          </span>
+          <h3 class="certs__t">UI/UX Developer — HelpRevX</h3>
+          <p class="certs__d">Successfully completed a two-month internship as a UI/UX Developer, demonstrating professionalism, a strong ability to learn quickly, and making valuable contributions to the organisation's design goals.</p>
+          <p class="certs__meta">HelpRevX · May 20 – Jul 20, 2026</p>
+          <button type="button" class="certs__view" data-cursor="btn"
+                  data-lightbox="assets/certificates/helprevx-certificate.jpg"
+                  data-lightbox-alt="HelpRevX internship completion certificate">
+            View certificate
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <figure class="certs__shot">
+            <img src="assets/certificates/helprevx-certificate.jpg" alt="HelpRevX internship completion certificate" loading="lazy" />
+          </figure>
+        </li>
+
+        <li class="certs__item" data-cert="2">
+          <span class="certs__ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 6.9 3.9 11.4v6.2l8.1 4.9 8.1-4.9v-6.2L12 6.9Z"/><path d="M3.9 11.4 12 16.3l8.1-4.9"/><path d="M12 16.3v5.1"/></svg>
+          </span>
+          <h3 class="certs__t">Design, Prototyping &amp; Advance Manufacturing</h3>
+          <p class="certs__d">Participated in a specialised short-term course to strengthen core industrial design capabilities, with a focus on practical design prototyping and advanced physical manufacturing techniques.</p>
+          <p class="certs__meta">Dept. of Industrial Design, NIT Rourkela · May 25 &amp; 29, 2026</p>
+          <button type="button" class="certs__view" data-cursor="btn"
+                  data-lightbox="assets/certificates/design-prototype-certificate.jpg"
+                  data-lightbox-alt="Design, Prototyping and Advance Manufacturing certificate of participation">
+            View certificate
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <figure class="certs__shot">
+            <img src="assets/certificates/design-prototype-certificate.jpg" alt="Design, Prototyping and Advance Manufacturing certificate of participation" loading="lazy" />
+          </figure>
+        </li>
+
+        <li class="certs__item" data-cert="3">
+          <span class="certs__ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M4.5 12 12 16l7.5-4"/></svg>
+          </span>
+          <h3 class="certs__t">UI-UX Internship Program — 1stop</h3>
+          <p class="certs__d">Successfully completed a four-month internship program in UI-UX. Recognised by the academic head and director for being dedicated, hardworking, and diligent throughout the duration of the program.</p>
+          <p class="certs__meta">1stop · Dec 1, 2025 – Apr 1, 2026</p>
+          <button type="button" class="certs__view" data-cursor="btn"
+                  data-lightbox="assets/certificates/1stop-certificate.jpg"
+                  data-lightbox-alt="1stop UI-UX internship program certificate">
+            View certificate
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <figure class="certs__shot">
+            <img src="assets/certificates/1stop-certificate.jpg" alt="1stop UI-UX internship program certificate" loading="lazy" />
+          </figure>
+        </li>
+
+      </ol>
+
+      <div class="certs__stage" aria-hidden="true">
+        <div class="certs__frame">
+          <img class="certs__img is-on" data-cert="1" src="assets/certificates/helprevx-certificate.jpg" alt="" />
+          <img class="certs__img" data-cert="2" src="assets/certificates/design-prototype-certificate.jpg" alt="" />
+          <img class="certs__img" data-cert="3" src="assets/certificates/1stop-certificate.jpg" alt="" />
+          <p class="certs__idx"><span id="certsIdx">01</span> / 03</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     06 · CONTACT
      ══════════════════════════════════════════════════════════════ -->
 <section class="contact" id="contact" aria-labelledby="contactTitle">
   <div class="contact__bg" aria-hidden="true"></div>
   <div class="wrap contact__in">
-    <p class="eyebrow reveal"><span>05</span> Contact</p>
+    <p class="eyebrow reveal"><span>06</span> Contact</p>
     <h2 class="contact__t reveal" id="contactTitle" data-delay="60">Have an idea worth designing?</h2>
     <p class="contact__s reveal" data-delay="120">Let's turn it into something people enjoy using.</p>
 

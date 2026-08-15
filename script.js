@@ -8,7 +8,8 @@
    05  Nav (auto-hide, mobile menu, scroll spy) + chrome
    06  Scroll reveal
    07  Hero light
-   08  Parallax (+ 08b work stage, 08c timeline, 08d about words)
+   08  Parallax (+ 08b work stage, 08c timeline, 08d about words,
+       08e certifications scroll-spy)
    09  Case study panel
    10  Lightbox (+ 10b ambient dust, 10c hero beams)
    11  Live clock
@@ -650,6 +651,39 @@ const AboutWords = {
 
 
 /* ══════════════════════════════════════════════════════════════════════
+   08e. CERTIFICATIONS  —  sticky-scroll: whichever item sits at the
+   viewport centre lights up on the left and swaps the image on the
+   right. Item 1 is marked active in the HTML so there's no flash before
+   JS runs; IntersectionObserver takes over from the first scroll.
+   ══════════════════════════════════════════════════════════════════════ */
+const Certs = {
+  init() {
+    const list = $('#certsList');
+    const stage = $('.certs__stage');
+    if (!list || !stage) return;
+    const items = $$('.certs__item', list);
+    const images = $$('.certs__img', stage);
+    const idx = $('#certsIdx');
+    if (!items.length || !('IntersectionObserver' in window)) return;
+
+    const setActive = (n) => {
+      items.forEach((it) => it.classList.toggle('is-on', it.dataset.cert === n));
+      images.forEach((im) => im.classList.toggle('is-on', im.dataset.cert === n));
+      if (idx) idx.textContent = n.padStart(2, '0');
+    };
+
+    /* A thin band at the exact viewport centre — only the item currently
+       crossing it fires isIntersecting */
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) setActive(en.target.dataset.cert); });
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+    items.forEach((it) => spy.observe(it));
+  }
+};
+
+
+/* ══════════════════════════════════════════════════════════════════════
    09. CASE STUDY PANEL  —  progressive disclosure: the detail lives here
    ══════════════════════════════════════════════════════════════════════ */
 const Panel = {
@@ -912,6 +946,7 @@ function init() {
   Workstage.init();
   Timeline.init();
   AboutWords.init();
+  Certs.init();
   Panel.init();
   Lightbox.init();
   Dust.init();

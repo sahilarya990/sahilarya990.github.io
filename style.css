@@ -6,10 +6,11 @@
    02  Reset & base            10  About
    03  Primitives              11  Skills
    04  Atmosphere              12  Experience & recognition
-   05  Intro / cursor / chrome 13  Contact / footer
-   06  Nav                     14  Overlays
-   07  Hero                    15  Responsive
-   08  Section furniture       16  Reduced motion
+   05  Intro / cursor / chrome 12b Certifications
+   06  Nav                     13  Contact / footer
+   07  Hero                    14  Overlays
+   08  Section furniture       15  Responsive
+                                16  Reduced motion
    ========================================================================== */
 
 /* ══ 01. TOKENS ══════════════════════════════════════════════════════ */
@@ -368,7 +369,7 @@ body.cur-on .cur{opacity:1}
 }
 
 /* — Atmospheric light —
-   Paint order (DOM order): grid → glows → ground → beams → horizon.
+   Paint order (DOM order): grid → glows → ground → beams.
    The glows are soft radial fields (violet / indigo / magenta); the grid
    and beams give the light something to travel along. */
 .hero__light{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
@@ -454,19 +455,6 @@ body.cur-on .cur{opacity:1}
   50%    {transform:translateY(-7vh);opacity:.85}
 }
 
-/* Glowing horizontal accent crossing behind the headline */
-.hero__horizon{
-  position:absolute;left:50%;top:56%;translate:-50% 0;display:block;
-  width:min(88%,1200px);height:1px;--lo:.6;
-  background:linear-gradient(90deg, transparent,
-    rgba(168,85,247,.55) 30%, rgba(233,213,255,.95) 50%,
-    rgba(217,70,239,.55) 70%, transparent);
-  background-size:200% 100%;
-  box-shadow:0 0 18px rgba(168,85,247,.4);
-  opacity:0;
-  animation:lightIn 2.6s var(--e) 1.1s forwards, horizonSweep 11s ease-in-out 3s infinite;
-}
-@keyframes horizonSweep{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
 
 /* — Badge with a light travelling around its border —
    ::before is an oversized conic gradient (faint ring + one bright head with a
@@ -784,6 +772,89 @@ body.cur-on .cur{opacity:1}
 .rec__open em{font-style:normal;font-size:var(--fs-meta);color:var(--acc-3);white-space:nowrap}
 .rec__open:hover{color:var(--text)}
 
+/* ══ 12b. CERTIFICATIONS ═════════════════════════════════════════════
+   Left column scrolls; the right frame is a sticky, glassmorphic stage.
+   JS/Certs (script.js) tracks which .certs__item sits at the viewport
+   centre and toggles .is-on on it and on the matching .certs__img —
+   everything else here is the resulting visual state, not the logic.
+   ════════════════════════════════════════════════════════════════════ */
+.certs__grid{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(2.5rem,5vw,5rem);align-items:start;
+}
+
+.certs__list{display:flex;flex-direction:column}
+.certs__item{
+  padding:clamp(2.25rem,4vw,3rem) 0;border-top:1px solid var(--line);
+  opacity:.4;transition:opacity .6s var(--e);
+}
+.certs__item:last-child{border-bottom:1px solid var(--line)}
+.certs__item.is-on{opacity:1}
+
+.certs__ic{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:12px;margin-bottom:1.1rem;
+  background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.22);color:var(--acc-3);
+  box-shadow:0 0 0 rgba(139,92,246,0);
+  transition:box-shadow .6s var(--e),border-color .6s var(--e),background .6s var(--e);
+}
+.certs__ic svg{width:20px;height:20px}
+.certs__item.is-on .certs__ic{
+  background:rgba(139,92,246,.16);border-color:rgba(196,181,253,.55);
+  box-shadow:0 0 24px -4px rgba(139,92,246,.6);
+}
+
+.certs__t{
+  font-size:clamp(1.2rem,1.02rem + .5vw,1.5rem);font-weight:600;letter-spacing:-.015em;
+  color:var(--text-2);transition:color .6s var(--e),text-shadow .6s var(--e);
+}
+.certs__item.is-on .certs__t{color:var(--text);text-shadow:0 0 24px rgba(168,85,247,.4)}
+
+.certs__d{margin-top:.65rem;max-width:46ch;color:var(--text-2);font-size:.95rem;line-height:1.65}
+.certs__meta{
+  margin-top:.9rem;font-size:var(--fs-meta);font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--text-3);
+}
+
+.certs__view{
+  display:inline-flex;align-items:center;gap:.45rem;margin-top:1.25rem;
+  font-size:.85rem;font-weight:600;color:var(--acc-3);
+  transition:gap .35s var(--e),color .35s var(--e);
+}
+.certs__view svg{width:14px;height:14px;transition:transform .35s var(--e)}
+.certs__view:hover{gap:.7rem;color:var(--text)}
+.certs__view:hover svg{transform:translateX(3px)}
+
+/* Per-item image — hidden on desktop (the sticky stage carries it),
+   shown stacked directly under the text once the layout collapses */
+.certs__shot{display:none}
+
+/* Sticky visual stage */
+.certs__stage{position:sticky;top:calc(var(--nav-h) + 2rem);align-self:start}
+.certs__frame{
+  position:relative;aspect-ratio:1200/850;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(18px);
+  box-shadow:var(--shadow),0 0 60px -20px rgba(124,58,237,.35);
+}
+.certs__frame::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 90% 70% at 50% 0%, rgba(124,58,237,.16), transparent 60%);
+}
+.certs__img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transform:scale(1.035);
+  transition:opacity 1s var(--e),transform 1.1s var(--e);
+}
+.certs__img.is-on{opacity:1;transform:scale(1)}
+
+.certs__idx{
+  position:absolute;left:1.25rem;bottom:1.25rem;z-index:2;
+  display:flex;align-items:baseline;gap:.25rem;
+  font-size:.72rem;font-weight:600;letter-spacing:.08em;color:rgba(233,228,247,.55);
+  font-variant-numeric:tabular-nums;
+}
+#certsIdx{color:var(--acc-3);font-size:.85rem}
+
 /* ══ 13. CONTACT / FOOTER ════════════════════════════════════════════ */
 .contact{position:relative;overflow:hidden;padding:clamp(6rem,12vw,11rem) 0}
 .contact__bg{
@@ -934,6 +1005,17 @@ body.cur-on .cur{opacity:1}
   .exp__i{grid-template-columns:minmax(0,1fr) auto;gap:.75rem 1.5rem}
   .exp__txt{grid-column:1 / -1;max-width:60ch}
 
+  /* Certifications — sticky effect disabled; each item carries its own
+     image directly beneath it instead of sharing the (now hidden) frame */
+  .certs__grid{grid-template-columns:minmax(0,1fr)}
+  .certs__stage{display:none}
+  .certs__item{opacity:1}
+  .certs__shot{
+    display:block;margin-top:1.5rem;border-radius:var(--r-s);overflow:hidden;
+    border:1px solid var(--line);aspect-ratio:1200/850;
+  }
+  .certs__shot img{width:100%;height:100%;object-fit:cover;display:block}
+
   .cur{display:none}
   body.cur-on{cursor:auto}
 
@@ -964,7 +1046,6 @@ body.cur-on .cur{opacity:1}
   .hero__glow--c{--lo:.75;width:130%}
   .hero__grid{background-size:38px 100%}
   .hero__ground{width:130%;height:30vh}
-  .hero__horizon{width:94%}
 
   .sec__title{font-size:clamp(1.85rem,7.6vw,2.35rem)}
   .slide__t{font-size:clamp(1.6rem,7vw,2rem)}
