@@ -44,18 +44,6 @@
 <body>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     VORTEX — a persistent ambient system, fixed to the viewport and
-     independent of scroll. Tools I work with orbit and are drawn into
-     the centre, on a continuous asynchronous cycle. Purely decorative
-     (aria-hidden, pointer-events:none) and paints behind everything,
-     including the atmosphere below it.
-     ══════════════════════════════════════════════════════════════ -->
-<div class="vortex" id="vortex" aria-hidden="true">
-  <canvas id="vortexCv"></canvas>
-  <span class="vortex__mark">SD</span>
-</div>
-
-<!-- ══════════════════════════════════════════════════════════════════
      AMBIENT ATMOSPHERE — cinematic gradients, drifting light, dust
      ══════════════════════════════════════════════════════════════ -->
 <div class="amb" aria-hidden="true">
@@ -120,11 +108,17 @@
      ══════════════════════════════════════════════════════════════ -->
 <section class="hero" aria-labelledby="heroTitle">
 
-  <!-- Atmospheric light behind the headline -->
+  <!-- Atmospheric light behind the headline — grid, beams, glows.
+       Beam tracks are injected into #heroBeams by JS; everything here is
+       decorative (aria-hidden) and paints under the content layer. -->
   <div class="hero__light" id="heroLight" aria-hidden="true">
-    <span class="hero__light-a"></span>
-    <span class="hero__light-b"></span>
-    <span class="hero__mesh"></span>
+    <span class="hero__grid"></span>
+    <span class="hero__glow hero__glow--a"></span>
+    <span class="hero__glow hero__glow--b"></span>
+    <span class="hero__glow hero__glow--c"></span>
+    <span class="hero__ground"></span>
+    <div class="hero__beams" id="heroBeams"></div>
+    <span class="hero__horizon"></span>
   </div>
 
   <div class="wrap hero__in">

@@ -5,7 +5,7 @@
    01  Tokens                  09  Work
    02  Reset & base            10  About
    03  Primitives              11  Skills
-   04  Vortex + atmosphere     12  Experience & recognition
+   04  Atmosphere              12  Experience & recognition
    05  Intro / cursor / chrome 13  Contact / footer
    06  Nav                     14  Overlays
    07  Hero                    15  Responsive
@@ -197,34 +197,10 @@ html{scrollbar-color:#3b1f6b var(--bg);scrollbar-width:thin}
 .js .ready .ln > span{transform:none}
 .js .ready .ln:nth-child(2) > span{transition-delay:.09s}
 
-/* ══ 04. VORTEX + ATMOSPHERE ═════════════════════════════════════════
-   The vortex is a persistent, fixed ambient layer — a living background
-   independent of scroll and of the section it happens to sit behind.
-   It never moves with content and never restarts between sections.
+/* ══ 04. ATMOSPHERE ══════════════════════════════════════════════════
+   A fixed ambient layer — gradients, drifting orbs and dust that live
+   behind every section. No fill of its own; body already carries --bg.
    ════════════════════════════════════════════════════════════════════ */
-.vortex{
-  position:fixed;z-index:-1;pointer-events:none;
-  top:46%;left:50%;translate:-50% -50%;
-  width:clamp(280px,32vw,540px);aspect-ratio:1/1;
-}
-/* Plain alpha blending, not screen — predictable brightness that never
-   washes out the headline behind it (screen blend brightens unevenly and
-   fought with the hero text in testing) */
-.vortex canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-/* Deliberately faint — this sits fixed behind whatever section is on
-   screen, so it must never outshine the text it happens to land on */
-.vortex__mark{
-  position:absolute;top:50%;left:50%;translate:-50% -50%;
-  font-size:clamp(.7rem,1.05vw,.9rem);font-weight:700;letter-spacing:.16em;
-  color:var(--text);opacity:.5;
-  text-shadow:0 0 8px rgba(192,132,252,.35),0 0 18px rgba(139,92,246,.18);
-  animation:vortexMark 6.5s ease-in-out infinite;
-}
-@keyframes vortexMark{50%{opacity:.3}}
-
-/* No fill of its own — body already carries --bg. Left transparent so the
-   vortex layer beneath (same z-index, earlier in DOM so it paints first)
-   shows through. */
 .amb{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
 
 /* Slow cinematic gradient field */
@@ -391,31 +367,116 @@ body.cur-on .cur{opacity:1}
   display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;
 }
 
-/* — Atmospheric light — */
+/* — Atmospheric light —
+   Paint order (DOM order): grid → glows → ground → beams → horizon.
+   The glows are soft radial fields (violet / indigo / magenta); the grid
+   and beams give the light something to travel along. */
 .hero__light{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.hero__light span{position:absolute;left:50%;translate:-50% 0;display:block;border-radius:50%}
-.hero__light-a{
-  top:40%;width:min(130%,1180px);height:min(72vh,660px);
-  background:radial-gradient(circle at 50% 50%, rgba(139,92,246,.30), transparent 62%);
-  filter:blur(50px);opacity:0;animation:lightIn 2.4s var(--e) .35s forwards;
+
+/* Faint vertical grid across the whole stage, fading out at the edges */
+.hero__grid{
+  position:absolute;inset:0;display:block;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:54px 100%;background-position:50% 0;
+  mask-image:radial-gradient(ellipse 78% 90% at 50% 58%,#000 32%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 78% 90% at 50% 58%,#000 32%,transparent 80%);
 }
-.hero__light-b{
-  top:26%;width:min(150%,1500px);height:min(88vh,840px);
-  background:radial-gradient(circle at 50% 50%, rgba(99,102,241,.15), transparent 68%);
-  filter:blur(74px);opacity:0;animation:lightIn 2.8s var(--e) .5s forwards, breathe 16s ease-in-out 3s infinite;
+
+/* Ambient colour fields */
+.hero__glow{position:absolute;left:50%;translate:-50% 0;display:block;border-radius:50%}
+.hero__glow--a{   /* violet core */
+  top:34%;width:min(120%,1150px);height:min(70vh,640px);
+  background:radial-gradient(circle at 50% 50%, rgba(124,58,237,.24), transparent 62%);
+  filter:blur(52px);opacity:0;animation:lightIn 2.4s var(--e) .35s forwards;
+}
+.hero__glow--b{   /* deep indigo wash */
+  top:18%;width:min(150%,1500px);height:min(90vh,860px);
+  background:radial-gradient(circle at 50% 50%, rgba(99,102,241,.12), transparent 68%);
+  filter:blur(76px);opacity:0;animation:lightIn 2.8s var(--e) .5s forwards, breathe 16s ease-in-out 3s infinite;
+}
+.hero__glow--c{   /* magenta undertone */
+  top:52%;width:min(92%,880px);height:min(56vh,520px);
+  background:radial-gradient(circle at 50% 50%, rgba(217,70,239,.13), transparent 60%);
+  filter:blur(64px);opacity:0;animation:lightIn 3s var(--e) .7s forwards, breathe 21s ease-in-out 4s infinite reverse;
 }
 @keyframes lightIn{to{opacity:var(--lo,1)}}
 @keyframes breathe{50%{transform:scale(1.07)}}
 
-/* Whisper-quiet grid at the foot of the hero */
-.hero__mesh{
-  top:auto !important;bottom:0;width:min(100%,1500px);height:58%;border-radius:0 !important;
-  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-  background-size:64px 64px;
-  mask-image:radial-gradient(ellipse 62% 78% at 50% 92%,#000 5%,transparent 72%);
-  -webkit-mask-image:radial-gradient(ellipse 62% 78% at 50% 92%,#000 5%,transparent 72%);
+/* Bright source at the foot of the hero — where the beams converge */
+.hero__ground{
+  position:absolute;left:50%;translate:-50% 0;display:block;
+  bottom:-14vh;width:min(84%,940px);height:36vh;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 60%,
+    rgba(192,132,252,.30), rgba(124,58,237,.14) 42%, transparent 70%);
+  filter:blur(28px);opacity:0;animation:lightIn 2.6s var(--e) .9s forwards;
 }
+
+/* — Beam tracks —
+   Injected by JS into #heroBeams: one <i> per vertical track.
+   The <i> itself is the resting line; ::before is a glowing streak that
+   travels along it (.b-up / .b-dn); ::after is a floating dot (.b-dot).
+   Custom props set inline per track:
+     --x  left position          --c    streak colour
+     --bh streak length          --d    travel duration   --bdl delay
+     --py dot resting height     --pd   dot duration      --pdl delay  */
+.hero__beams{position:absolute;inset:0}
+.hero__beams i{
+  position:absolute;top:0;bottom:0;left:var(--x,50%);width:1px;
+  background:linear-gradient(180deg,
+    transparent, rgba(167,139,250,.05) 16%, rgba(167,139,250,.11) 52%,
+    rgba(167,139,250,.06) 84%, transparent);
+}
+.hero__beams i::before{
+  content:"";position:absolute;top:0;left:-.5px;width:2px;
+  height:var(--bh,26vh);border-radius:99px;opacity:0;
+}
+.b-dn::before{
+  background:linear-gradient(180deg, transparent, var(--c,rgba(168,85,247,.9)) 72%, #f5f3ff);
+  filter:drop-shadow(0 0 6px var(--c,rgba(168,85,247,.9)));
+  animation:beamDn var(--d,9s) linear var(--bdl,0s) infinite;
+}
+.b-up::before{
+  background:linear-gradient(0deg, transparent, var(--c,rgba(168,85,247,.9)) 72%, #f5f3ff);
+  filter:drop-shadow(0 0 6px var(--c,rgba(168,85,247,.9)));
+  animation:beamUp var(--d,9s) linear var(--bdl,0s) infinite;
+}
+@keyframes beamDn{
+  0%  {transform:translateY(-100%);opacity:0}
+  8%  {opacity:1}
+  82% {opacity:1}
+  100%{transform:translateY(100vh);opacity:0}
+}
+@keyframes beamUp{
+  0%  {transform:translateY(100vh);opacity:0}
+  8%  {opacity:1}
+  82% {opacity:1}
+  100%{transform:translateY(-100%);opacity:0}
+}
+/* Floating particle pinned to a track, drifting upward and back */
+.b-dot::after{
+  content:"";position:absolute;left:50%;top:var(--py,50%);
+  translate:-50% -50%;width:3px;height:3px;border-radius:50%;
+  background:#e9d5ff;box-shadow:0 0 8px 2px rgba(192,132,252,.65);
+  opacity:.5;animation:dotFloat var(--pd,14s) ease-in-out var(--pdl,0s) infinite;
+}
+@keyframes dotFloat{
+  0%,100%{transform:translateY(0);opacity:.2}
+  50%    {transform:translateY(-7vh);opacity:.85}
+}
+
+/* Glowing horizontal accent crossing behind the headline */
+.hero__horizon{
+  position:absolute;left:50%;top:56%;translate:-50% 0;display:block;
+  width:min(88%,1200px);height:1px;--lo:.6;
+  background:linear-gradient(90deg, transparent,
+    rgba(168,85,247,.55) 30%, rgba(233,213,255,.95) 50%,
+    rgba(217,70,239,.55) 70%, transparent);
+  background-size:200% 100%;
+  box-shadow:0 0 18px rgba(168,85,247,.4);
+  opacity:0;
+  animation:lightIn 2.6s var(--e) 1.1s forwards, horizonSweep 11s ease-in-out 3s infinite;
+}
+@keyframes horizonSweep{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
 
 /* — Badge with a light travelling around its border —
    ::before is an oversized conic gradient (faint ring + one bright head with a
@@ -865,12 +926,9 @@ body.cur-on .cur{opacity:1}
 
   /* Hero — same centred composition, tighter rhythm */
   .hero{padding-top:calc(var(--nav-h) + 2.5rem)}
-  .hero__light-a{filter:blur(42px);--lo:.85}
-  .hero__light-b{width:min(160%,1100px)}
-
-  /* Vortex — smaller stage; JS reads the same breakpoint to thin out
-     particle/icon counts and orbit radius to match */
-  .vortex{width:clamp(200px,40vw,360px)}
+  .hero__glow--a{filter:blur(42px);--lo:.85}
+  .hero__glow--b{width:min(160%,1100px)}
+  .hero__grid{background-size:46px 100%}
 
   /* Work falls back to a stacked flow — visual first, copy after */
   .slide{grid-template-columns:minmax(0,1fr);gap:clamp(1.5rem,3.5vw,2.25rem)}
@@ -911,13 +969,12 @@ body.cur-on .cur{opacity:1}
   .hero__cta{flex-direction:column;align-items:stretch;width:100%;max-width:320px}
   .hero__cta .btn{width:100%}
   /* Softer light on small screens */
-  .hero__light-a{filter:blur(36px);--lo:.62;width:155%;height:50vh;top:38%}
-  .hero__light-b{--lo:.7;width:175%}
-  .hero__mesh{height:46%;background-size:48px 48px}
-
-  /* Vortex — a small, simplified badge rather than the desktop cyclone */
-  .vortex{width:clamp(140px,46vw,200px);top:30%;opacity:.7}
-  .vortex__mark{font-size:.66rem}
+  .hero__glow--a{filter:blur(36px);--lo:.62;width:155%;height:50vh;top:38%}
+  .hero__glow--b{--lo:.7;width:175%}
+  .hero__glow--c{--lo:.75;width:130%}
+  .hero__grid{background-size:38px 100%}
+  .hero__ground{width:130%;height:30vh}
+  .hero__horizon{width:94%}
 
   .sec__title{font-size:clamp(1.85rem,7.6vw,2.35rem)}
   .slide__t{font-size:clamp(1.6rem,7vw,2rem)}
@@ -967,6 +1024,8 @@ body.cur-on .cur{opacity:1}
   .js .exp__i{opacity:1}
   .about__statement--live .w{opacity:1}
   .exp::after{display:none}
-  /* Vortex — JS paints one static frame instead of looping; stop the pulse too */
-  .vortex__mark{animation:none}
+  /* Beams — no travelling streaks; the resting tracks and glows stay.
+     The lightIn animations still complete (forwards), so nothing vanishes. */
+  .hero__beams i::before{display:none}
+  .b-dot::after{animation:none;opacity:.5}
 }
