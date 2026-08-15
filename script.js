@@ -50,7 +50,7 @@ const CASE_STUDIES = {
       'Responsive layouts',
       'Frontend implementation'
     ],
-    gallery: []
+    gallery: ['images/vidyapeeth-hero.png']
   },
 
   'helprevx': {
@@ -74,7 +74,7 @@ const CASE_STUDIES = {
     design: 'The system is built to be applied, not admired: every token has a stated role, and the guidelines show correct and incorrect usage side by side so the identity survives contact with real work.',
     outcome: 'Delivered as the HelpRevX brand identity and Brand Kit, used across the company\'s digital product experience.',
     contribution: ['Logo design', 'Colour system', 'Typography', 'Iconography', 'Brand guidelines'],
-    gallery: ['images/helprevx-design-system.png']
+    gallery: ['images/helprevx-design-system.png', 'images/helprevx-brand.png']
   },
 
   'healthpulse': {
@@ -142,7 +142,7 @@ const CASE_STUDIES = {
     design: 'Category-led browsing, a persistent cart, and product cards that stay readable at small sizes.',
     outcome: 'Completed as one of three training projects in the 1stop.ai UI/UX internship.',
     contribution: ['User flows', 'Wireframes', 'Mobile UI design'],
-    gallery: []
+    gallery: ['images/grossery-app-screens.jpg']
   },
 
   'edtech': {
