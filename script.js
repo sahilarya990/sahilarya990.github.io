@@ -29,7 +29,7 @@ const CASE_STUDIES = {
     title: 'Vidyapeeth360',
     sub: 'Institution Management Platform',
     tags: ['UI/UX', 'SaaS', 'Web'],
-    cover: 'images/vidyapeeth-landingpage.jpg',
+    cover: 'images/vidyapeeth-hero.png',
     role: 'UI/UX Designer + Frontend',
     tools: 'Figma · HTML · CSS · JavaScript',
     timeline: 'HelpRevX internship, 2026',
@@ -50,7 +50,7 @@ const CASE_STUDIES = {
       'Responsive layouts',
       'Frontend implementation'
     ],
-    gallery: ['images/vidyapeeth-hero.png']
+    gallery: []
   },
 
   'helprevx': {
@@ -58,7 +58,7 @@ const CASE_STUDIES = {
     title: 'HelpRevX',
     sub: 'Brand Identity System',
     tags: ['Branding', 'Product Design'],
-    cover: 'images/HelpRevX-logo.jpg',
+    cover: 'images/helprevx-brand.png',
     role: 'Brand & Visual Design',
     tools: 'Figma · Illustrator',
     timeline: 'HelpRevX internship, 2026',
@@ -74,7 +74,7 @@ const CASE_STUDIES = {
     design: 'The system is built to be applied, not admired: every token has a stated role, and the guidelines show correct and incorrect usage side by side so the identity survives contact with real work.',
     outcome: 'Delivered as the HelpRevX brand identity and Brand Kit, used across the company\'s digital product experience.',
     contribution: ['Logo design', 'Colour system', 'Typography', 'Iconography', 'Brand guidelines'],
-    gallery: ['images/helprevx-design-system.png', 'images/helprevx-brand.png']
+    gallery: ['images/helprevx-design-system.png']
   },
 
   'healthpulse': {
@@ -128,7 +128,7 @@ const CASE_STUDIES = {
     title: 'Grocery Delivery App',
     sub: 'Mobile UI',
     tags: ['Mobile App', 'UI/UX'],
-    cover: 'images/grocery-app.png.avif',
+    cover: 'images/grossery-app-screens.jpg',
     role: 'UI/UX Design',
     tools: 'Figma',
     timeline: 'Training project · 1stop.ai internship',
@@ -142,7 +142,7 @@ const CASE_STUDIES = {
     design: 'Category-led browsing, a persistent cart, and product cards that stay readable at small sizes.',
     outcome: 'Completed as one of three training projects in the 1stop.ai UI/UX internship.',
     contribution: ['User flows', 'Wireframes', 'Mobile UI design'],
-    gallery: ['images/grossery-app-screens.jpg']
+    gallery: []
   },
 
   'edtech': {
