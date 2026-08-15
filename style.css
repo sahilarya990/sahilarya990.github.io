@@ -522,6 +522,79 @@ body.cur-on .cur{opacity:1}
 .hero__scroll svg{width:15px;height:15px;animation:nudge 2.6s var(--e) infinite}
 @keyframes nudge{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(5px);opacity:1}}
 
+/* ══ 07b. TOOLS MARQUEE ══════════════════════════════════════════════
+   A quiet bridge between Hero and Selected Work: a label, then an
+   infinite-loop logo ticker. Two identical <ul> sets sit side by side
+   in one flex rail (markup); translating that rail exactly -50% loops
+   it with no visible seam — see .tools__rail below. Pausing on hover
+   and the whole entrance are plain CSS; nothing here touches JS.
+   ════════════════════════════════════════════════════════════════════ */
+.tools{
+  position:relative;overflow:hidden;
+  padding:clamp(1.25rem,2.6vw,1.85rem) 0;
+  border-block:1px solid var(--line-2);
+  background:radial-gradient(ellipse 55% 160% at 50% 50%, rgba(139,92,246,.12), transparent 70%);
+}
+.tools__label{
+  text-align:center;font-size:var(--fs-meta);font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:clamp(.85rem,1.8vw,1.15rem);padding-inline:var(--page-gutter);
+}
+
+/* Edge fade — logos dissolve into the strip's edges rather than clip */
+.tools__viewport{
+  overflow:hidden;width:100%;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+
+/* The moving rail — width:max-content lets it size to its own two sets;
+   translating by -50% of that = exactly one set-width, so the loop point
+   is pixel-identical to the start */
+.tools__rail{
+  display:flex;width:max-content;
+  animation:toolsMarquee 32s linear infinite;
+  will-change:transform;
+}
+.tools__rail:hover{animation-play-state:paused}
+.tools__set{display:flex;align-items:center}
+@keyframes toolsMarquee{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+
+.tools__item{
+  display:flex;align-items:center;gap:.65rem;flex:none;
+  padding-inline:clamp(1.75rem,4vw,3rem);
+  opacity:.72;transition:opacity var(--t),transform var(--t);
+}
+.tools__item:hover{opacity:1;transform:scale(1.06)}
+.tools__icon{
+  display:inline-flex;flex:none;width:clamp(24px,2.3vw,34px);height:clamp(24px,2.3vw,34px);
+  filter:drop-shadow(0 0 0 transparent);transition:filter var(--t);
+}
+.tools__icon svg,.tools__icon use{width:100%;height:100%;display:block}
+.tools__item:hover .tools__icon{filter:drop-shadow(0 0 12px var(--glow,rgba(196,181,253,.6)))}
+.tools__name{
+  font-size:.95rem;font-weight:600;color:var(--text-2);white-space:nowrap;
+  transition:color var(--t);
+}
+.tools__item:hover .tools__name{color:var(--text)}
+
+/* Authentic per-brand hover glow — icons keep their real brand colour;
+   purple stays the site's accent, not a replacement for it */
+.tools__item[data-tool="figma"]{--glow:rgba(162,89,255,.55)}
+.tools__item[data-tool="figjam"]{--glow:rgba(255,122,26,.5)}
+.tools__item[data-tool="html"]{--glow:rgba(228,77,38,.5)}
+.tools__item[data-tool="css"]{--glow:rgba(51,169,220,.5)}
+.tools__item[data-tool="javascript"]{--glow:rgba(240,219,79,.55)}
+.tools__item[data-tool="photoshop"]{--glow:rgba(49,168,255,.5)}
+.tools__item[data-tool="github"]{--glow:rgba(255,255,255,.4)}
+/* GitHub's mark is a single flat colour by brand design — it renders
+   in currentColor, so give it the same muted/lit states as the label */
+.tools__item[data-tool="github"] .tools__icon{color:var(--text-3)}
+.tools__item[data-tool="github"]:hover .tools__icon{color:var(--text)}
+
+/* Slightly slower on this section's own entrance than the sitewide
+   .reveal default, and a smaller lift, matching the reference spec */
+.js .tools.reveal{transform:translateY(15px);transition:opacity .65s var(--e),transform .65s var(--e)}
+
 /* ══ 08. SECTION FURNITURE ═══════════════════════════════════════════ */
 .sec{padding:var(--sy) 0;position:relative}
 
@@ -1031,6 +1104,10 @@ body.cur-on .cur{opacity:1}
   /* Softer atmosphere on smaller screens */
   .orb{filter:blur(110px)}
   .orb--1{opacity:.16}.orb--2{opacity:.11}.orb--3{opacity:.08}
+
+  /* Tools marquee — a touch tighter, ~4-5 logos in view */
+  .tools{padding:1.4rem 0}
+  .tools__item{padding-inline:clamp(1.4rem,3.2vw,1.75rem);gap:.55rem}
 }
 
 @media (max-width:760px){
@@ -1085,6 +1162,13 @@ body.cur-on .cur{opacity:1}
   .orb--2{width:64vw;height:64vw;opacity:.09}
   .orb--3{display:none}
   .amb__dust{display:none}
+
+  /* Tools marquee — ~2-3 logos in view, section stays under ~110px */
+  .tools{padding:1.1rem 0}
+  .tools__label{margin-bottom:.65rem}
+  .tools__item{padding-inline:1.1rem;gap:.5rem}
+  .tools__name{font-size:.85rem}
+  .tools__rail{animation-duration:24s}
 }
 
 /* ══ 16. REDUCED MOTION ══════════════════════════════════════════════ */
@@ -1107,4 +1191,8 @@ body.cur-on .cur{opacity:1}
      The lightIn animations still complete (forwards), so nothing vanishes. */
   .hero__beams i::before{display:none}
   .b-dot::after{animation:none;opacity:.5}
+  /* Tools marquee — static row instead of a continuous scroll; the
+     duplicate (aria-hidden) set stays put, harmlessly off-viewport */
+  .tools__rail{animation:none}
+  .tools__item{opacity:1}
 }
