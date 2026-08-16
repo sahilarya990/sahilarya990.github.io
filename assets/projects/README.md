@@ -11,8 +11,8 @@ one project that has no image yet.
 | Vidyapeeth360 | `images/vidyapeeth-landingpage.jpg` |
 | HelpRevX (cover) | `images/helprevx-design-system.png` |
 | HelpRevX (gallery) | `images/HelpRevX-logo.jpg` |
-| HealthPulse | `images/healthplus-app.avif` |
-| Nexus AI | `images/nexus-ai-dashboard.avif` |
+| HealthPulse | `images/healthplus-fitness-app.jpg` |
+| Nexus AI | `images/nexusai.jpg` |
 | Grocery App | `images/grocery-app.png.avif` |
 | EdTech Landing Page | `images/edtech-landingpage.avif` |
 | Ecommerce Seller Dashboard | `images/Ecommerce Seller Dashboard.avif` |
