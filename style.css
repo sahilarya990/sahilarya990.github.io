@@ -611,155 +611,113 @@ body.cur-on .cur{opacity:1}
   max-width:min(100%,22ch);text-wrap:balance;
 }
 
-/* ══ 09. WORK — cinematic case-study scenes ═══════════════════════════
-   Base layout: a two-column grid (copy left, laptop mockup right) —
-   this is also the tablet layout, unmodified. Mobile collapses to one
-   column. Works with no JS and under prefers-reduced-motion.
+/* ══ 09. WORK — cinematic full-bleed showcase ════════════════════════
+   Base layout: a plain stacked flow, each project its own near-fullscreen
+   frame with the copy overlaid at the bottom corner. Works with no JS,
+   on mobile/tablet, and under prefers-reduced-motion.
 
-   Enhanced layout (.wstage--on, added by JS on desktop): UNCHANGED
-   scroll/stacking mechanics from the previous pass — the stage grows
+   Enhanced layout (.wstage--on, added by JS on desktop): the stage grows
    tall, the inner viewport pins, and every project becomes a fullscreen
-   sheet whose translateY/scale JS drives every frame (Workstage in
-   script.js), so the next project physically slides up from below and
-   covers the one before it. Everything below only restyles what's
-   INSIDE a sheet — number/title/description/tags/arrow stay direct
-   children of .slide__copy and .slide__cover/.slide__media/.slide__tilt
-   keep their names, since script.js selects them directly.
+   sheet. Scroll position drives each sheet's translateY / scale, so the
+   next project physically slides up from below and covers the one
+   before it — a stack of sheets, not a crossfade.
    ════════════════════════════════════════════════════════════════════ */
 .slide{
   position:relative;margin-top:var(--py);
-  display:grid;grid-template-columns:minmax(0,.38fr) minmax(0,.62fr);
-  align-items:center;gap:clamp(2rem,4.5vw,5rem);
+  display:block;min-height:min(86svh,900px);
 }
 .slide:first-child{margin-top:0}
 
-/* Cover — JS fades this in as the NEXT sheet slides over this one, so
-   the whole outgoing scene visibly recedes, not just its screenshot */
-.slide__cover{
-  position:absolute;inset:0;z-index:5;pointer-events:none;
-  background:#000;opacity:0;will-change:opacity;
-}
-
-.slide__copy{display:flex;flex-direction:column;align-items:flex-start}
-.slide__n{
-  display:block;font-size:var(--fs-meta);font-weight:600;letter-spacing:.13em;
-  color:var(--acc-3);font-variant-numeric:tabular-nums;margin-bottom:.9rem;
-}
-.slide__t{font-size:var(--fs-proj);line-height:1.05}
-.slide__d{margin-top:.7rem;color:var(--text-2);max-width:38ch}
-.slide__copy .tags{margin-top:1.4rem}
-.slide__copy .arrow{margin-top:1.65rem}
-
-/* — The device — built with CSS around each project's own screenshot,
-   no stock device image. Each project gets whichever device actually
-   suits it (laptop for the two web apps, a phone for the mobile app, a
-   plain glowing frame for the HelpRevX brand board — it's a photo of a
-   physical presentation, not software, so a laptop shell around it
-   would just be a device nested inside another). .device carries the
-   static per-project perspective (nth-child below, so no two
-   compositions match); .slide__tilt (the screen content) only ever
-   receives the mousemove micro-tilt on top of that base rotation, so
-   the two never fight for the same transform. */
-.slide__media{position:relative;width:100%}
-.device{
-  position:relative;
-  transform:perspective(1800px);transform-style:preserve-3d;
-  transition:transform .6s var(--e-io);
-  filter:drop-shadow(0 46px 60px rgba(0,0,0,.55));
-}
-.device__glow{
-  position:absolute;inset:-22% -14% -10%;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse 62% 58% at 50% 48%, var(--device-glow,rgba(139,92,246,.4)), transparent 70%);
-  filter:blur(54px);transition:opacity .5s var(--e);
-}
-/* Fixed-aspect screen surface shared by all three device types;
-   screenshots keep their own ratio inside it via object-fit:contain,
-   so nothing is ever cropped or stretched regardless of source shape */
-.device__display{
-  position:relative;width:100%;height:100%;overflow:hidden;
-  background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.04);
-}
-.device__display img{
-  width:100%;height:100%;object-fit:contain;object-position:center;
-  transition:transform 1.1s var(--e);
+/* The visual anchor — image fills the frame, copy overlays its lower
+   corner. Same shape enhanced or not: only the containing stage's
+   sizing/position changes between the two modes. */
+.slide__media{
+  position:relative;overflow:hidden;border-radius:var(--r);
+  width:100%;height:100%;min-height:inherit;perspective:1200px;
+  border:1px solid var(--line);background:var(--bg-2);box-shadow:var(--shadow);
+  transition:border-color var(--t-l),box-shadow var(--t-l);
 }
 /* Cursor-tilt layer — mousemove drives a very small rotate/parallax here
-   (desktop, fine pointer only); position:absolute (not width/height:100%)
-   so it reliably fills .device__display regardless of how that box's
-   own height was resolved — a percentage height wouldn't always. */
+   (desktop, fine pointer only); scroll choreography stays on the .slide
+   itself so the two motions never fight each other's transform.
+   position:absolute (not width/height:100%) so it reliably fills
+   .slide__media even when that box's own height only comes from
+   min-height — a percentage height wouldn't resolve in that case. */
 .slide__tilt{
   position:absolute;inset:0;
   transform-style:preserve-3d;will-change:transform;
   transition:transform .6s var(--e-io);
 }
-.slide:hover .device__glow{opacity:1.2}
+.slide__media img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  transition:transform 1.1s var(--e);
+}
+.slide__media--center img{object-position:center}
+
+/* Scrim — a constant bottom-up gradient so the overlaid copy always
+   reads, regardless of what's underneath it in the screenshot */
+.slide__scrim{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(0deg,
+    rgba(4,2,10,.85) 0%, rgba(4,2,10,.5) 26%, rgba(4,2,10,.12) 52%, transparent 68%);
+}
+/* Cover — JS fades this in as the NEXT sheet slides over this one, so
+   the outgoing project visibly recedes instead of just shrinking */
+.slide__cover{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:#000;opacity:0;will-change:opacity;
+}
+
+.slide__copy{
+  position:absolute;z-index:2;left:clamp(1.25rem,4vw,3.5rem);right:clamp(1.25rem,4vw,3.5rem);
+  bottom:clamp(1.5rem,4.5vw,3.5rem);
+  display:flex;flex-direction:column;align-items:flex-start;max-width:min(100%,600px);
+}
+.slide:nth-child(even) .slide__copy{left:auto;align-items:flex-end;text-align:right}
+
+.slide__n{
+  display:block;font-size:var(--fs-meta);font-weight:600;letter-spacing:.13em;
+  color:var(--acc-3);font-variant-numeric:tabular-nums;margin-bottom:.7rem;
+  text-shadow:0 1px 12px rgba(0,0,0,.5);
+}
+.slide__t{
+  font-size:clamp(2.25rem,1.5rem + 3.2vw,4.25rem);line-height:1.02;letter-spacing:-.02em;
+  text-shadow:0 2px 24px rgba(0,0,0,.45);
+}
+.slide__d{margin-top:.8rem;color:var(--text-2);max-width:42ch;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.slide__copy .tags{margin-top:1.3rem}
+.slide__copy .tags li{background:rgba(8,4,16,.4);backdrop-filter:blur(8px)}
+.slide__copy .arrow{margin-top:1.5rem}
+
+/* A soft ground glow behind the copy corner — extra separation on the
+   busiest screenshots, on top of the constant scrim */
+.slide__media::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse 70% 60% at 18% 108%, rgba(139,92,246,.20), transparent 60%);
+}
+.slide:nth-child(even) .slide__media::after{background:radial-gradient(ellipse 70% 60% at 82% 108%, rgba(139,92,246,.20), transparent 60%)}
+/* Glass sheen — a soft diagonal highlight that sweeps across the frame
+   on hover, the "premium" cue that reads as light on glass rather than
+   a UI transition */
+.slide__media::before{
+  content:"";position:absolute;inset:-30% -15%;z-index:1;pointer-events:none;
+  background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.14) 50%,transparent 58%);
+  transform:translate3d(-65%,0,0);opacity:0;
+  transition:transform 1.15s var(--e),opacity .5s var(--e);
+}
+.slide:hover .slide__media{
+  border-color:var(--line-hi);
+  box-shadow:var(--glow-m),var(--shadow),0 0 0 1px rgba(196,181,253,.22);
+}
+.slide:hover .slide__media::before{transform:translate3d(65%,0,0);opacity:1}
 .slide:hover .slide__tilt img{transform:scale(1.02)}
 .slide:hover .tags li{border-color:var(--line-hi);color:var(--text-2)}
 @media (prefers-reduced-motion:reduce){
-  .device__display img,.slide__tilt,.device,.device__glow{transition:none}
+  .slide__media img,.slide__media::before,.slide__tilt{transition:none}
   .slide:hover .slide__tilt img{transform:none}
 }
 
-/* Laptop — Vidyapeeth360, Nexus AI */
-.laptop{width:100%;max-width:920px;margin-inline:auto}
-.laptop__screen{
-  position:relative;aspect-ratio:16/10.2;
-  background:linear-gradient(155deg,#1d1d26,#09090d 65%);
-  border-radius:16px 16px 4px 4px;padding:3.2% 3.2% 6.4%;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.07),
-    inset 0 1px 0 rgba(255,255,255,.05),
-    0 30px 70px -22px rgba(0,0,0,.75);
-}
-.laptop__cam{
-  position:absolute;top:1.5%;left:50%;translate:-50% 0;z-index:2;
-  width:5px;height:5px;border-radius:50%;
-  background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.07);
-}
-.laptop .device__display{border-radius:6px}
-.laptop__base{
-  position:relative;height:14px;margin:0 -4.5%;
-  background:linear-gradient(180deg,#2c2c36,#101014);
-  border-radius:0 0 9px 9px;
-  box-shadow:0 12px 26px -10px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.06);
-}
-.laptop__notch{
-  position:absolute;left:50%;bottom:0;translate:-50% 0;
-  width:16%;height:4px;border-radius:0 0 6px 6px;
-  background:linear-gradient(180deg,#3c3c47,#15151a);
-}
-
-/* Phone — HealthPulse (a mobile app doesn't belong on a laptop screen) */
-.phone{width:100%;max-width:300px;margin-inline:auto}
-.phone__frame{
-  position:relative;aspect-ratio:9/19.3;padding:11px;
-  background:linear-gradient(160deg,#24242c,#0a0a0e 70%);
-  border-radius:38px;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.08),
-    inset 0 1px 0 rgba(255,255,255,.06),
-    0 34px 80px -20px rgba(0,0,0,.75);
-}
-.phone .device__display{border-radius:26px}
-.phone__notch{
-  position:absolute;top:11px;left:50%;translate:-50% 0;z-index:2;
-  width:34%;height:20px;border-radius:12px;background:#050506;
-}
-
-/* Brand frame — HelpRevX; a glass panel, no device chrome */
-.brandframe{width:100%;max-width:780px;margin-inline:auto}
-.brandframe .device__display{
-  aspect-ratio:16/10.2;border-radius:18px;
-  border:1px solid var(--line);box-shadow:0 30px 80px -20px rgba(0,0,0,.7);
-}
-
-/* Per-project perspective + glow tint — no two devices share a tilt */
-.slides > .slide:nth-child(1) .device{--device-glow:rgba(139,92,246,.42);transform:perspective(1800px) rotateY(-7deg) rotateX(3deg) rotateZ(-.6deg) scale(1.015)}
-.slides > .slide:nth-child(2) .device{--device-glow:rgba(56,132,255,.4);transform:perspective(1800px) rotateY(6deg) rotateX(2deg) rotateZ(.4deg) scale(.99)}
-.slides > .slide:nth-child(3) .device{--device-glow:rgba(249,115,22,.4);transform:perspective(1800px) rotateY(-5deg) rotateX(4deg) rotateZ(-.4deg) scale(1.02)}
-.slides > .slide:nth-child(4) .device{--device-glow:rgba(217,70,239,.4);transform:perspective(1800px) rotateY(5deg) rotateX(-2deg) rotateZ(.5deg) scale(1)}
-
-/* — Enhanced: pinned stack — scroll/stacking mechanics UNCHANGED.
+/* — Enhanced: pinned stack —
    400svh ÷ 3 gaps between 4 sheets = one full viewport of scroll per
    transition, after the first project's free initial view. */
 .wstage{position:relative}
@@ -770,8 +728,25 @@ body.cur-on .cur{opacity:1}
 .wstage--on .wstage__in{width:100%;height:100%;position:relative;z-index:1}
 .wstage--on .slides{position:relative;width:100%;height:100%}
 .wstage--on .slides > .slide{
-  position:absolute;inset:0;margin-top:0;padding-top:var(--nav-h);
+  position:absolute;inset:0;margin-top:0;min-height:0;
   will-change:transform;
+}
+/* JS drives transform/opacity per frame — transitions would fight it */
+.wstage--on .slides > .slide,
+.wstage--on .slide__media{transition:border-color var(--t-l),box-shadow var(--t-l)}
+
+/* Each sheet is a large, centred, letterboxed frame rather than an
+   edge-to-edge fill — keeps the rounded corners/shadow/glow the section
+   is built around while still reading as a fullscreen hero */
+.wstage--on .slide__media{
+  position:absolute;left:50%;top:calc(50% + var(--nav-h) / 2);translate:-50% -50%;
+  width:min(94vw,1680px);height:min(82svh,840px);min-height:0;
+}
+/* Subtle per-project bias — 01 sits a touch right, 02 a touch left,
+   03/04 stay centred, so the row doesn't feel mechanically identical */
+@media (min-width:1025px){
+  .wstage--on .slides > .slide:nth-child(1) .slide__media{left:calc(50% + 2.2vw)}
+  .wstage--on .slides > .slide:nth-child(2) .slide__media{left:calc(50% - 2.2vw)}
 }
 
 /* Mood — ambient colour beds behind the slides, one per project. Opacity
@@ -797,12 +772,11 @@ body.cur-on .cur{opacity:1}
   radial-gradient(ellipse 48% 40% at 78% 70%, rgba(236,72,153,.20), transparent 64%);
 }
 
-/* — Progress: 01 / 04 + a thin fill — sits inside .wstage__in (the wrap)
-   so it lines up with the same left gutter as the copy column. */
+/* — Progress: 01 / 04 + a thin fill — */
 .wprog{display:none}
 .wstage--on .wprog{
-  position:absolute;left:0;bottom:clamp(2.5rem,7vh,4.5rem);z-index:3;
-  display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;
+  position:absolute;left:50%;bottom:1.8rem;translate:-50% 0;z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
 }
 .wprog__n{
   display:flex;align-items:baseline;gap:.3rem;
@@ -1300,14 +1274,12 @@ body.cur-on .cur{opacity:1}
   .hero__glow--b{width:min(160%,1100px)}
   .hero__grid{background-size:46px 100%}
 
-  /* Work — below the 1025px desktop threshold the pin never engages (JS
-     gates .wstage--on the same way), so tablet keeps the same two-column
-     copy/device layout, just calmer: a smaller device, tighter type */
-  .laptop{max-width:560px}
-  .phone{max-width:230px}
-  .brandframe{max-width:480px}
+  /* Work — below the 1025px desktop threshold the pin never engages
+     (JS gates .wstage--on the same way), so tablet just gets a calmer,
+     slightly smaller version of the same fullscreen-sheet base layout */
+  .slide{min-height:min(80svh,760px)}
   .slide__t{font-size:clamp(2rem,1.5rem + 2.4vw,3rem)}
-  .slide__d{max-width:38ch}
+  .slide__d{max-width:46ch}
 
   .svc__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 
@@ -1381,17 +1353,15 @@ body.cur-on .cur{opacity:1}
 
   .sec__title{font-size:clamp(1.85rem,7.6vw,2.35rem)}
 
-  /* Work — single column: copy first (number/title/description/tags/
-     CTA), the device scene below it, same hierarchy as desktop */
-  .slide{grid-template-columns:minmax(0,1fr);gap:2.25rem}
+  /* Work — still one fullscreen-ish sheet per project; text overlay
+     tightens and drops to the very bottom, tags wrap if needed */
+  .slide{min-height:min(74svh,640px)}
   .slide__t{font-size:clamp(1.7rem,1.3rem + 5vw,2.3rem)}
   .slide__d{max-width:34ch;font-size:.9rem}
+  .slide__copy{left:1.1rem;right:1.1rem;bottom:1.1rem}
   .slide__n{margin-bottom:.5rem}
   .slide__copy .tags{margin-top:.9rem}
   .slide__copy .arrow{margin-top:1rem}
-  .laptop{max-width:420px}
-  .phone{max-width:220px}
-  .brandframe{max-width:380px}
 
   .expl__g{grid-template-columns:minmax(0,1fr)}
   .expl__i figure{aspect-ratio:16/10}
