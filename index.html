@@ -557,43 +557,57 @@
   <div class="wrap">
     <p class="eyebrow reveal"><span>03</span> About</p>
 
+    <!-- Three grid areas (top / pic / bottom) rather than a single copy
+         column, so the portrait can sit between the headline and the bio
+         in source order — on mobile that's what keeps it "near the top"
+         instead of falling to the very bottom under the facts row. -->
     <div class="about">
-      <div class="about__copy">
-        <!-- The name is the visual anchor: two words, each its own .reveal
-             target so the Reveal IntersectionObserver (script.js) staggers
-             them via data-delay, no bespoke JS needed. -->
+      <div class="about__top">
+        <!-- The name is now a small, confident label — not the section's
+             largest element — so each word keeps its own .reveal target
+             (existing IntersectionObserver system) but with a tight
+             stagger to match its reduced visual weight. -->
         <p class="about__name">
           <span class="about__glow" aria-hidden="true"></span>
-          <span class="about__name-w reveal" data-delay="0">Sahil</span>
-          <span class="about__name-w reveal" data-delay="140">Das</span>
+          <span class="about__name-w reveal" data-delay="60">Sahil</span>
+          <span class="about__name-w reveal" data-delay="100">Das</span>
         </p>
         <!-- Words brighten progressively as the statement scrolls into view -->
         <h2 class="sec__title about__statement" id="aboutTitle">Designing experiences that feel simple, useful and human.</h2>
+      </div>
 
-        <div class="about__bio reveal" data-delay="120">
-          <p>I'm a pre-final year B.Tech student who enjoys turning complex ideas into intuitive,
-             user-centred digital experiences — across UI/UX design, branding and product thinking.
+      <figure class="about__pic reveal" data-delay="200" data-parallax="0.025">
+        <span class="about__pic-glow" aria-hidden="true"></span>
+        <span class="about__pic-dot about__pic-dot--1" aria-hidden="true"></span>
+        <span class="about__pic-dot about__pic-dot--2" aria-hidden="true"></span>
+        <span class="about__pic-frame">
+          <img src="images/sahil-profile.avif" alt="Portrait of Sahil Das"
+               width="1024" height="992" loading="lazy" decoding="async" />
+        </span>
+      </figure>
+
+      <div class="about__bottom">
+        <div class="about__bio">
+          <p class="reveal" data-delay="240">I'm a pre-final year B.Tech student who enjoys turning complex ideas into intuitive,
+             user-centred digital experiences — across <strong class="about__kw">UI/UX design</strong>, <strong class="about__kw">branding</strong> and product thinking.
              My journey has taken me from designing for college clubs to leading creative teams as
-             Creative Head at ASME and Axiom, NIT Rourkela.</p>
-          <p>During my internship at <strong>HelpRevX</strong>, I designed the HelpRevX and
-             Vidyapeeth360 logos, built the HelpRevX brand identity and kit, and designed the
-             <strong>Vidyapeeth360</strong> landing page — collaborating with Claude through GitHub
-             to build and refine responsive interfaces along the way.</p>
-          <p>I'm always experimenting with new tools and AI-assisted workflows, working toward
-             growing as a Product Designer who builds scalable, user-centric products.</p>
+             <strong class="about__kw">Creative Head</strong> at ASME and Axiom, NIT Rourkela.</p>
+          <p class="reveal" data-delay="320">During my internship at <strong class="about__kw">HelpRevX</strong>, I designed the HelpRevX and
+             Vidyapeeth360 logos, developed the HelpRevX brand identity and kit, and designed and built the
+             <strong class="about__kw">Vidyapeeth360</strong> landing page using HTML, CSS, and JavaScript, creating
+             responsive and interactive frontend experiences.</p>
+          <p class="reveal" data-delay="400">I'm always experimenting with new tools and AI-assisted workflows, working toward
+             growing as a <strong class="about__kw">Product Designer</strong> who builds scalable, user-centric products.</p>
         </div>
 
-        <dl class="about__facts reveal" data-delay="160">
-          <div><dt>Education</dt><dd>B.Tech Industrial Design · NIT Rourkela (Pre-final year)</dd></div>
+        <div class="about__divider reveal" data-delay="440" aria-hidden="true"></div>
+
+        <dl class="about__facts reveal" data-delay="480">
+          <div><dt>Education</dt><dd>B.Tech Industrial Design · NIT Rourkela</dd></div>
           <div><dt>Based in</dt><dd>Rourkela, India</dd></div>
           <div><dt>Tools</dt><dd>Figma · VS Code · GitHub</dd></div>
         </dl>
       </div>
-
-      <figure class="about__pic reveal" data-delay="140">
-        <img src="images/sahil-profile.avif" alt="Portrait of Sahil Das"
-             width="1024" height="992" loading="lazy" decoding="async" />
-      </figure>
     </div>
   </div>
 </section>
@@ -836,6 +850,12 @@
     </svg>
   </div>
 
+  <!-- Dotted globe + drifting particles — rendered on canvas (contact-scene.js),
+       not DOM nodes, so it stays cheap regardless of point count. Paused via
+       IntersectionObserver when the section is off-screen; a single static
+       frame under prefers-reduced-motion. -->
+  <canvas class="contact__scene" id="contactScene" aria-hidden="true"></canvas>
+
   <div class="wrap contact__in">
     <p class="eyebrow reveal" data-delay="60"><span>07</span> Contact</p>
     <h2 class="contact__t reveal" id="contactTitle" data-delay="100">Have an idea worth designing?</h2>
@@ -917,6 +937,7 @@
 </div>
 
 <script src="script.js"></script>
+<script src="contact-scene.js"></script>
 <script src="data/portfolio-data.js"></script>
 <script src="chatbot.js"></script>
 </body>

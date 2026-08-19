@@ -453,7 +453,11 @@ const CASE_STUDY_PAGES = {
     ],
 
     screens: [
-      { src: CSP_IMG + 'ed-tech-langingPage-ui/Screen 3/Course 1.png', alt: 'SkillForge course details', caption: 'Course Details — overview, modules, pricing and career outcomes on one screen.' }
+      { src: CSP_IMG + 'ed-tech-langingPage-ui/Screen 3/Course 1.png', alt: 'SkillForge course details', caption: 'Course Details — overview, modules, pricing and career outcomes on one screen.' },
+      { src: CSP_IMG + 'ed-tech-langingPage-ui/Screen 3/new-ui-edtech (4).png', alt: 'SkillForge course features tabs', caption: 'Course Features — a tabbed breakdown of Live Sessions, Resource Files, Exams and Support.' },
+      { src: CSP_IMG + 'ed-tech-langingPage-ui/Screen 3/new-ui-edtech (3).png', alt: 'SkillForge most enrolled courses', caption: 'Most Enrolled Courses — ratings, pricing and a consistent card format for fast comparison.' },
+      { src: CSP_IMG + 'ed-tech-langingPage-ui/Screen 3/new-ui-edtech (2).png', alt: 'SkillForge learner testimonials', caption: 'Testimonials — learner reviews building social proof across specialties.' },
+      { src: CSP_IMG + 'ed-tech-langingPage-ui/Screen 3/new-ui-edtech (1).png', alt: 'SkillForge FAQ section', caption: 'FAQ — an Insight Hub answering course availability, support, refunds and accreditation.' }
     ],
 
     contribution: ['Platform naming (SkillForge)', 'Home, Listing, Details & About pages', 'Course-card system', 'Trust/testimonial sections'],
@@ -514,6 +518,9 @@ const CASE_STUDY_PAGES = {
     ],
 
     screens: [
+      { src: CSP_IMG + 'e-commerce-ui-pic/Screen 1.png', alt: 'Seller dashboard overview', caption: 'Overview — total revenue, orders today and pending status in glanceable cards.' },
+      { src: CSP_IMG + 'e-commerce-ui-pic/Screen 2.png', alt: 'Seller dashboard analytics', caption: 'Analytics — revenue and order-volume trend charts with a time-range toggle.' },
+      { src: CSP_IMG + 'e-commerce-ui-pic/Screen 3.png', alt: 'Seller dashboard orders', caption: 'Orders — a status-tagged order list with order ID and amount.' },
       { src: CSP_IMG + 'e-commerce-ui-pic/Screen 4.png', alt: 'Seller dashboard settings', caption: 'Settings — profile, notifications and payment controls.' }
     ],
 

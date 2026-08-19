@@ -939,15 +939,32 @@ body.cur-on .cur{opacity:1}
   .svc__card,.svc__ic,.svc__go{transition:none}
 }
 
-/* ══ 10. ABOUT ═══════════════════════════════════════════════════════ */
-/* Name — the section's visual anchor. Each word is its own .reveal
-   target (existing IntersectionObserver system, script.js), staggered
-   via data-delay — no bespoke reveal JS needed. Blur-to-sharp + a
-   whisper of scale on top of the site's standard translateY fade. */
+/* ══ 10. ABOUT ═══════════════════════════════════════════════════════
+   Redesigned hierarchy: the name is now a small, confident label; the
+   statement carries the visual weight the name used to have. Layout is
+   three grid areas (top / pic / bottom) instead of one copy column, so
+   the portrait can sit between the headline and the bio in source order
+   — see 08d ABOUT STATEMENT (script.js) for the word-brighten JS and
+   Parallax (script.js, [data-parallax]) for the portrait's scroll drift,
+   both reused as-is, unchanged. */
+.about{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(260px,.95fr);
+  grid-template-areas:"top pic" "bottom pic";
+  column-gap:clamp(3rem,6vw,7rem);row-gap:clamp(1.5rem,3vw,2.25rem);align-items:start;
+}
+.about__top{grid-area:top}
+.about__pic{grid-area:pic;align-self:start}
+.about__bottom{grid-area:bottom}
+
+/* Name — a small, elegant label now, not the section's largest element.
+   Each word keeps its own .reveal target (existing IntersectionObserver
+   system, script.js), just with a tighter stagger to match its reduced
+   weight. Blur-to-sharp + a whisper of scale on the site's standard fade. */
 .about__name{
-  position:relative;display:flex;flex-wrap:wrap;gap:.3em;
-  font-size:clamp(2.75rem,1.9rem + 4.4vw,5.75rem);font-weight:700;
-  letter-spacing:-.03em;line-height:1;margin-bottom:clamp(1.1rem,2.6vw,1.85rem);
+  position:relative;display:flex;flex-wrap:wrap;gap:.35em;
+  font-size:clamp(1.2rem,1.05rem + .7vw,1.55rem);font-weight:700;
+  letter-spacing:-.01em;line-height:1;margin-bottom:clamp(.9rem,1.8vw,1.25rem);
 }
 /* Dynamic premium coloring — a slow gradient sweep through the palette's
    purple family, off-white at rest so it still reads as a name first. */
@@ -958,7 +975,7 @@ body.cur-on .cur{opacity:1}
     var(--indigo) 58%, var(--acc-3) 72%, var(--text) 90%, var(--text) 100%);
   background-size:240% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 0 34px rgba(139,92,246,.16));
+  filter:drop-shadow(0 0 20px rgba(139,92,246,.14));
   animation:aboutNameFlow 12s linear infinite;
 }
 @keyframes aboutNameFlow{
@@ -966,18 +983,18 @@ body.cur-on .cur{opacity:1}
   100%{background-position:-240% 50%}
 }
 .js .about__name-w.reveal{
-  transition:opacity 1s var(--e),transform 1s var(--e),filter 1s var(--e);
+  transition:opacity .65s var(--e),transform .65s var(--e),filter .65s var(--e);
 }
 .js .about__name-w.reveal:not(.in){
-  opacity:0;transform:translateY(28px) scale(.97);filter:blur(9px);
+  opacity:0;transform:translateY(16px) scale(.97);filter:blur(6px);
 }
 /* A slow, atmospheric drift behind the name — same purple token as the
    rest of the page, just extremely low-opacity and in constant, very
    slow motion so the section feels quietly alive at rest */
 .about__glow{
-  position:absolute;z-index:-1;left:-6%;top:-90%;width:55%;height:280%;
-  pointer-events:none;filter:blur(60px);
-  background:radial-gradient(ellipse 60% 55% at 50% 50%, rgba(139,92,246,.24), transparent 70%);
+  position:absolute;z-index:-1;left:-8%;top:-220%;width:40%;height:520%;
+  pointer-events:none;filter:blur(50px);
+  background:radial-gradient(ellipse 60% 55% at 50% 50%, rgba(139,92,246,.22), transparent 70%);
   animation:nameDrift 16s ease-in-out infinite alternate;
 }
 @keyframes nameDrift{
@@ -990,37 +1007,110 @@ body.cur-on .cur{opacity:1}
   .js .about__name-w.reveal:not(.in){filter:none}
 }
 
-/* Statement reveal — JS splits the line into words and brightens them
-   progressively with scroll. Base state is fully readable (no-JS safe);
-   the JS adds .about__statement--live before dimming anything. */
+/* Statement — now the section's visual focal point, larger than a
+   standard .sec__title (later in source order, so it wins at equal
+   specificity without touching the shared rule other sections use).
+   JS (script.js, AboutWords) splits the line into words and brightens
+   them progressively with scroll — reused unchanged. Base state is
+   fully readable (no-JS safe); the JS adds .about__statement--live
+   before dimming anything. */
+.about__statement{
+  font-size:clamp(2.25rem,1.65rem + 2.6vw,3.75rem);max-width:15ch;
+}
 .about__statement--live .w{opacity:.14;transition:opacity .5s var(--e)}
 .about__statement--live .w.on{opacity:1}
 
-.about{
-  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.75fr);
-  column-gap:clamp(3rem,6vw,7rem);row-gap:clamp(2.5rem,4vw,3.5rem);align-items:start;
+/* Bio — each paragraph is its own .reveal target with a left rail, so
+   the three read as distinct blocks rather than one text mass. Keyword
+   emphasis (.about__kw) is a weight/colour shift, not full bold. */
+.about__bio{margin-top:clamp(1.75rem,3vw,2.5rem);display:flex;flex-direction:column;gap:1.35rem}
+.about__bio p{
+  position:relative;color:var(--text-2);max-width:min(100%,58ch);
+  padding-left:1.1rem;border-left:2px solid var(--line);
+  transition:border-color .6s var(--e);
 }
-.about__bio{margin-top:clamp(1.75rem,3vw,2.5rem)}
-.about__bio p{color:var(--text-2);max-width:min(100%,58ch)}
-.about__bio p + p{margin-top:1.1rem}
+.about__bio p:hover{border-left-color:var(--line-hi)}
+.about__kw{font-weight:600;font-style:normal;color:var(--acc-3)}
+
+/* Divider — a thin gradient line that draws in on reveal, replacing a
+   static border between the bio and the facts row */
+.about__divider{
+  height:1px;margin-top:clamp(1.75rem,3vw,2.5rem);transform-origin:left;
+  background:linear-gradient(90deg,var(--line-hi),var(--line) 45%,transparent 92%);
+}
+.js .about__divider.reveal:not(.in){transform:scaleX(0)}
+.js .about__divider.reveal{transition:transform .8s var(--e)}
+
 .about__facts{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem 2.5rem;
-  margin-top:clamp(2rem,3.5vw,3rem);padding-top:1.75rem;border-top:1px solid var(--line);
+  margin-top:clamp(1.75rem,3vw,2.5rem);
+}
+.about__facts > div{
+  position:relative;padding:.2rem 0 .2rem 1.1rem;
+  border-left:1px solid var(--line);transition:transform var(--t-s);
+}
+.about__facts > div:first-child{border-left:0;padding-left:0}
+.about__facts > div::before{
+  content:"";position:absolute;inset:-.5rem -.75rem;z-index:-1;border-radius:var(--r-s);
+  opacity:0;background:radial-gradient(ellipse 80% 80% at 0% 50%, rgba(139,92,246,.14), transparent 75%);
+  transition:opacity .4s var(--e);
+}
+@media (hover:hover){
+  .about__facts > div:hover{transform:translateY(-3px)}
+  .about__facts > div:hover::before{opacity:1}
 }
 .about__facts dt{
   font-size:var(--fs-meta);font-weight:600;letter-spacing:.12em;text-transform:uppercase;
   color:var(--text-3);margin-bottom:.4rem;
 }
 .about__facts dd{font-size:.95rem;color:var(--text-2)}
-.about__pic{
-  width:100%;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;
-  border:1px solid var(--line);background:var(--bg-2);
+
+/* Portrait — premium treatment: an ambient glow behind it, two slow
+   drifting dots, a soft inner vignette and a thin border that brightens
+   on hover. The clipped frame is a separate inner element so the glow
+   and dots can bleed past the image edges instead of being clipped. */
+.about__pic{position:relative}
+.about__pic-glow{
+  /* Horizontal bleed stays small — the portrait sits near the layout's
+     right edge, so a wide inset here can push scrollWidth past the
+     viewport at some widths. Vertical bleed is cheap (no overflow risk)
+     and blur(60px) already softens the edge well beyond the box itself. */
+  position:absolute;inset:-22% -5%;z-index:-1;pointer-events:none;filter:blur(60px);
+  background:radial-gradient(ellipse 60% 55% at 50% 45%, rgba(139,92,246,.26), transparent 70%);
+  animation:aboutPicDrift 18s ease-in-out infinite alternate;
 }
-.about__pic img{
+@keyframes aboutPicDrift{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(-4%,3%) scale(1.08)}
+}
+.about__pic-dot{
+  position:absolute;border-radius:50%;pointer-events:none;opacity:.6;
+  background:var(--acc-3);box-shadow:0 0 12px 2px rgba(139,92,246,.5);
+  animation:aboutDotFloat 9s ease-in-out infinite;
+}
+.about__pic-dot--1{width:5px;height:5px;top:9%;right:-3%;animation-delay:0s}
+.about__pic-dot--2{width:4px;height:4px;bottom:16%;left:-4%;animation-delay:3.2s}
+@keyframes aboutDotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@media (prefers-reduced-motion:reduce){
+  .about__pic-glow,.about__pic-dot{animation:none}
+}
+
+.about__pic-frame{
+  position:relative;display:block;width:100%;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);background:var(--bg-2);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.6);
+  transition:border-color .5s var(--e);
+}
+.about__pic:hover .about__pic-frame{border-color:var(--line-hi)}
+.about__pic-frame::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 46px rgba(0,0,0,.28);
+}
+.about__pic-frame img{
   width:100%;height:100%;object-fit:cover;object-position:top center;
   filter:grayscale(1) brightness(.95);transition:filter .6s var(--e),transform .8s var(--e);
 }
-.about__pic:hover img{filter:none;transform:scale(1.03)}
+.about__pic:hover .about__pic-frame img{filter:none;transform:scale(1.025)}
 
 /* ══ 11. PROCESS ═════════════════════════════════════════════════════
    A four-node line: JS/Process sets --p (0→1) as the row crosses the
@@ -1299,6 +1389,15 @@ body.cur-on .cur{opacity:1}
 .wave--3{top:50%;fill:rgba(192,132,252,.1);filter:blur(34px);animation-duration:60s}
 @keyframes waveFlow{to{transform:translateX(-50%)}}
 
+/* Dotted globe + drifting particles (contact-scene.js) — sits above the
+   waves, below the content. A radial mask softens it toward the section's
+   own edges so it reads as atmosphere, not a hard-edged canvas rectangle. */
+.contact__scene{
+  position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;
+  mask-image:radial-gradient(ellipse 85% 90% at 50% 100%, #000 55%, transparent 96%);
+  -webkit-mask-image:radial-gradient(ellipse 85% 90% at 50% 100%, #000 55%, transparent 96%);
+}
+
 @media (max-width:1024px){
   .wave--1{filter:blur(16px)}
   .wave--2{filter:blur(20px)}
@@ -1322,12 +1421,38 @@ body.cur-on .cur{opacity:1}
 /* A touch more presence than the base .btn--fill hover elsewhere — this
    is the portfolio's last word, so its CTA gets a slightly stronger lift */
 .contact__cta .btn--fill:hover{transform:translateY(-2px) scale(1.03)}
+.contact__cta .btn svg{transition:transform var(--t-s)}
+.contact__cta .btn--fill:hover svg{transform:translateX(3px)}
+.contact__cta .btn--out:hover{box-shadow:0 0 24px -8px rgba(139,92,246,.45)}
 
 @media (prefers-reduced-motion:reduce){.wave{animation:none}}
 
-.foot{padding:2rem 0 2.5rem;border-top:1px solid var(--line)}
-.foot__in{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
-.foot__name{font-size:.9rem;font-weight:600}
+/* A soft seam instead of a hard rule — the Contact atmosphere (glow +
+   globe) bleeds a little further down before the footer takes over */
+.foot{
+  position:relative;padding:2rem 0 2.5rem;border-top:1px solid transparent;
+  background:
+    linear-gradient(var(--bg),var(--bg)) padding-box,
+    linear-gradient(90deg,transparent,var(--line-hi) 45%,var(--line-hi) 55%,transparent) border-box;
+}
+.foot::before{
+  content:"";position:absolute;left:50%;top:-1px;translate:-50% 0;pointer-events:none;
+  width:min(70%,640px);height:120px;
+  background:radial-gradient(ellipse 60% 100% at 50% 0%, rgba(139,92,246,.14), transparent 75%);
+  filter:blur(20px);
+}
+.foot__in{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+/* The closing signature — a quiet nod to the About name treatment
+   (same gradient family) that only reveals itself on hover, so the
+   footer stays calm at rest */
+.foot__name{
+  font-size:.92rem;font-weight:700;letter-spacing:-.005em;color:transparent;
+  background:linear-gradient(100deg,var(--text) 0%,var(--acc-3) 45%,var(--indigo) 70%,var(--text) 100%);
+  background-size:220% 100%;background-position:100% 50%;
+  -webkit-background-clip:text;background-clip:text;
+  transition:background-position .8s var(--e);
+}
+@media (hover:hover){.foot__name:hover{background-position:0% 50%}}
 .foot__time{display:flex;align-items:center;gap:.5rem;font-size:var(--fs-meta);color:var(--text-3);
   font-variant-numeric:tabular-nums}
 .foot__c{font-size:var(--fs-meta);color:var(--text-3)}
@@ -1516,8 +1641,10 @@ body.cur-on .cur{opacity:1}
 
   .svc__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 
-  .about{grid-template-columns:minmax(0,1fr);row-gap:2.5rem}
-  .about__pic{width:min(100%,300px);aspect-ratio:1/1}
+  /* About stays 2-column through tablet/large-tablet — see the dedicated
+     880px breakpoint below for where it actually stacks */
+  .about{grid-template-columns:minmax(0,1.15fr) minmax(230px,.85fr);column-gap:clamp(2rem,4vw,3rem)}
+  .about__statement{font-size:clamp(2rem,1.55rem + 1.8vw,2.75rem)}
 
   /* Process — stacked, the connecting line turns to run vertically
      through the node column instead of disappearing; each step reads
@@ -1560,6 +1687,15 @@ body.cur-on .cur{opacity:1}
   /* Tools marquee — a touch tighter, ~4-5 logos in view */
   .tools{padding:1.4rem 0}
   .tools__item{padding-inline:clamp(1.4rem,3.2vw,1.75rem);gap:.55rem}
+}
+
+/* About — stacks below tablet width; the 3-area grid collapses to a
+   simple top/pic/bottom column, keeping the portrait right after the
+   name + headline instead of it falling under the facts row */
+@media (max-width:880px){
+  .about{grid-template-columns:minmax(0,1fr);grid-template-areas:"top" "pic" "bottom";row-gap:2.25rem}
+  .about__pic{width:min(100%,300px);margin-inline:auto}
+  .about__pic-frame{aspect-ratio:1/1}
 }
 
 @media (max-width:760px){
