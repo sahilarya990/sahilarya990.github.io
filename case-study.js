@@ -183,10 +183,151 @@ const CASE_STUDY_PAGES = {
     ],
 
     outcome: 'Delivered as a complete, high-fidelity Figma prototype — thirteen screens, a token-based dark design system and a documented interaction spec — completed as one of the live industry projects during the 1stop.ai internship.'
+  },
+
+  'grocery': {
+    num: '05', title: 'ClearCart', kicker: 'Case Study · Grocery Delivery App',
+    tagline: 'A mobile-first grocery delivery app designed around speed, clarity and confidence — from browsing to checkout to live order tracking.',
+    accentA: '#22c55e', accentB: '#f97316',
+    role: 'UI/UX Design', tools: 'Figma', timeline: 'Training project · 1stop.ai internship',
+
+    hero: { kind: 'phone', img: CSP_IMG + 'grossery-app-ui/Screen 1.png', alt: 'ClearCart home screen' },
+
+    overview: 'ClearCart is a mobile-first grocery delivery app designed around speed, clarity and confidence — from browsing to checkout to live order tracking.',
+    problem: 'Grocery ordering mixes three different behaviours — fast browsing, careful comparison and repeat purchasing — that all have to work in one small screen without slowing the user down.',
+
+    process: [
+      { h: 'Design the core screens', p: 'Designed five core screens end to end: Home, Browse, Item Details, Cart and Order Tracking.' },
+      { h: 'Structure browsing', p: 'Used category cards and a persistent search bar so browsing stays fast even with a full catalogue.' },
+      { h: 'Build the component system', p: 'Built a Figma component system — frames, auto layout, variants, cards and lists — with consistent hover, active and disabled states.' },
+      { h: 'Design order tracking', p: 'Designed Order Tracking as a status timeline with a live map and ETA, to reduce post-purchase anxiety.' }
+    ],
+
+    cardsHeading: 'Key features',
+    cards: [
+      { h: 'Home', p: 'Category-led browsing with a persistent search bar and a featured-items list.' },
+      { h: 'Item Details', p: 'Clear product photography, price and a quantity stepper before add-to-cart.' },
+      { h: 'Cart & checkout', p: 'Subtotal, delivery fee and total shown upfront — no surprise costs at checkout.' },
+      { h: 'Order Tracking', p: 'A live status timeline with map, ETA and delivery partner details.' }
+    ],
+
+    screens: [
+      { src: CSP_IMG + 'grossery-app-ui/Screen 3.png', alt: 'ClearCart item details', caption: 'Item Details — clear photography, price and a quantity stepper.' },
+      { src: CSP_IMG + 'grossery-app-ui/Screen 4.png', alt: 'ClearCart cart', caption: 'Cart — subtotal, delivery fee and total, with no surprise costs.' },
+      { src: CSP_IMG + 'grossery-app-ui/Screen 5.png', alt: 'ClearCart order tracking', caption: 'Order Tracking — live status timeline with map and ETA.' }
+    ],
+
+    outcome: 'Delivered as a complete Figma prototype — ClearCart — covering the full order journey from Home to Order Tracking.'
+  },
+
+  'edtech': {
+    num: '06', title: 'SkillForge', kicker: 'Case Study · EdTech Landing Page',
+    tagline: 'An EdTech landing page designed to communicate value, trust and outcomes to career-focused learners in one scannable page.',
+    accentA: '#3b82f6', accentB: '#facc15',
+    role: 'UI/UX Design', tools: 'Figma', timeline: 'Training project · 1stop.ai internship',
+
+    hero: { kind: 'laptop', img: CSP_IMG + 'ed-tech-langingPage-ui/Screen 2 b.png', alt: 'SkillForge courses listing' },
+
+    overview: 'SkillForge is an EdTech landing page designed to communicate value, trust and outcomes to career-focused learners in one scannable page.',
+    problem: 'Prospective students are scanning, skeptical and impatient — the page has to prove credibility and communicate outcomes fast, or they leave before reaching a course.',
+
+    process: [
+      { h: 'Lead with outcomes', p: 'Led Home with a headline and subtext that states what the platform is, who it is for, and the outcome — not a generic tagline.' },
+      { h: 'Design comparable course cards', p: 'Designed a consistent course-card system — title, description, duration, CTA — so learners can compare options at a glance.' },
+      { h: 'Support the decision', p: 'Designed Course Details around one question: is this right for me? Overview, syllabus, duration, outcomes and pricing all live on one screen.' },
+      { h: 'Build trust', p: 'Backed every claim with trust signals — stats, logos, testimonials — on the About page.' }
+    ],
+
+    cardsHeading: 'Key features',
+    cards: [
+      { h: 'Home', p: "A headline and subtext that states what SkillForge is, who it's for, and the outcome, backed by trust logos." },
+      { h: 'Course Listing', p: 'Filterable course cards with category and format filters, rating, price and a clear CTA.' },
+      { h: 'Course Details', p: 'A full syllabus breakdown by module, career outcomes, and a sticky enrollment card.' },
+      { h: 'About', p: 'Platform story, success stats and learner testimonials to build credibility.' }
+    ],
+
+    screens: [
+      { src: CSP_IMG + 'ed-tech-langingPage-ui/Screen 3/Course 1.png', alt: 'SkillForge course details', caption: 'Course Details — overview, modules, pricing and career outcomes on one screen.' }
+    ],
+
+    outcome: 'Delivered as a complete Figma prototype — SkillForge — from first impression through course detail and a trust-building About page.'
+  },
+
+  'seller-dashboard': {
+    num: '07', title: 'Seller Dashboard', kicker: 'Case Study · Ecommerce Seller Dashboard',
+    tagline: 'A mobile dashboard that gives a small ecommerce seller a quick snapshot of business health, without a full analytics suite to dig through.',
+    accentA: '#0ea5e9', accentB: '#eab308',
+    role: 'UI/UX Design', tools: 'Figma', timeline: 'Self-directed project',
+
+    hero: {
+      kind: 'phones',
+      main: { src: CSP_IMG + 'e-commerce-ui-pic/Screen 1.png', alt: 'Seller dashboard overview' },
+      l: { src: CSP_IMG + 'e-commerce-ui-pic/Screen 2.png', alt: 'Seller dashboard analytics' },
+      r: { src: CSP_IMG + 'e-commerce-ui-pic/Screen 3.png', alt: 'Seller dashboard orders' }
+    },
+
+    overview: 'A mobile dashboard that gives a small ecommerce seller a quick snapshot of business health — revenue, orders and performance — without a full analytics suite to dig through.',
+    problem: 'A small seller checks their store from their phone throughout the day and wants glanceable answers, not deep analysis — the interface has to work as a five-second check-in.',
+
+    process: [
+      { h: 'Define the target user', p: 'Designed for a small seller who checks their store from their phone throughout the day and wants glanceable answers, not deep analysis.' },
+      { h: 'Lead with the Overview', p: 'Led the Overview screen with a large revenue card plus quick-glance stats for orders today and active visitors.' },
+      { h: 'Simplify Analytics', p: 'Kept Analytics to two charts — a revenue trend and an order volume trend — with a 1D/1W/1M/1Y toggle, and a best-seller card.' },
+      { h: 'Build the component library', p: 'Built a reusable Figma component library — nav bar, cards, status tags — so Orders and Settings stayed visually consistent.' }
+    ],
+
+    cardsHeading: 'Key features',
+    cards: [
+      { h: 'Overview', p: 'Total revenue, orders today, pending orders and active visitors in glanceable cards.' },
+      { h: 'Analytics', p: 'Revenue and order-volume trend charts with a time-range toggle and a best-seller card.' },
+      { h: 'Orders', p: 'A status-tagged order list — Pending, Shipped, Delivered — with order ID and amount.' },
+      { h: 'Settings', p: 'Profile, notifications, dark mode and payment settings in a simple list.' }
+    ],
+
+    screens: [
+      { src: CSP_IMG + 'e-commerce-ui-pic/Screen 4.png', alt: 'Seller dashboard settings', caption: 'Settings — profile, notifications and payment controls.' }
+    ],
+
+    outcome: 'Delivered as a complete Figma prototype with a reusable component library for navigation, cards and status tags.'
+  },
+
+  'salon': {
+    num: '08', title: 'Lumière Salon', kicker: 'Case Study · Responsive Website',
+    tagline: 'A fully responsive four-page website for a spa and salon business, designed independently for desktop, tablet and mobile.',
+    accentA: '#d97706', accentB: '#78350f',
+    role: 'UI/UX Design', tools: 'Figma', timeline: 'Training project · 1stop.ai internship',
+
+    hero: { kind: 'laptop', img: CSP_IMG + 'responsive-web-saloon-uiPic/page 1-desktop.png', alt: 'Lumière Salon home page' },
+
+    overview: 'Lumière Salon is a fully responsive four-page website for a spa and salon business, designed independently for desktop, tablet and mobile.',
+    problem: 'Service businesses sell on atmosphere, but the practical information — services, pricing, booking — still has to be one tap away, and the layout has to hold together across three very different screen sizes.',
+
+    process: [
+      { h: 'Design each page independently', p: 'Designed four pages — Home, About, Services and Contact — each laid out separately for desktop, tablet and mobile, not scaled down from one version.' },
+      { h: 'Lead with atmosphere', p: 'Led Home with a full-bleed hero photograph, a clear value proposition and a repeated "Book Your Appointment" CTA.' },
+      { h: 'Keep services scannable', p: 'Used a consistent service-card grid — rating, description, price, book button — across all three breakpoints.' },
+      { h: 'Simplify contact', p: 'Built the Contact page around a simple form plus a contact-info panel and map, so booking never feels like a chore.' }
+    ],
+
+    cardsHeading: 'Key features',
+    cards: [
+      { h: 'Home', p: 'A full-bleed hero, four signature-service highlights, and a closing "Ready for a Transformation?" CTA band.' },
+      { h: 'About', p: 'Founding story, philosophy and a "Meet Our Expert" team grid.' },
+      { h: 'Services', p: 'Eight services as ratable, priced cards — from Precision Hair Design to Bridal & Event Packages.' },
+      { h: 'Contact', p: 'A booking form alongside contact info and a map, so enquiries convert on the spot.' }
+    ],
+
+    screens: [
+      { src: CSP_IMG + 'responsive-web-saloon-uiPic/page 2-desktop.png', alt: 'Lumière Salon about page', caption: 'About — founding story, philosophy and the team.' },
+      { src: CSP_IMG + 'responsive-web-saloon-uiPic/page 3-tablet.png', alt: 'Lumière Salon services page on tablet', caption: 'Services, on tablet — the same card system adapted to a narrower grid.' },
+      { src: CSP_IMG + 'responsive-web-saloon-uiPic/page 4-desktop.png', alt: 'Lumière Salon contact page', caption: 'Contact — booking form, contact info and map.' }
+    ],
+
+    outcome: 'Delivered as a complete Figma prototype — Lumière Salon — with dedicated desktop, tablet and mobile layouts for every page.'
   }
 };
 
-const CSP_ORDER = ['vidyapeeth360', 'helprevx', 'healthpulse', 'nexus-ai'];
+const CSP_ORDER = ['vidyapeeth360', 'helprevx', 'healthpulse', 'nexus-ai', 'grocery', 'edtech', 'seller-dashboard', 'salon'];
 
 
 /* ══════════════════════════════════════════════════════════════════════

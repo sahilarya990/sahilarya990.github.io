@@ -219,9 +219,9 @@ const CASE_STUDIES = {
      four selected pieces. Re-add a card with data-project to bring it back. */
 };
 
-/* These four have a full case-study write-up (case-study.js) and open as a
-   dedicated page instead of the slide-in panel above. */
-const FULL_PAGE_STUDIES = ['vidyapeeth360', 'helprevx', 'healthpulse', 'nexus-ai'];
+/* Every project now has a full case-study write-up (case-study.js) and
+   opens as a dedicated page instead of the slide-in panel above. */
+const FULL_PAGE_STUDIES = ['vidyapeeth360', 'helprevx', 'healthpulse', 'nexus-ai', 'grocery', 'edtech', 'seller-dashboard', 'salon'];
 
 
 /* ══════════════════════════════════════════════════════════════════════
