@@ -4,7 +4,7 @@
    --------------------------------------------------------------------------
    01  Tokens                  09  Work
    02  Reset & base            10  About
-   03  Primitives              11  Skills
+   03  Primitives              11  Process
    04  Atmosphere              12  Experience & recognition
    05  Intro / cursor / chrome 12b Certifications
    06  Nav                     13  Contact / footer
@@ -611,45 +611,40 @@ body.cur-on .cur{opacity:1}
   max-width:min(100%,22ch);text-wrap:balance;
 }
 
-/* ══ 09. WORK — scroll-driven showcase ═══════════════════════════════
-   Base layout: a plain stacked flow. Works with no JS, on mobile, and
-   under prefers-reduced-motion.
+/* ══ 09. WORK — cinematic full-bleed showcase ════════════════════════
+   Base layout: a plain stacked flow, each project its own near-fullscreen
+   frame with the copy overlaid at the bottom corner. Works with no JS,
+   on mobile/tablet, and under prefers-reduced-motion.
 
    Enhanced layout (.wstage--on, added by JS on desktop): the stage grows
-   tall, the inner viewport pins, all four slides stack in one grid cell,
-   and scroll position drives their opacity / translate / scale so the
-   projects crossfade into each other as one continuous story.
+   tall, the inner viewport pins, and every project becomes a fullscreen
+   sheet. Scroll position drives each sheet's translateY / scale, so the
+   next project physically slides up from below and covers the one
+   before it — a stack of sheets, not a crossfade.
    ════════════════════════════════════════════════════════════════════ */
 .slide{
   position:relative;margin-top:var(--py);
-  display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);
-  gap:clamp(2rem,4.5vw,5rem);align-items:center;
+  display:block;min-height:min(86svh,900px);
 }
 .slide:first-child{margin-top:0}
 
-.slide__n{
-  display:block;font-size:var(--fs-meta);font-weight:600;letter-spacing:.13em;
-  color:var(--acc-3);font-variant-numeric:tabular-nums;margin-bottom:.9rem;
-}
-.slide__t{font-size:var(--fs-proj);line-height:1.05}
-.slide__d{margin-top:.7rem;color:var(--text-2);max-width:38ch}
-.slide__copy{display:flex;flex-direction:column;align-items:flex-start}
-.slide__copy .tags{margin-top:1.4rem}
-.slide__copy .arrow{margin-top:1.65rem}
-
-/* The visual anchor — one frame shape for every project so the crossfade
-   reads as the image transforming, not the layout jumping */
+/* The visual anchor — image fills the frame, copy overlays its lower
+   corner. Same shape enhanced or not: only the containing stage's
+   sizing/position changes between the two modes. */
 .slide__media{
-  position:relative;overflow:hidden;border-radius:var(--r);width:100%;
-  aspect-ratio:16/10;max-height:62svh;perspective:1200px;
+  position:relative;overflow:hidden;border-radius:var(--r);
+  width:100%;height:100%;min-height:inherit;perspective:1200px;
   border:1px solid var(--line);background:var(--bg-2);box-shadow:var(--shadow);
   transition:border-color var(--t-l),box-shadow var(--t-l);
 }
 /* Cursor-tilt layer — mousemove drives a very small rotate/parallax here
-   (desktop, fine pointer only); scroll choreography stays on .slide__media
-   itself so the two motions never fight each other's transform. */
+   (desktop, fine pointer only); scroll choreography stays on the .slide
+   itself so the two motions never fight each other's transform.
+   position:absolute (not width/height:100%) so it reliably fills
+   .slide__media even when that box's own height only comes from
+   min-height — a percentage height wouldn't resolve in that case. */
 .slide__tilt{
-  display:block;width:100%;height:100%;
+  position:absolute;inset:0;
   transform-style:preserve-3d;will-change:transform;
   transition:transform .6s var(--e-io);
 }
@@ -658,12 +653,49 @@ body.cur-on .cur{opacity:1}
   transition:transform 1.1s var(--e);
 }
 .slide__media--center img{object-position:center}
-/* A soft purple ground rises behind the visual — the "glow follows the
-   active project" cue, kept extremely subtle */
-.slide__media::after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 75% 55% at 50% 112%, rgba(139,92,246,.16), transparent 62%);
+
+/* Scrim — a constant bottom-up gradient so the overlaid copy always
+   reads, regardless of what's underneath it in the screenshot */
+.slide__scrim{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(0deg,
+    rgba(4,2,10,.85) 0%, rgba(4,2,10,.5) 26%, rgba(4,2,10,.12) 52%, transparent 68%);
 }
+/* Cover — JS fades this in as the NEXT sheet slides over this one, so
+   the outgoing project visibly recedes instead of just shrinking */
+.slide__cover{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:#000;opacity:0;will-change:opacity;
+}
+
+.slide__copy{
+  position:absolute;z-index:2;left:clamp(1.25rem,4vw,3.5rem);right:clamp(1.25rem,4vw,3.5rem);
+  bottom:clamp(1.5rem,4.5vw,3.5rem);
+  display:flex;flex-direction:column;align-items:flex-start;max-width:min(100%,600px);
+}
+.slide:nth-child(even) .slide__copy{left:auto;align-items:flex-end;text-align:right}
+
+.slide__n{
+  display:block;font-size:var(--fs-meta);font-weight:600;letter-spacing:.13em;
+  color:var(--acc-3);font-variant-numeric:tabular-nums;margin-bottom:.7rem;
+  text-shadow:0 1px 12px rgba(0,0,0,.5);
+}
+.slide__t{
+  font-size:clamp(2.25rem,1.5rem + 3.2vw,4.25rem);line-height:1.02;letter-spacing:-.02em;
+  text-shadow:0 2px 24px rgba(0,0,0,.45);
+}
+.slide__d{margin-top:.8rem;color:var(--text-2);max-width:42ch;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.slide__copy .tags{margin-top:1.3rem}
+.slide__copy .tags li{background:rgba(8,4,16,.4);backdrop-filter:blur(8px)}
+.slide__copy .arrow{margin-top:1.5rem}
+
+/* A soft ground glow behind the copy corner — extra separation on the
+   busiest screenshots, on top of the constant scrim */
+.slide__media::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse 70% 60% at 18% 108%, rgba(139,92,246,.20), transparent 60%);
+}
+.slide:nth-child(even) .slide__media::after{background:radial-gradient(ellipse 70% 60% at 82% 108%, rgba(139,92,246,.20), transparent 60%)}
 /* Glass sheen — a soft diagonal highlight that sweeps across the frame
    on hover, the "premium" cue that reads as light on glass rather than
    a UI transition */
@@ -678,46 +710,43 @@ body.cur-on .cur{opacity:1}
   box-shadow:var(--glow-m),var(--shadow),0 0 0 1px rgba(196,181,253,.22);
 }
 .slide:hover .slide__media::before{transform:translate3d(65%,0,0);opacity:1}
-.slide:hover .slide__media img{transform:scale(1.02)}
+.slide:hover .slide__tilt img{transform:scale(1.02)}
 .slide:hover .tags li{border-color:var(--line-hi);color:var(--text-2)}
 @media (prefers-reduced-motion:reduce){
   .slide__media img,.slide__media::before,.slide__tilt{transition:none}
-  .slide:hover .slide__media img{transform:none}
+  .slide:hover .slide__tilt img{transform:none}
 }
 
-/* — Enhanced: pinned stage —
-   470svh of scroll ≈ one settled beat per project + three transitions */
+/* — Enhanced: pinned stack —
+   400svh ÷ 3 gaps between 4 sheets = one full viewport of scroll per
+   transition, after the first project's free initial view. */
 .wstage{position:relative}
-.wstage--on{height:470svh}
+.wstage--on{height:400svh}
 .wstage--on .wstage__pin{
-  position:sticky;top:0;height:100svh;overflow:hidden;
-  display:flex;align-items:center;padding-top:var(--nav-h);
+  position:sticky;top:0;height:100svh;overflow:hidden;display:block;
 }
-.wstage--on .wstage__in{width:100%;position:relative;z-index:1}
-.wstage--on .slides{display:grid;width:100%}
+.wstage--on .wstage__in{width:100%;height:100%;position:relative;z-index:1}
+.wstage--on .slides{position:relative;width:100%;height:100%}
 .wstage--on .slides > .slide{
-  grid-area:1/1;margin-top:0;opacity:0;visibility:hidden;
-  will-change:transform,opacity;
+  position:absolute;inset:0;margin-top:0;min-height:0;
+  will-change:transform;
 }
 /* JS drives transform/opacity per frame — transitions would fight it */
 .wstage--on .slides > .slide,
 .wstage--on .slide__media{transition:border-color var(--t-l),box-shadow var(--t-l)}
 
-/* Alternating composition — odd projects read text-left/image-right,
-   even projects mirror to image-left/text-right. Flipping both the
-   column widths and the element `order` (rather than DOM order) keeps
-   markup/reading order identical across projects. */
-.wstage--on .slides > .slide:nth-child(even){
-  grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);
+/* Each sheet is a large, centred, letterboxed frame rather than an
+   edge-to-edge fill — keeps the rounded corners/shadow/glow the section
+   is built around while still reading as a fullscreen hero */
+.wstage--on .slide__media{
+  position:absolute;left:50%;top:calc(50% + var(--nav-h) / 2);translate:-50% -50%;
+  width:min(94vw,1680px);height:min(82svh,840px);min-height:0;
 }
-.wstage--on .slides > .slide:nth-child(even) .slide__copy{order:2}
-.wstage--on .slides > .slide:nth-child(even) .slide__media{order:1}
-
-/* Wide desktop only: let the mockup bleed a little past its column,
-   toward the centre of the viewport — the "overlap" premium cue */
-@media (min-width:1240px){
-  .wstage--on .slides > .slide:nth-child(odd) .slide__media{margin-inline-start:-2.6vw}
-  .wstage--on .slides > .slide:nth-child(even) .slide__media{margin-inline-end:-2.6vw}
+/* Subtle per-project bias — 01 sits a touch right, 02 a touch left,
+   03/04 stay centred, so the row doesn't feel mechanically identical */
+@media (min-width:1025px){
+  .wstage--on .slides > .slide:nth-child(1) .slide__media{left:calc(50% + 2.2vw)}
+  .wstage--on .slides > .slide:nth-child(2) .slide__media{left:calc(50% - 2.2vw)}
 }
 
 /* Mood — ambient colour beds behind the slides, one per project. Opacity
@@ -746,7 +775,7 @@ body.cur-on .cur{opacity:1}
 /* — Progress: 01 / 04 + a thin fill — */
 .wprog{display:none}
 .wstage--on .wprog{
-  position:absolute;left:50%;bottom:1.8rem;translate:-50% 0;z-index:2;
+  position:absolute;left:50%;bottom:1.8rem;translate:-50% 0;z-index:3;
   display:flex;flex-direction:column;align-items:center;gap:.6rem;
 }
 .wprog__n{
@@ -855,42 +884,54 @@ body.cur-on .cur{opacity:1}
 }
 .about__pic:hover img{filter:none;transform:scale(1.03)}
 
-/* ══ 11. SKILLS — design / code ══════════════════════════════════════ */
-.panels{
-  display:flex;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
-  background:var(--glass);
+/* ══ 11. PROCESS ═════════════════════════════════════════════════════
+   A four-node line: JS/Process sets --p (0→1) as the row crosses the
+   viewport, filling the connector; each node ignites in turn via
+   .is-on once the fill reaches it. */
+.proc{
+  position:relative;--nd:clamp(48px,4.5vw,58px);
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(1.5rem,3vw,2.25rem);
 }
-.panel{
-  position:relative;flex:1 1 50%;overflow:hidden;
-  padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,3vw,3rem);
-  transition:flex-grow .6s var(--e),background .6s var(--e);
+.proc::before,.proc::after{
+  content:"";position:absolute;left:0;right:0;top:calc(var(--nd) / 2);height:1px;
+  mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);
 }
-.panel + .panel{border-left:1px solid var(--line)}
-.panel::before{
-  content:"";position:absolute;inset:0;opacity:0;transition:opacity .6s var(--e);
-  background:radial-gradient(ellipse 80% 60% at 50% 115%, rgba(139,92,246,.22), transparent 62%);
+.proc::before{background:var(--line)}
+.proc::after{
+  background:linear-gradient(90deg,var(--acc),var(--acc-3));
+  box-shadow:0 0 10px rgba(139,92,246,.5);
+  transform:scaleX(var(--p,0));transform-origin:left;
+  transition:transform .4s var(--e);
 }
-.panel > *{position:relative;z-index:1}
-.panel__w{font-size:clamp(1.75rem,1.2rem + 1.6vw,2.5rem);font-weight:600;letter-spacing:-.025em}
-.panel__r{
-  font-size:var(--fs-meta);font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--acc-3);margin:.7rem 0 2rem;
-}
-.panel__l li{
-  padding:.8rem 0;border-bottom:1px solid var(--line-2);font-size:.98rem;color:var(--text-2);
-  transition:color .4s var(--e),padding-left .4s var(--e),border-color .4s var(--e);
-}
-.panel__l li:last-child{border-bottom:0}
 
-/* Hover: the chosen side expands slightly, the other mutes */
-@media (hover:hover) and (min-width:1025px){
-  .panel{transition:flex-grow .6s var(--e),background .6s var(--e),opacity .6s var(--e)}
-  .panels:hover .panel{flex-grow:.85}
-  .panels:hover .panel:hover{flex-grow:1.3}
-  .panels:hover .panel:not(:hover){opacity:.55}
-  .panel:hover{background:rgba(255,255,255,.04)}
-  .panel:hover::before{opacity:1}
-  .panel:hover .panel__l li{color:var(--text);border-bottom-color:rgba(139,92,246,.2)}
+.proc__i{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center}
+.proc__node{
+  width:var(--nd);height:var(--nd);border-radius:50%;flex:none;
+  display:grid;place-items:center;background:var(--bg-2);
+  border:1px solid var(--line);color:var(--text-3);
+  transition:color .5s var(--e),border-color .5s var(--e),box-shadow .5s var(--e),
+             transform .5s var(--e),background .5s var(--e);
+}
+.proc__node svg{width:38%;height:38%}
+.proc__n{
+  margin-top:1rem;font-size:var(--fs-meta);font-weight:600;letter-spacing:.12em;
+  color:var(--text-3);font-variant-numeric:tabular-nums;transition:color .5s var(--e);
+}
+.proc__t{margin-top:.5rem;font-size:clamp(1.15rem,1rem + .5vw,1.4rem)}
+.proc__d{margin-top:.6rem;color:var(--text-2);font-size:.92rem;max-width:26ch}
+
+.proc__i.is-on .proc__node{
+  color:var(--acc-3);border-color:var(--line-hi);background:rgba(139,92,246,.12);
+  box-shadow:0 0 0 1px rgba(196,181,253,.25),0 0 30px -4px rgba(139,92,246,.55);
+  transform:scale(1.06);
+}
+.proc__i.is-on .proc__n{color:var(--acc-3);text-shadow:0 0 12px rgba(192,132,252,.4)}
+
+@media (prefers-reduced-motion:reduce){
+  .proc::after{transition:none}
+  .proc__node{transition:none}
 }
 
 /* ══ 12. EXPERIENCE & RECOGNITION ════════════════════════════════════
@@ -1155,18 +1196,22 @@ body.cur-on .cur{opacity:1}
   .hero__glow--b{width:min(160%,1100px)}
   .hero__grid{background-size:46px 100%}
 
-  /* Work falls back to a stacked flow — visual first, copy after */
-  .slide{grid-template-columns:minmax(0,1fr);gap:clamp(1.5rem,3.5vw,2.25rem)}
-  .slide__media{order:-1;max-height:none}
-  .slide__d{max-width:52ch}
+  /* Work — below the 1025px desktop threshold the pin never engages
+     (JS gates .wstage--on the same way), so tablet just gets a calmer,
+     slightly smaller version of the same fullscreen-sheet base layout */
+  .slide{min-height:min(80svh,760px)}
+  .slide__t{font-size:clamp(2rem,1.5rem + 2.4vw,3rem)}
+  .slide__d{max-width:46ch}
 
   .svc__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 
   .about{grid-template-columns:minmax(0,1fr);row-gap:2.5rem}
   .about__pic{width:min(100%,300px);aspect-ratio:1/1}
 
-  .panels{flex-direction:column}
-  .panel + .panel{border-left:0;border-top:1px solid var(--line)}
+  /* Process — the connecting line only makes sense running through a
+     row; stacked, each step just reads top to bottom on its own */
+  .proc{grid-template-columns:minmax(0,1fr);gap:2.75rem;max-width:340px;margin-inline:auto}
+  .proc::before,.proc::after{display:none}
 
   .exp__i{grid-template-columns:minmax(0,1fr) auto;gap:.75rem 1.5rem}
   .exp__txt{grid-column:1 / -1;max-width:60ch}
@@ -1217,8 +1262,16 @@ body.cur-on .cur{opacity:1}
   .hero__ground{width:130%;height:30vh}
 
   .sec__title{font-size:clamp(1.85rem,7.6vw,2.35rem)}
-  .slide__t{font-size:clamp(1.6rem,7vw,2rem)}
-  .slide__media{aspect-ratio:4/3}
+
+  /* Work — still one fullscreen-ish sheet per project; text overlay
+     tightens and drops to the very bottom, tags wrap if needed */
+  .slide{min-height:min(74svh,640px)}
+  .slide__t{font-size:clamp(1.7rem,1.3rem + 5vw,2.3rem)}
+  .slide__d{max-width:34ch;font-size:.9rem}
+  .slide__copy{left:1.1rem;right:1.1rem;bottom:1.1rem}
+  .slide__n{margin-bottom:.5rem}
+  .slide__copy .tags{margin-top:.9rem}
+  .slide__copy .arrow{margin-top:1rem}
 
   .expl__g{grid-template-columns:minmax(0,1fr)}
   .expl__i figure{aspect-ratio:16/10}

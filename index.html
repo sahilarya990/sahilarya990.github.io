@@ -285,10 +285,13 @@
     </header>
   </div>
 
-  <!-- Scroll-driven showcase.
-       Base layout is a plain stacked flow (mobile, no-JS, reduced motion).
-       On desktop, JS adds .wstage--on: the inner viewport pins and the four
-       projects crossfade into each other as one continuous story. -->
+  <!-- Scroll-driven showcase — full-bleed cinematic project sheets.
+       Base layout is a plain stacked flow (mobile, tablet, no-JS, reduced
+       motion): each <li> is its own near-fullscreen frame, image filling
+       it with the copy overlaid at the bottom corner.
+       On desktop, JS adds .wstage--on: the inner viewport pins and each
+       project becomes a fullscreen layer that slides up from below and
+       physically covers the one before it as you scroll. -->
   <div class="wstage" id="wstage">
     <div class="wstage__pin">
 
@@ -307,78 +310,86 @@
 
           <li class="slide reveal" data-project="vidyapeeth360">
             <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Vidyapeeth360">Open case study</button>
-            <div class="slide__copy">
-              <span class="slide__n">01</span>
-              <h3 class="slide__t">Vidyapeeth360</h3>
-              <p class="slide__d">Institution management platform — landing page and product showcase.</p>
-              <ul class="tags"><li>UI/UX</li><li>SaaS</li><li>Web</li></ul>
-              <span class="arrow">View case study
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </span>
-            </div>
             <figure class="slide__media">
               <div class="slide__tilt">
                 <img src="images/vidyapeeth-hero.png"
                      alt="Vidyapeeth360 landing page — institution management platform"
                      width="1536" height="1024" loading="lazy" decoding="async" />
               </div>
+              <span class="slide__scrim" aria-hidden="true"></span>
+              <span class="slide__cover" aria-hidden="true"></span>
+              <div class="slide__copy">
+                <span class="slide__n">01</span>
+                <h3 class="slide__t">Vidyapeeth360</h3>
+                <p class="slide__d">Institution management platform — landing page and product showcase.</p>
+                <ul class="tags"><li>UI/UX</li><li>SaaS</li><li>Web</li></ul>
+                <span class="arrow">View case study
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </div>
             </figure>
           </li>
 
           <li class="slide reveal" data-project="helprevx">
             <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HelpRevX">Open case study</button>
-            <div class="slide__copy">
-              <span class="slide__n">02</span>
-              <h3 class="slide__t">HelpRevX</h3>
-              <p class="slide__d">A complete brand system — logo, colour, typography and guidelines.</p>
-              <ul class="tags"><li>Branding</li><li>Product Design</li></ul>
-              <span class="arrow">View case study
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </span>
-            </div>
             <figure class="slide__media slide__media--center">
               <div class="slide__tilt">
                 <img src="images/helprevx-brand.png"
                      alt="HelpRevX brand direction — logo mark and wordmark"
                      width="1536" height="1024" loading="lazy" decoding="async" />
               </div>
+              <span class="slide__scrim" aria-hidden="true"></span>
+              <span class="slide__cover" aria-hidden="true"></span>
+              <div class="slide__copy">
+                <span class="slide__n">02</span>
+                <h3 class="slide__t">HelpRevX</h3>
+                <p class="slide__d">A complete brand system — logo, colour, typography and guidelines.</p>
+                <ul class="tags"><li>Branding</li><li>Product Design</li></ul>
+                <span class="arrow">View case study
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </div>
             </figure>
           </li>
 
           <li class="slide reveal" data-project="healthpulse">
             <button class="hit" type="button" data-cursor="view" aria-label="Open case study: HealthPulse">Open case study</button>
-            <div class="slide__copy">
-              <span class="slide__n">03</span>
-              <h3 class="slide__t">HealthPulse</h3>
-              <p class="slide__d">A fitness app that keeps progress readable mid-workout.</p>
-              <ul class="tags"><li>Mobile App</li><li>UX</li></ul>
-              <span class="arrow">View case study
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </span>
-            </div>
             <figure class="slide__media slide__media--center">
               <div class="slide__tilt">
                 <img src="images/healthplus-fitness-app.jpg" alt="HealthPulse fitness mobile app screens"
                      width="1024" height="572" loading="lazy" decoding="async" />
+              </div>
+              <span class="slide__scrim" aria-hidden="true"></span>
+              <span class="slide__cover" aria-hidden="true"></span>
+              <div class="slide__copy">
+                <span class="slide__n">03</span>
+                <h3 class="slide__t">HealthPulse</h3>
+                <p class="slide__d">A fitness app that keeps progress readable mid-workout.</p>
+                <ul class="tags"><li>Mobile App</li><li>UX</li></ul>
+                <span class="arrow">View case study
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
               </div>
             </figure>
           </li>
 
           <li class="slide reveal" data-project="nexus-ai">
             <button class="hit" type="button" data-cursor="view" aria-label="Open case study: Nexus AI">Open case study</button>
-            <div class="slide__copy">
-              <span class="slide__n">04</span>
-              <h3 class="slide__t">Nexus AI</h3>
-              <p class="slide__d">A dashboard built around hierarchy, not panels.</p>
-              <ul class="tags"><li>SaaS</li><li>Dashboard</li><li>UI/UX</li></ul>
-              <span class="arrow">View case study
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </span>
-            </div>
             <figure class="slide__media slide__media--center">
               <div class="slide__tilt">
                 <img src="images/nexusai.jpg" alt="Nexus AI SaaS dashboard interface"
                      width="1024" height="665" loading="lazy" decoding="async" />
+              </div>
+              <span class="slide__scrim" aria-hidden="true"></span>
+              <span class="slide__cover" aria-hidden="true"></span>
+              <div class="slide__copy">
+                <span class="slide__n">04</span>
+                <h3 class="slide__t">Nexus AI</h3>
+                <p class="slide__d">A dashboard built around hierarchy, not panels.</p>
+                <ul class="tags"><li>SaaS</li><li>Dashboard</li><li>UI/UX</li></ul>
+                <span class="arrow">View case study
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
               </div>
             </figure>
           </li>
@@ -525,31 +536,55 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     04 · SKILLS — design / code
+     04 · PROCESS
+     ----------------------------------------------------------------
+     A four-step line: JS/Process (script.js) turns scroll position
+     into a --p progress var (fills .proc::after) and lights each node
+     up in turn via .is-on as the fill reaches it. Reduced motion: every
+     node is marked is-on up front and the fill line is skipped, so the
+     row just reads as a static, evenly-lit sequence.
      ══════════════════════════════════════════════════════════════ -->
-<section class="sec" id="skills" aria-labelledby="skillsTitle">
+<section class="sec" id="process" aria-labelledby="processTitle">
   <div class="wrap">
     <header class="sec__head">
-      <p class="eyebrow reveal"><span>04</span> Skills</p>
-      <h2 class="sec__title reveal" id="skillsTitle" data-delay="60">A designer who ships the interface.</h2>
+      <p class="eyebrow reveal"><span>04</span> Process</p>
+      <h2 class="sec__title reveal" id="processTitle" data-delay="60">From problem to shipped product.</h2>
     </header>
 
-    <div class="panels reveal" data-delay="100">
-      <div class="panel">
-        <h3 class="panel__w">Design</h3>
-        <p class="panel__r">UI/UX Designer</p>
-        <ul class="panel__l">
-          <li>Figma</li><li>UI/UX</li><li>Prototyping</li><li>Design Systems</li><li>Branding</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h3 class="panel__w">Code</h3>
-        <p class="panel__r">Frontend Developer</p>
-        <ul class="panel__l">
-          <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Responsive Design</li><li>Frontend</li>
-        </ul>
-      </div>
-    </div>
+    <ol class="proc reveal" id="proc" data-delay="100">
+      <li class="proc__i" data-step="1">
+        <span class="proc__node" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3 20 20"/></svg>
+        </span>
+        <span class="proc__n">01</span>
+        <h3 class="proc__t">Discover</h3>
+        <p class="proc__d">Understand the problem, the people and the constraints before opening Figma.</p>
+      </li>
+      <li class="proc__i" data-step="2">
+        <span class="proc__node" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 3.5 18.5 12l-5.6 1.4L11.4 19 6 3.5Z"/></svg>
+        </span>
+        <span class="proc__n">02</span>
+        <h3 class="proc__t">Design</h3>
+        <p class="proc__d">Wireframes, UI and interactive prototypes, refined through iteration.</p>
+      </li>
+      <li class="proc__i" data-step="3">
+        <span class="proc__node" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg>
+        </span>
+        <span class="proc__n">03</span>
+        <h3 class="proc__t">Build</h3>
+        <p class="proc__d">Approved designs become responsive, production-ready HTML, CSS and JavaScript.</p>
+      </li>
+      <li class="proc__i" data-step="4">
+        <span class="proc__node" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4.5 12.5 9 17l10.5-11"/></svg>
+        </span>
+        <span class="proc__n">04</span>
+        <h3 class="proc__t">Refine</h3>
+        <p class="proc__d">Test across devices, polish the details that get skipped, then ship.</p>
+      </li>
+    </ol>
   </div>
 </section>
 

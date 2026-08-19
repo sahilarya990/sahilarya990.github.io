@@ -8,8 +8,8 @@
    05  Nav (auto-hide, mobile menu, scroll spy) + chrome
    06  Scroll reveal
    07  Hero light
-   08  Parallax (+ 08b work stage, 08c timeline, 08d about words,
-       08e certifications scroll-spy)
+   08  Parallax (+ 08b work stage, 08c timeline, 08c2 process,
+       08d about words, 08e certifications scroll-spy)
    09  Case study panel
    10  Lightbox (+ 10b ambient dust, 10c hero beams)
    11  Live clock
@@ -520,7 +520,7 @@ const Workstage = {
     /* Cache each slide's moving parts once, keyed off the elements
        themselves — cheaper than re-querying every animation frame. */
     const parts = slides.map((s) => ({
-      media: $('.slide__media', s),
+      cover: $('.slide__cover', s),
       kids: $$('.slide__copy > *', s),                  // n, title, desc, tags, arrow — in reading order
     }));
 
@@ -534,32 +534,38 @@ const Workstage = {
       return t * (N - 1);
     };
 
+    /* Stacked sheets, not a crossfade: each slide sits at translateY(0)
+       once settled. d = val - i is negative while a slide is still
+       climbing in from below (entry phase), positive once the NEXT
+       slide starts sliding over it (cover phase) — the two phases meet
+       at d=0 with matching values on both sides, so there's no seam. */
     const render = (val) => {
       slides.forEach((s, i) => {
-        const { media, kids } = parts[i];
-        const d = val - i, ad = Math.abs(d);
-        const a = Math.max(0, 1 - ad * 1.5);            // fully solo at rest
-        s.style.opacity = a.toFixed(3);
-        s.style.visibility = a <= 0 ? 'hidden' : 'visible';
-        s.style.pointerEvents = ad < .5 ? 'auto' : 'none';
+        const { kids, cover } = parts[i];
+        const d = val - i;
+        const entry = Math.min(1, Math.max(0, 1 + d));   // 0→1 as it arrives (d: -1→0)
+        const coverAmt = Math.min(1, Math.max(0, d));    // 0→1 as the next one covers it (d: 0→1)
 
-        /* Image: scales 1 → .92 off-centre, enters/exits vertically —
-           down-and-in from below, up-and-out on the way past. */
-        if (media) {
-          const amp = d < 0 ? 70 : 40;
-          const scale = 1 - Math.min(ad, 1) * .08;
-          media.style.transform = `translate3d(0, ${(-d * amp).toFixed(1)}px, 0) scale(${scale.toFixed(4)})`;
-        }
+        s.style.visibility = d <= -1.02 ? 'hidden' : 'visible';
+        s.style.pointerEvents = Math.abs(d) < .5 ? 'auto' : 'none';
 
-        /* Text: fades + slides on the X axis, each child a hair behind
-           the last — a real scroll-tied stagger, not a CSS delay (JS
-           already owns this transform every frame; a transition would
-           just fight it). */
+        const ty = (1 - entry) * 100;                              // 100% → 0%
+        const scale = d < 0 ? 0.98 + entry * 0.02 : 1 - coverAmt * 0.03;
+        s.style.transform = `translate3d(0, ${ty.toFixed(2)}%, 0) scale(${scale.toFixed(4)})`;
+
+        /* Ramp faster than linear so the outgoing sheet is already deep
+           into near-black well before coverAmt hits 1 — that's what
+           hides any last-fraction-of-a-percent lag between this sheet
+           settling and the next one's edge fully arriving over it. */
+        if (cover) cover.style.opacity = (Math.sqrt(coverAmt) * .85).toFixed(3);
+
+        /* Text: fades + lifts in, each child a hair behind the last —
+           a real scroll-tied stagger, not a CSS delay (JS already owns
+           this transform every frame; a transition would just fight it). */
         kids.forEach((el, ci) => {
-          const dd = d - ci * 0.05;
-          const ca = Math.max(0, 1 - Math.abs(dd) * 1.6);
-          el.style.opacity = ca.toFixed(3);
-          el.style.transform = `translate3d(${(-dd * 46).toFixed(1)}px, 0, 0)`;
+          const e2 = Math.min(1, Math.max(0, entry - ci * .05));
+          el.style.opacity = e2.toFixed(3);
+          el.style.transform = `translate3d(0, ${((1 - e2) * 18).toFixed(1)}px, 0)`;
         });
       });
 
@@ -589,8 +595,8 @@ const Workstage = {
       if (on) { x = targetX(); render(x); kick(); }
       else slides.forEach((s, i) => {
         s.style.cssText = '';
-        const { media, kids } = parts[i];
-        if (media) media.style.transform = '';
+        const { kids, cover } = parts[i];
+        if (cover) cover.style.opacity = '';
         kids.forEach((el) => { el.style.opacity = ''; el.style.transform = ''; });
       });
     };
@@ -602,7 +608,8 @@ const Workstage = {
     /* Cursor-based 3D tilt + a whisper of parallax on the mockup — desktop,
        fine pointer, motion allowed only. Kept independent of the rAF loop
        above: it only updates on mousemove, and the CSS transition on
-       .slide__tilt is what eases it back to neutral on mouseleave. */
+       .slide__tilt is what eases it back to neutral on mouseleave. Kept
+       to 1–2° so it reads as a whisper, not a flip. */
     if (FINE && DESKTOP() && !REDUCED) {
       slides.forEach((s) => {
         const hit = $('.hit', s);                       // the actual top layer receiving pointer events
@@ -616,7 +623,7 @@ const Workstage = {
           const px = (e.clientX - r.left) / r.width - .5;
           const py = (e.clientY - r.top) / r.height - .5;
           tilt.style.transform =
-            `rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg) translate3d(${(px * 8).toFixed(1)}px, ${(py * 8).toFixed(1)}px, 0)`;
+            `rotateX(${(-py * 2).toFixed(2)}deg) rotateY(${(px * 2.4).toFixed(2)}deg) translate3d(${(px * 6).toFixed(1)}px, ${(py * 6).toFixed(1)}px, 0)`;
         });
         hit.addEventListener('mouseleave', () => { tilt.style.transform = ''; });
       });
@@ -660,6 +667,44 @@ const Timeline = {
 
       const p = Math.min(1, Math.max(0, (mid - lr.top) / lr.height));
       list.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
+    });
+  }
+};
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   08c2. PROCESS  —  scroll-filled connector, nodes ignite in sequence
+   ══════════════════════════════════════════════════════════════════════ */
+const Process = {
+  init() {
+    const proc = $('#proc');
+    if (!proc) return;
+    const items = $$('.proc__i', proc);
+    const n = items.length;
+    if (!n) return;
+
+    if (REDUCED) { items.forEach((it) => it.classList.add('is-on')); return; }
+
+    onScroll(() => {
+      const r = proc.getBoundingClientRect(), vh = innerHeight;
+      if (r.bottom < 0 || r.top > vh) return;
+
+      /* 0 as an edge appears at the bottom of the viewport, 1 once it's
+         climbed to ~15% from the top — one full viewport's worth of
+         scroll to ignite, so it reads as a deliberate reveal rather
+         than firing before the row is even comfortably in view. The
+         line fill tracks the row as a whole (only visible on the
+         desktop single-row layout); each node's own ignition is keyed
+         off ITS OWN position, not the row's — on desktop every node
+         shares the row's top so this reduces to the same sequential
+         reveal, but on the mobile stacked layout each step still
+         ignites as it individually scrolls into place. */
+      const pace = (top) => Math.min(1, Math.max(0, (vh - top) / (vh * 0.85)));
+      proc.style.setProperty('--p', pace(r.top).toFixed(3));
+      items.forEach((it, i) => {
+        const p = pace(it.getBoundingClientRect().top);
+        it.classList.toggle('is-on', p >= (i + .2) / n);
+      });
     });
   }
 };
@@ -1023,6 +1068,7 @@ function init() {
   Parallax.init();
   Workstage.init();
   Timeline.init();
+  Process.init();
   AboutWords.init();
   Certs.init();
   Panel.init();
