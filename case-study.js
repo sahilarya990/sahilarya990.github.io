@@ -53,6 +53,7 @@ const CASE_STUDY_PAGES = {
     ],
 
     screens: [
+      { src: CSP_IMG + 'vidyapeeth-ui-pic/vidyapeethNewlogo.png', alt: 'Vidyapeeth360 logo', caption: 'The Vidyapeeth360 logo — wordmark and mark designed for the brand.' },
       { src: CSP_IMG + 'vidyapeeth-ui-pic/screens (3.).png', alt: 'Vidyapeeth360 — Aira AI assistant section', caption: 'Aira AI — an assistant that answers fee, attendance and academic questions instantly.' },
       { src: CSP_IMG + 'vidyapeeth-ui-pic/screens (4.).png', alt: 'Vidyapeeth360 — mobile app section', caption: 'Mobile access for parents, students, teachers and owners, each with their own view.' },
       { src: CSP_IMG + 'vidyapeeth-ui-pic/screens (5).png', alt: 'Vidyapeeth360 — why us section', caption: 'Built for Indian institutions — multi-campus, role-based access, works on every device.' },
@@ -111,7 +112,7 @@ const CASE_STUDY_PAGES = {
     num: '04', title: 'Nexus AI', kicker: 'Case Study · AI Platform Dashboard',
     tagline: 'A developer dashboard concept for managing an AI API platform — usage analytics, model management and team controls in one calm, data-dense interface.',
     accentA: '#22d3ee', accentB: '#6366f1',
-    role: 'UI/UX Design', tools: 'Figma · HTML/CSS/JS prototyping', timeline: '1stop.ai internship · Live industry project',
+    role: 'UI/UX Design', tools: 'Figma', timeline: '1stop.ai internship · Live industry project',
 
     hero: { kind: 'laptop', img: CSP_IMG + 'nexus-ai-ui-pic/Dashboard.png', alt: 'Nexus AI dashboard' },
 
@@ -119,10 +120,10 @@ const CASE_STUDY_PAGES = {
     problem: 'A platform like this surfaces a lot of state at once — revenue, live traffic, model performance, team activity — for several different kinds of users. Without a deliberate structure it turns into a wall of panels nobody can read quickly, so the interface needed hierarchy before it needed decoration.',
 
     process: [
-      { h: 'Define the audience', p: 'Mapped four personas — the individual developer, the team lead, the data analyst and the platform admin — each pulling a different primary need from the same dashboard.' },
-      { h: 'Structure the navigation', p: "Built a collapsible sidebar grouped into Analytics, Models, API and Team, so every persona's task sits one click away." },
-      { h: 'Design the system', p: 'Defined a token-based dark UI with cyan and violet as the two accents, plus consistent semantic colour for success, warning and error states.' },
-      { h: 'Detail the motion', p: 'Specified timing for every moving part — count-up KPIs, sidebar collapse, card hover, scroll reveal — so the interface feels responsive, not static.' }
+      { h: 'Map the personas', p: 'Identified four user types — the individual developer, the team lead, the data analyst and the platform admin — each needing a different primary view of the same dashboard.' },
+      { h: 'Wireframe the structure', p: 'Wireframed the navigation shell in Figma first — a collapsible sidebar grouped into Analytics, Models, API and Team — before any visual styling, so every task sat one click away.' },
+      { h: 'Build the design system', p: 'Built a token-based dark UI in Figma — cyan and violet as the two accents, consistent semantic colour for success, warning and error states, reusable card and table components.' },
+      { h: 'Design the high-fidelity screens', p: 'Designed five high-fidelity screens in Figma and documented an interaction spec — count-up KPIs, sidebar collapse, card hover, scroll reveal — for handoff.' }
     ],
 
     cardsHeading: 'Key features',
@@ -140,14 +141,14 @@ const CASE_STUDY_PAGES = {
       { src: CSP_IMG + 'nexus-ai-ui-pic/Team.png', alt: 'Nexus AI team view', caption: 'Team — members, roles and recent activity.' }
     ],
 
-    outcome: 'Delivered as a fully interactive prototype — five core views, a token-based design system and documented motion timing — exploring how a data-dense developer product can still feel calm and legible.'
+    outcome: 'Delivered as a complete, high-fidelity Figma prototype — five core views, a token-based design system and a documented interaction spec — exploring how a data-dense developer product can still feel calm and legible.'
   },
 
   'healthpulse': {
     num: '03', title: 'HealthPulse', kicker: 'Case Study · Fitness Mobile App',
     tagline: 'A personal health companion — fitness tracking, AI coaching, nutrition and sleep, unified into one premium mobile experience.',
     accentA: '#22c55e', accentB: '#3b82f6',
-    role: 'UI/UX Design', tools: 'Figma · HTML/CSS/JS prototyping', timeline: '1stop.ai internship · Live industry project',
+    role: 'UI/UX Design', tools: 'Figma', timeline: '1stop.ai internship · Live industry project',
 
     hero: {
       kind: 'phones',
@@ -161,9 +162,9 @@ const CASE_STUDY_PAGES = {
 
     process: [
       { h: 'Map the personas', p: 'Defined four user types — the Athlete, the Optimizer, the Beginner and the Wellness Seeker — each pulling the product in a slightly different direction.' },
-      { h: 'Design the core loop', p: 'Structured onboarding → dashboard → workout → active session → completion as the primary path, with nutrition, sleep and AI coaching as supporting screens.' },
-      { h: 'Build the dashboard', p: "Designed a bento-grid home screen — steps, heart rate, sleep, water, calories and a daily AI insight — so a full day's status reads in one glance." },
-      { h: 'Specify the motion', p: 'Detailed every transition — screen navigation, ring progress, typing-dot AI responses — so the prototype feels alive rather than static.' }
+      { h: 'Wireframe the core loop', p: 'Wireframed onboarding → dashboard → workout → active session → completion as the primary path in Figma, before adding nutrition, sleep and AI coaching as supporting screens.' },
+      { h: 'Design the dashboard', p: "Designed a bento-grid home screen in Figma — steps, heart rate, sleep, water, calories and a daily AI insight — so a full day's status reads in one glance." },
+      { h: 'Build the component system', p: 'Built a reusable dark-mode component library in Figma and documented an interaction spec — screen transitions, ring progress, typing-dot AI responses — for handoff.' }
     ],
 
     cardsHeading: 'Key features',
@@ -181,7 +182,7 @@ const CASE_STUDY_PAGES = {
       { src: CSP_IMG + 'fitness-ap-ui-screens/Progress.png', alt: 'HealthPulse progress tracking', caption: 'Progress — trends over time across every tracked metric.' }
     ],
 
-    outcome: 'Delivered as a fully interactive prototype — thirteen screens, a token-based dark design system and documented interaction timing — completed as one of the live industry projects during the 1stop.ai internship.'
+    outcome: 'Delivered as a complete, high-fidelity Figma prototype — thirteen screens, a token-based dark design system and a documented interaction spec — completed as one of the live industry projects during the 1stop.ai internship.'
   }
 };
 

@@ -125,90 +125,94 @@ const CASE_STUDIES = {
 
   'grocery': {
     num: '05',
-    title: 'Grocery Delivery App',
-    sub: 'Mobile UI',
+    title: 'ClearCart',
+    sub: 'Grocery Delivery App',
     tags: ['Mobile App', 'UI/UX'],
     cover: 'images/grossery-app-screens.jpg',
     role: 'UI/UX Design',
     tools: 'Figma',
     timeline: 'Training project · 1stop.ai internship',
-    overview: 'A grocery and food delivery mobile experience designed as part of the 1stop.ai UI/UX training programme.',
-    problem: 'Grocery ordering involves browsing, searching and repeat purchasing — three different behaviours that have to coexist in one small interface.',
+    overview: 'ClearCart is a mobile-first grocery delivery app designed around speed, clarity and confidence — from browsing to checkout to live order tracking.',
+    problem: 'Grocery ordering mixes three different behaviours — fast browsing, careful comparison and repeat purchasing — that all have to work in one small screen without slowing the user down.',
     approach: [
-      'Structured browse, search and cart into a single navigation model',
-      'Wireframed the ordering flow end to end',
-      'Designed high-fidelity screens on a consistent mobile grid'
+      'Designed five core screens end to end: Home, Browse, Item Details, Cart and Order Tracking',
+      'Used category cards and a persistent search bar to keep browsing fast',
+      'Built a component system — frames, auto layout, variants, cards and lists — with consistent hover/active/disabled states',
+      'Designed Order Tracking as a status timeline with a live map and ETA to reduce post-purchase anxiety'
     ],
-    design: 'Category-led browsing, a persistent cart, and product cards that stay readable at small sizes.',
-    outcome: 'Completed as one of three training projects in the 1stop.ai UI/UX internship.',
-    contribution: ['User flows', 'Wireframes', 'Mobile UI design'],
-    gallery: []
+    design: 'A green, appetite-friendly palette, item cards that keep price and quantity always visible, and a checkout summary that shows subtotal, delivery fee and total with no surprise costs.',
+    outcome: 'Delivered as a complete Figma prototype — ClearCart — covering the full order journey from Home to Order Tracking.',
+    contribution: ['App concept & naming (ClearCart)', 'Screen design', 'Component system', 'Prototyping'],
+    gallery: ['images/case-study-info/grossery-app-ui/Screen 1.png']
   },
 
   'edtech': {
     num: '06',
-    title: 'EdTech Landing Page',
-    sub: 'Landing page',
+    title: 'SkillForge',
+    sub: 'EdTech Landing Page',
     tags: ['Landing Page', 'UI/UX'],
     cover: 'images/ed-tech-landing-page.png',
     role: 'UI/UX Design',
     tools: 'Figma',
     timeline: 'Training project · 1stop.ai internship',
-    overview: 'A conversion-focused education landing page built around clear hierarchy and structured content sections.',
-    problem: 'Education products have to establish credibility fast, then guide a visitor to a single next step without burying it.',
+    overview: 'SkillForge is an EdTech landing page designed to communicate value, trust and outcomes to career-focused learners in one scannable page.',
+    problem: 'Prospective students are scanning, skeptical and impatient — the page has to prove credibility and communicate outcomes fast, or they leave before reaching a course.',
     approach: [
-      'Sequenced sections so the page answers questions in the order they are asked',
-      'Set a type scale that keeps long-form content readable',
-      'Designed responsive layouts for each section rather than scaling one down'
+      'Designed four core screens: Home, Courses Listing, Course Details and About',
+      'Led with a headline and subtext that states what the platform is, who it is for, and the outcome',
+      'Used consistent course cards — title, description, duration, CTA — for fast comparison',
+      'Backed every claim with trust signals — stats, logos, testimonials'
     ],
-    design: 'A modular section system with a strong headline hierarchy and one clearly dominant call to action.',
-    outcome: 'Completed as one of three training projects in the 1stop.ai UI/UX internship.',
-    contribution: ['Content structure', 'Landing page UI', 'Responsive layouts'],
-    gallery: []
+    design: 'A blue, product-like palette with strong visual hierarchy, one dominant primary CTA, and structured content blocks that stay readable at desktop-first density.',
+    outcome: 'Delivered as a complete Figma prototype — SkillForge — from first impression through course detail and a trust-building About page.',
+    contribution: ['Platform concept & naming (SkillForge)', 'Landing page UI', 'Course listing & detail screens', 'Trust/testimonial sections'],
+    gallery: ['images/case-study-info/ed-tech-langingPage-ui/Screen 3/Course 1.png']
   },
 
   'seller-dashboard': {
     num: '07',
     title: 'Seller Dashboard',
-    sub: 'Dashboard concept',
+    sub: 'Ecommerce Seller Dashboard',
     tags: ['Dashboard', 'UI/UX'],
     cover: 'images/seller-dasboard-mobie-ui.png',
     role: 'UI/UX Design',
     tools: 'Figma',
     timeline: 'Self-directed project',
-    overview: 'A seller-side dashboard concept organising orders, listings and performance data into a clear information structure.',
-    problem: 'Sellers move between very different tasks — fulfilling orders, editing listings, checking performance — and a flat layout forces them to hunt for each one.',
+    overview: 'A mobile dashboard that gives a small ecommerce seller a quick snapshot of business health — revenue, orders and performance — without a full analytics suite to dig through.',
+    problem: 'A small seller checks their store from their phone throughout the day and wants glanceable answers, not deep analysis — the interface has to work as a five-second check-in.',
     approach: [
-      'Grouped tasks into distinct areas with a persistent navigation shell',
-      'Designed table and card patterns for dense data',
-      'Established hierarchy between overview metrics and detail views'
+      'Designed four screens: Overview, Analytics, Orders and Settings',
+      'Led the Overview with a large revenue card plus quick-glance stats for orders and active visitors',
+      'Kept Analytics to two charts — a revenue trend and an order volume trend — with a 1D/1W/1M/1Y toggle',
+      'Gave every order a clear status tag (Pending, Shipped, Delivered) for fast scanning'
     ],
-    design: 'A neutral interface with accent colour reserved for status and actions, so data stays the loudest thing on screen.',
-    outcome: 'Delivered as a complete dashboard concept in Figma.',
-    contribution: ['Information architecture', 'Dashboard UI', 'Component design'],
-    gallery: []
+    design: 'A card-based layout with a strong blue primary colour, generous number sizing on the metrics that matter most, and a simple list-based settings screen.',
+    outcome: 'Delivered as a complete Figma prototype with a reusable component library for navigation, cards and status tags.',
+    contribution: ['Screen design', 'Component library', 'Prototyping'],
+    gallery: ['images/case-study-info/e-commerce-ui-pic/Screen 1.png']
   },
 
   'salon': {
     num: '08',
-    title: 'Salon Website',
-    sub: 'Responsive web',
+    title: 'Lumière Salon',
+    sub: 'Responsive Website',
     tags: ['Responsive Design', 'UI/UX'],
     cover: 'images/saloon-responsive-web.png',
     role: 'UI/UX Design',
     tools: 'Figma',
     timeline: 'Training project · 1stop.ai internship',
-    overview: 'A salon website designed with a visual-first layout and responsive behaviour across all breakpoints.',
-    problem: 'Service businesses sell on atmosphere, but the practical information — services, pricing, booking — still has to be one tap away.',
+    overview: 'Lumière Salon is a fully responsive four-page website for a spa and salon business, designed independently for desktop, tablet and mobile.',
+    problem: 'Service businesses sell on atmosphere, but the practical information — services, pricing, booking — still has to be one tap away, and the layout has to hold together across three very different screen sizes.',
     approach: [
-      'Balanced large visual sections against a clear service and booking path',
-      'Designed layouts individually for mobile, tablet and desktop',
-      'Kept the booking action reachable from every section'
+      'Designed four pages — Home, About, Services and Contact — each laid out separately for desktop, tablet and mobile',
+      'Led Home with a full-bleed hero, a clear value proposition and a repeated "Book Your Appointment" CTA',
+      'Used a consistent service-card grid (rating, description, price, book button) across all three breakpoints',
+      'Built the Contact page around a simple form plus a contact-info panel and map'
     ],
-    design: 'Editorial imagery paired with a restrained type system and an always-visible booking action.',
-    outcome: 'Completed as one of three training projects in the 1stop.ai UI/UX internship.',
-    contribution: ['Visual design', 'Responsive layouts', 'Service & booking flow'],
-    gallery: []
+    design: 'A warm, editorial palette — cream and terracotta tones with full-bleed photography — paired with a serif wordmark and a booking CTA that stays visible on every page.',
+    outcome: 'Delivered as a complete Figma prototype — Lumière Salon — with dedicated desktop, tablet and mobile layouts for every page.',
+    contribution: ['Site concept & naming (Lumière Salon)', 'Responsive page design (desktop/tablet/mobile)', 'Component system', 'Booking flow'],
+    gallery: ['images/case-study-info/responsive-web-saloon-uiPic/page 1-phone.png']
   }
 
   /* 'responsive-website' was retired from the page to keep Explorations to
