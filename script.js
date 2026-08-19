@@ -298,7 +298,7 @@ const Cursor = {
       const btn  = e.target.closest('a, button, [data-cursor="btn"]');
       cur.classList.toggle('view-on', !!view);
       cur.classList.toggle('btn-on', !!btn && !view);
-      txt.textContent = view ? 'View' : '';
+      txt.textContent = view ? 'View ↗' : '';
     });
 
     document.addEventListener('mouseleave', () => document.body.classList.remove('cur-on'));
@@ -511,10 +511,18 @@ const Workstage = {
     if (!stage) return;
 
     const slides = $$('.slides > .slide', stage);
-    const dots   = $$('.wprog > li', stage);
-    const bars   = dots.map((d) => $('i', d));
+    const moods  = $$('.wstage__mood > .mood', stage);
+    const curEl  = $('#wprogCur', stage);
+    const fillEl = $('#wprogFill', stage);
     const N = slides.length;
     if (N < 2) return;
+
+    /* Cache each slide's moving parts once, keyed off the elements
+       themselves — cheaper than re-querying every animation frame. */
+    const parts = slides.map((s) => ({
+      media: $('.slide__media', s),
+      kids: $$('.slide__copy > *', s),                  // n, title, desc, tags, arrow — in reading order
+    }));
 
     let on = false, x = 0, raf = null;
 
@@ -528,20 +536,40 @@ const Workstage = {
 
     const render = (val) => {
       slides.forEach((s, i) => {
+        const { media, kids } = parts[i];
         const d = val - i, ad = Math.abs(d);
         const a = Math.max(0, 1 - ad * 1.5);            // fully solo at rest
         s.style.opacity = a.toFixed(3);
         s.style.visibility = a <= 0 ? 'hidden' : 'visible';
         s.style.pointerEvents = ad < .5 ? 'auto' : 'none';
-        s.style.transform = `translate3d(0, ${(-d * 46).toFixed(1)}px, 0)`;
-        const m = $('.slide__media', s);
-        if (m) m.style.transform =
-          `translate3d(0, ${(-d * 26).toFixed(1)}px, 0) scale(${(1 - Math.min(ad, 1) * .07).toFixed(4)})`;
+
+        /* Image: scales 1 → .92 off-centre, enters/exits vertically —
+           down-and-in from below, up-and-out on the way past. */
+        if (media) {
+          const amp = d < 0 ? 70 : 40;
+          const scale = 1 - Math.min(ad, 1) * .08;
+          media.style.transform = `translate3d(0, ${(-d * amp).toFixed(1)}px, 0) scale(${scale.toFixed(4)})`;
+        }
+
+        /* Text: fades + slides on the X axis, each child a hair behind
+           the last — a real scroll-tied stagger, not a CSS delay (JS
+           already owns this transform every frame; a transition would
+           just fight it). */
+        kids.forEach((el, ci) => {
+          const dd = d - ci * 0.05;
+          const ca = Math.max(0, 1 - Math.abs(dd) * 1.6);
+          el.style.opacity = ca.toFixed(3);
+          el.style.transform = `translate3d(${(-dd * 46).toFixed(1)}px, 0, 0)`;
+        });
       });
 
-      const act = Math.round(val);
-      dots.forEach((dt, i) => dt.classList.toggle('on', i === act));
-      bars.forEach((b, i) => b && b.style.setProperty('--p', Math.min(1, Math.max(0, val - i)).toFixed(3)));
+      /* Mood beds crossfade on the same curve as their slide */
+      moods.forEach((m, i) => { m.style.opacity = Math.max(0, 1 - Math.abs(val - i) * 1.5).toFixed(3); });
+
+      /* 01 / 04 + a continuous fill — no per-step snapping */
+      const act = Math.min(N - 1, Math.max(0, Math.round(val)));
+      if (curEl) curEl.textContent = String(act + 1).padStart(2, '0');
+      if (fillEl) fillEl.style.setProperty('--p', (val / (N - 1)).toFixed(3));
     };
 
     const loop = () => {
@@ -559,10 +587,11 @@ const Workstage = {
       on = want;
       stage.classList.toggle('wstage--on', on);
       if (on) { x = targetX(); render(x); kick(); }
-      else slides.forEach((s) => {
+      else slides.forEach((s, i) => {
         s.style.cssText = '';
-        const m = $('.slide__media', s);
-        if (m) m.style.transform = '';
+        const { media, kids } = parts[i];
+        if (media) media.style.transform = '';
+        kids.forEach((el) => { el.style.opacity = ''; el.style.transform = ''; });
       });
     };
 
@@ -570,15 +599,28 @@ const Workstage = {
     onScroll(kick);
     addEventListener('resize', () => { sync(); if (on) kick(); });
 
-    /* Progress numbers jump straight to a project */
-    dots.forEach((dt, i) => {
-      $('button', dt)?.addEventListener('click', () => {
-        if (!on) return;
-        const r = stage.getBoundingClientRect();
-        const top = scrollY + r.top + (i / (N - 1)) * (r.height - innerHeight);
-        scrollTo({ top: top + 2, behavior: REDUCED ? 'auto' : 'smooth' });
+    /* Cursor-based 3D tilt + a whisper of parallax on the mockup — desktop,
+       fine pointer, motion allowed only. Kept independent of the rAF loop
+       above: it only updates on mousemove, and the CSS transition on
+       .slide__tilt is what eases it back to neutral on mouseleave. */
+    if (FINE && DESKTOP() && !REDUCED) {
+      slides.forEach((s) => {
+        const hit = $('.hit', s);                       // the actual top layer receiving pointer events
+        const media = $('.slide__media', s);
+        const tilt = $('.slide__tilt', s);
+        if (!hit || !media || !tilt) return;
+        hit.addEventListener('mousemove', (e) => {
+          const r = media.getBoundingClientRect();
+          const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+          if (!inside) { tilt.style.transform = ''; return; }
+          const px = (e.clientX - r.left) / r.width - .5;
+          const py = (e.clientY - r.top) / r.height - .5;
+          tilt.style.transform =
+            `rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg) translate3d(${(px * 8).toFixed(1)}px, ${(py * 8).toFixed(1)}px, 0)`;
+        });
+        hit.addEventListener('mouseleave', () => { tilt.style.transform = ''; });
       });
-    });
+    }
   }
 };
 

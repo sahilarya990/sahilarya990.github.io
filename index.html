@@ -291,6 +291,17 @@
        projects crossfade into each other as one continuous story. -->
   <div class="wstage" id="wstage">
     <div class="wstage__pin">
+
+      <!-- Mood — four blurred glow beds, one per project. JS crossfades
+           their opacity in lockstep with the active slide, so the section's
+           colour temperature drifts as you scroll instead of cutting. -->
+      <div class="wstage__mood" aria-hidden="true">
+        <i class="mood mood--1"></i>
+        <i class="mood mood--2"></i>
+        <i class="mood mood--3"></i>
+        <i class="mood mood--4"></i>
+      </div>
+
       <div class="wrap wrap--wide wstage__in">
         <ul class="slides">
 
@@ -306,9 +317,11 @@
               </span>
             </div>
             <figure class="slide__media">
-              <img src="images/vidyapeeth-hero.png"
-                   alt="Vidyapeeth360 landing page — institution management platform"
-                   width="1536" height="1024" loading="lazy" decoding="async" />
+              <div class="slide__tilt">
+                <img src="images/vidyapeeth-hero.png"
+                     alt="Vidyapeeth360 landing page — institution management platform"
+                     width="1536" height="1024" loading="lazy" decoding="async" />
+              </div>
             </figure>
           </li>
 
@@ -324,9 +337,11 @@
               </span>
             </div>
             <figure class="slide__media slide__media--center">
-              <img src="images/helprevx-brand.png"
-                   alt="HelpRevX brand direction — logo mark and wordmark"
-                   width="1536" height="1024" loading="lazy" decoding="async" />
+              <div class="slide__tilt">
+                <img src="images/helprevx-brand.png"
+                     alt="HelpRevX brand direction — logo mark and wordmark"
+                     width="1536" height="1024" loading="lazy" decoding="async" />
+              </div>
             </figure>
           </li>
 
@@ -342,8 +357,10 @@
               </span>
             </div>
             <figure class="slide__media slide__media--center">
-              <img src="images/healthplus-fitness-app.jpg" alt="HealthPulse fitness mobile app screens"
-                   width="1024" height="572" loading="lazy" decoding="async" />
+              <div class="slide__tilt">
+                <img src="images/healthplus-fitness-app.jpg" alt="HealthPulse fitness mobile app screens"
+                     width="1024" height="572" loading="lazy" decoding="async" />
+              </div>
             </figure>
           </li>
 
@@ -359,21 +376,21 @@
               </span>
             </div>
             <figure class="slide__media slide__media--center">
-              <img src="images/nexusai.jpg" alt="Nexus AI SaaS dashboard interface"
-                   width="1024" height="665" loading="lazy" decoding="async" />
+              <div class="slide__tilt">
+                <img src="images/nexusai.jpg" alt="Nexus AI SaaS dashboard interface"
+                     width="1024" height="665" loading="lazy" decoding="async" />
+              </div>
             </figure>
           </li>
 
         </ul>
       </div>
 
-      <!-- Where am I? — 01 ━━ 02 ━━ 03 ━━ 04 -->
-      <ol class="wprog" aria-label="Selected work progress">
-        <li class="on"><button type="button" data-cursor="btn">01</button><i></i></li>
-        <li><button type="button" data-cursor="btn">02</button><i></i></li>
-        <li><button type="button" data-cursor="btn">03</button><i></i></li>
-        <li><button type="button" data-cursor="btn">04</button></li>
-      </ol>
+      <!-- Where am I? — 01 / 04 + a thin fill that tracks scroll position -->
+      <div class="wprog" aria-label="Selected work progress">
+        <span class="wprog__n"><b id="wprogCur">01</b><i>/</i><b>04</b></span>
+        <span class="wprog__track"><i class="wprog__fill" id="wprogFill"></i></span>
+      </div>
     </div>
   </div>
 

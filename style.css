@@ -641,9 +641,17 @@ body.cur-on .cur{opacity:1}
    reads as the image transforming, not the layout jumping */
 .slide__media{
   position:relative;overflow:hidden;border-radius:var(--r);width:100%;
-  aspect-ratio:16/10;max-height:62svh;
+  aspect-ratio:16/10;max-height:62svh;perspective:1200px;
   border:1px solid var(--line);background:var(--bg-2);box-shadow:var(--shadow);
   transition:border-color var(--t-l),box-shadow var(--t-l);
+}
+/* Cursor-tilt layer — mousemove drives a very small rotate/parallax here
+   (desktop, fine pointer only); scroll choreography stays on .slide__media
+   itself so the two motions never fight each other's transform. */
+.slide__tilt{
+  display:block;width:100%;height:100%;
+  transform-style:preserve-3d;will-change:transform;
+  transition:transform .6s var(--e-io);
 }
 .slide__media img{
   width:100%;height:100%;object-fit:cover;object-position:top center;
@@ -670,10 +678,10 @@ body.cur-on .cur{opacity:1}
   box-shadow:var(--glow-m),var(--shadow),0 0 0 1px rgba(196,181,253,.22);
 }
 .slide:hover .slide__media::before{transform:translate3d(65%,0,0);opacity:1}
-.slide:hover .slide__media img{transform:scale(1.055)}
+.slide:hover .slide__media img{transform:scale(1.02)}
 .slide:hover .tags li{border-color:var(--line-hi);color:var(--text-2)}
 @media (prefers-reduced-motion:reduce){
-  .slide__media img,.slide__media::before{transition:none}
+  .slide__media img,.slide__media::before,.slide__tilt{transition:none}
   .slide:hover .slide__media img{transform:none}
 }
 
@@ -685,7 +693,7 @@ body.cur-on .cur{opacity:1}
   position:sticky;top:0;height:100svh;overflow:hidden;
   display:flex;align-items:center;padding-top:var(--nav-h);
 }
-.wstage--on .wstage__in{width:100%}
+.wstage--on .wstage__in{width:100%;position:relative;z-index:1}
 .wstage--on .slides{display:grid;width:100%}
 .wstage--on .slides > .slide{
   grid-area:1/1;margin-top:0;opacity:0;visibility:hidden;
@@ -695,26 +703,68 @@ body.cur-on .cur{opacity:1}
 .wstage--on .slides > .slide,
 .wstage--on .slide__media{transition:border-color var(--t-l),box-shadow var(--t-l)}
 
-/* — Progress: 01 ━━ 02 ━━ 03 ━━ 04 — */
+/* Alternating composition — odd projects read text-left/image-right,
+   even projects mirror to image-left/text-right. Flipping both the
+   column widths and the element `order` (rather than DOM order) keeps
+   markup/reading order identical across projects. */
+.wstage--on .slides > .slide:nth-child(even){
+  grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);
+}
+.wstage--on .slides > .slide:nth-child(even) .slide__copy{order:2}
+.wstage--on .slides > .slide:nth-child(even) .slide__media{order:1}
+
+/* Wide desktop only: let the mockup bleed a little past its column,
+   toward the centre of the viewport — the "overlap" premium cue */
+@media (min-width:1240px){
+  .wstage--on .slides > .slide:nth-child(odd) .slide__media{margin-inline-start:-2.6vw}
+  .wstage--on .slides > .slide:nth-child(even) .slide__media{margin-inline-end:-2.6vw}
+}
+
+/* Mood — ambient colour beds behind the slides, one per project. Opacity
+   is crossfaded by the same scroll-smoothed value that drives the active
+   slide, so the section's temperature drifts rather than cuts. Dark base
+   stays constant; these only ever read as an accent wash on top of it. */
+.wstage__mood{position:absolute;inset:-6% -4%;z-index:0;pointer-events:none;overflow:hidden}
+.mood{position:absolute;inset:0;opacity:0;filter:blur(70px);will-change:opacity}
+.mood--1{background:
+  radial-gradient(ellipse 52% 44% at 24% 30%, rgba(139,92,246,.32), transparent 62%),
+  radial-gradient(ellipse 48% 40% at 78% 70%, rgba(59,130,246,.20), transparent 64%);
+}
+.mood--2{background:
+  radial-gradient(ellipse 52% 44% at 26% 32%, rgba(30,64,175,.34), transparent 62%),
+  radial-gradient(ellipse 48% 40% at 76% 66%, rgba(34,211,238,.20), transparent 64%);
+}
+.mood--3{background:
+  radial-gradient(ellipse 52% 44% at 22% 34%, rgba(249,115,22,.24), transparent 62%),
+  radial-gradient(ellipse 48% 40% at 80% 64%, rgba(239,68,68,.18), transparent 64%);
+}
+.mood--4{background:
+  radial-gradient(ellipse 52% 44% at 25% 30%, rgba(139,92,246,.28), transparent 62%),
+  radial-gradient(ellipse 48% 40% at 78% 70%, rgba(236,72,153,.20), transparent 64%);
+}
+
+/* — Progress: 01 / 04 + a thin fill — */
 .wprog{display:none}
 .wstage--on .wprog{
-  position:absolute;left:50%;bottom:1.6rem;translate:-50% 0;z-index:2;
-  display:flex;align-items:center;gap:.85rem;
+  position:absolute;left:50%;bottom:1.8rem;translate:-50% 0;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
 }
-.wprog li{display:flex;align-items:center;gap:.85rem}
-.wprog button{
-  font-size:var(--fs-meta);font-weight:600;letter-spacing:.1em;
+.wprog__n{
+  display:flex;align-items:baseline;gap:.3rem;
+  font-size:var(--fs-meta);font-weight:600;letter-spacing:.08em;
   color:var(--text-3);font-variant-numeric:tabular-nums;
-  padding:.35rem .2rem;transition:color var(--t-s);
 }
-.wprog li.on button{color:var(--acc-3);text-shadow:0 0 14px rgba(192,132,252,.5)}
-.wprog button:hover{color:var(--text-2)}
-.wprog i{display:block;width:clamp(26px,3.4vw,56px);height:1px;background:var(--line);position:relative}
-.wprog i::after{
-  content:"";position:absolute;inset:0;background:var(--acc);
+.wprog__n b:first-child{color:var(--acc-3);text-shadow:0 0 14px rgba(192,132,252,.5)}
+.wprog__n i{font-style:normal;opacity:.5}
+.wprog__track{
+  display:block;width:clamp(120px,14vw,180px);height:1px;background:var(--line);position:relative;
+}
+.wprog__fill{
+  position:absolute;inset:0;background:var(--acc);
   box-shadow:0 0 8px rgba(139,92,246,.55);
   transform:scaleX(var(--p,0));transform-origin:left;
 }
+@media (prefers-reduced-motion:reduce){.mood{transition:none}}
 
 /* Explorations — four selected experiments, compact */
 .expl{
