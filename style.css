@@ -830,29 +830,43 @@ body.cur-on .cur{opacity:1}
 
 @media (prefers-reduced-motion:reduce){.mood{transition:none}}
 
-/* Explorations — four selected experiments, compact */
+/* Explorations — training & learning projects, kept to four. Cards read
+   as a self-contained glass surface (border + shadow on the whole .expl__i,
+   not just the image), and the image is shown with object-fit:contain
+   inside a 3:2 frame — that's an exact match for three of the four
+   screenshots (zero letterbox) and just a hair of pillarboxing on the
+   fourth, rather than ever cropping any of them. */
 .expl{
   margin-top:calc(var(--py) * 1.1);padding-top:clamp(2.5rem,5vw,4rem);
   border-top:1px solid var(--line);
 }
+.expl__head{max-width:56ch;margin-bottom:clamp(2.5rem,5vw,3.75rem)}
 .expl__k{
-  font-size:var(--fs-meta);font-weight:600;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--text-3);margin-bottom:clamp(1.5rem,3vw,2.25rem);
+  font-size:clamp(1.6rem,1.3rem + 1.2vw,2.35rem);font-weight:600;
+  letter-spacing:-.02em;line-height:1.1;
 }
-.expl__g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,2vw,1.75rem)}
-.expl__i{position:relative;transition:transform var(--t)}
+.expl__sub{margin-top:.9rem;color:var(--text-2);font-size:1rem;line-height:1.6}
+
+.expl__g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1.25rem,2.2vw,2rem)}
+.expl__i{
+  position:relative;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);background:var(--glass);box-shadow:var(--shadow);
+  transition:transform var(--t),border-color var(--t),box-shadow var(--t),background var(--t);
+}
 .expl__i figure{
-  aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-s);margin-bottom:1rem;
-  border:1px solid var(--line);background:var(--bg-2);
-  transition:border-color var(--t),box-shadow var(--t);
+  aspect-ratio:3/2;overflow:hidden;background:var(--bg-2);
+  border-bottom:1px solid var(--line);
 }
-.expl__i img{width:100%;height:100%;object-fit:cover;object-position:center;
+.expl__i img{width:100%;height:100%;object-fit:contain;object-position:center;
   transition:transform .8s var(--e)}
-.expl__i:hover{transform:translateY(-4px)}
-.expl__i:hover figure{border-color:var(--line-hi);box-shadow:var(--glow-m)}
+.expl__copy{padding:1.4rem 1.5rem 1.65rem}
+.expl__i:hover{transform:translateY(-6px);border-color:var(--line-hi);box-shadow:var(--glow-m),var(--shadow)}
 .expl__i:hover img{transform:scale(1.03)}
-.expl__i h4{font-size:1rem;font-weight:600}
-.expl__i p{font-size:var(--fs-meta);color:var(--text-3);margin-top:.25rem}
+.expl__i h4{font-size:1.15rem;font-weight:600;letter-spacing:-.01em}
+.expl__i p{font-size:var(--fs-meta);color:var(--text-3);margin-top:.35rem}
+@media (prefers-reduced-motion:reduce){
+  .expl__i,.expl__i img{transition:none}
+}
 
 /* ══ 09b. SERVICES ════════════════════════════════════════════════════
    A 3-up icon-card grid. Every piece here is an existing pattern reused,
@@ -1449,8 +1463,7 @@ body.cur-on .cur{opacity:1}
   .slide__copy .tags{margin-top:.9rem}
   .slide__copy .arrow{margin-top:1rem}
 
-  .expl__g{grid-template-columns:minmax(0,1fr)}
-  .expl__i figure{aspect-ratio:16/10}
+  .expl__g{grid-template-columns:minmax(0,1fr);gap:1.5rem}
 
   .svc__grid{grid-template-columns:minmax(0,1fr)}
 
