@@ -551,6 +551,14 @@
 
     <div class="about">
       <div class="about__copy">
+        <!-- The name is the visual anchor: two words, each its own .reveal
+             target so the Reveal IntersectionObserver (script.js) staggers
+             them via data-delay, no bespoke JS needed. -->
+        <p class="about__name">
+          <span class="about__glow" aria-hidden="true"></span>
+          <span class="about__name-w reveal" data-delay="0">Sahil</span>
+          <span class="about__name-w reveal" data-delay="140">Das</span>
+        </p>
         <!-- Words brighten progressively as the statement scrolls into view -->
         <h2 class="sec__title about__statement" id="aboutTitle">Designing experiences that feel simple, useful and human.</h2>
 
@@ -649,36 +657,21 @@
 <section class="sec" id="experience" aria-labelledby="expTitle">
   <div class="wrap">
     <header class="sec__head">
-      <p class="eyebrow reveal"><span>05</span> Experience</p>
+      <p class="eyebrow reveal"><span>05</span> Experience &amp; Journey</p>
       <h2 class="sec__title reveal" id="expTitle" data-delay="60">Where I've designed, built and learned.</h2>
+      <p class="sec__lede reveal" data-delay="90">A timeline of design, UI/UX, development, and creative leadership experiences —
+         from internship projects to real-world product work.</p>
     </header>
 
     <ol class="exp">
       <li class="exp__i">
         <div class="exp__lead">
           <h3>HelpRevX</h3>
-          <p class="exp__role">Brand &amp; UI/UX Design</p>
+          <p class="exp__role">UI/UX &amp; Frontend Intern</p>
         </div>
-        <p class="exp__txt">Designed the brand identity and Brand Kit, and shaped the Vidyapeeth360 product experience.</p>
-        <time class="exp__y">2026</time>
-      </li>
-
-      <li class="exp__i">
-        <div class="exp__lead">
-          <h3>ASME NIT Rourkela</h3>
-          <p class="exp__role">Creative Head</p>
-        </div>
-        <p class="exp__txt">Leading the creative direction after a year as designer and video editor.</p>
-        <time class="exp__y">2025 — Now</time>
-      </li>
-
-      <li class="exp__i">
-        <div class="exp__lead">
-          <h3>Axiom NIT Rourkela</h3>
-          <p class="exp__role">Creative Head</p>
-        </div>
-        <p class="exp__txt">Design direction for the society's visual and campaign work.</p>
-        <time class="exp__y">2025 — Now</time>
+        <p class="exp__txt">Designed the HelpRevX brand identity and Brand Kit, and created Vidyapeeth's logo
+           and responsive landing page using HTML, CSS, and JavaScript.</p>
+        <time class="exp__y">May 2026 — Jul 2026</time>
       </li>
 
       <li class="exp__i">
@@ -686,8 +679,29 @@
           <h3>1stop.ai</h3>
           <p class="exp__role">UI/UX Design Intern</p>
         </div>
-        <p class="exp__txt">Three training projects and two live industry products — HealthPulse and Nexus AI.</p>
-        <time class="exp__y">2025 — 26</time>
+        <p class="exp__txt">Completed UI/UX training and internship projects, including HealthPulse and Nexus AI,
+           focusing on product design, prototyping, responsive interfaces, dark-themed systems, and reusable components.</p>
+        <time class="exp__y">Dec 2025 — Apr 2026</time>
+      </li>
+
+      <li class="exp__i">
+        <div class="exp__lead">
+          <h3>Axiom — Mathematical Club, NIT Rourkela</h3>
+          <p class="exp__role">Creative Head</p>
+        </div>
+        <p class="exp__txt">Leading creative design and visual communication, including posters, event promotions,
+           social media content, and campaign creatives.</p>
+        <time class="exp__y">May 2025 — Present</time>
+      </li>
+
+      <li class="exp__i">
+        <div class="exp__lead">
+          <h3>ASME — Mechanical Club, NIT Rourkela</h3>
+          <p class="exp__role">Creative Head</p>
+        </div>
+        <p class="exp__txt">Leading visual communication and creative direction across event branding,
+           promotional creatives, posters, and social media graphics.</p>
+        <time class="exp__y">May 2026 — Present</time>
       </li>
     </ol>
   </div>
@@ -788,20 +802,45 @@
      07 · CONTACT
      ══════════════════════════════════════════════════════════════ -->
 <section class="contact" id="contact" aria-labelledby="contactTitle">
-  <div class="contact__bg" aria-hidden="true"></div>
-  <div class="wrap contact__in">
-    <p class="eyebrow reveal"><span>07</span> Contact</p>
-    <h2 class="contact__t reveal" id="contactTitle" data-delay="60">Have an idea worth designing?</h2>
-    <p class="contact__s reveal" data-delay="120">Let's turn it into something people enjoy using.</p>
+  <div class="contact__bg reveal" data-delay="0" aria-hidden="true"></div>
 
-    <div class="contact__cta reveal" data-delay="180">
-      <a class="btn btn--fill mag" href="mailto:founder@helprevx.com" data-cursor="btn">
-        Email me
+  <!-- Flowing waves — three bands of the same tiled path, each duplicated
+       via <use> and looped with a pure-CSS translateX animation (seamless:
+       shifting by exactly one tile is indistinguishable from the start).
+       Different duration/opacity/blur per layer for depth; transform-only,
+       so it's GPU-composited and cheap to leave running at rest. -->
+  <div class="contact__waves reveal" data-delay="40" aria-hidden="true">
+    <svg class="wave wave--1" viewBox="0 0 2400 320" preserveAspectRatio="none">
+      <defs>
+        <path id="waveTile" d="M0,160 C150,110 300,210 450,160 C600,110 750,210 900,160
+                               C1050,110 1200,210 1200,160 L1200,320 L0,320 Z"/>
+      </defs>
+      <use href="#waveTile" x="0"/>
+      <use href="#waveTile" x="1200"/>
+    </svg>
+    <svg class="wave wave--2" viewBox="0 0 2400 320" preserveAspectRatio="none">
+      <use href="#waveTile" x="0"/>
+      <use href="#waveTile" x="1200"/>
+    </svg>
+    <svg class="wave wave--3" viewBox="0 0 2400 320" preserveAspectRatio="none">
+      <use href="#waveTile" x="0"/>
+      <use href="#waveTile" x="1200"/>
+    </svg>
+  </div>
+
+  <div class="wrap contact__in">
+    <p class="eyebrow reveal" data-delay="60"><span>07</span> Contact</p>
+    <h2 class="contact__t reveal" id="contactTitle" data-delay="100">Have an idea worth designing?</h2>
+    <p class="contact__s reveal" data-delay="150">Let's turn it into something people enjoy using.</p>
+
+    <div class="contact__cta">
+      <a class="btn btn--fill mag reveal" data-delay="200" href="mailto:founder@helprevx.com" data-cursor="btn">
+        Let's talk
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
       <!-- TODO: replace with your LinkedIn profile URL -->
-      <a class="btn btn--out mag" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" data-cursor="btn">LinkedIn</a>
-      <a class="btn btn--out mag" href="https://github.com/sahilarya990" target="_blank" rel="noopener noreferrer" data-cursor="btn">GitHub</a>
+      <a class="btn btn--out mag reveal" data-delay="240" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" data-cursor="btn">LinkedIn</a>
+      <a class="btn btn--out mag reveal" data-delay="280" href="https://github.com/sahilarya990" target="_blank" rel="noopener noreferrer" data-cursor="btn">GitHub</a>
     </div>
   </div>
 </section>

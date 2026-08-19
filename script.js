@@ -227,13 +227,13 @@ const CASE_STUDIES = {
    ══════════════════════════════════════════════════════════════════════ */
 const EXPERIENCE = [
   {
-    key: 'helprevx', org: 'HelpRevX', role: 'Brand & UI/UX Design', year: '2026',
-    txt: 'Designed the brand identity and Brand Kit, and shaped the Vidyapeeth360 product experience.',
+    key: 'helprevx', org: 'HelpRevX', role: 'UI/UX & Frontend Intern', year: 'May 2026 — Jul 2026',
+    txt: 'Designed the HelpRevX brand identity and Brand Kit, and created Vidyapeeth\'s logo and responsive landing page using HTML, CSS, and JavaScript.',
     tags: ['web', 'uiux', 'branding', 'saas', 'frontend']
   },
   {
-    key: '1stop', org: '1stop.ai', role: 'UI/UX Design Intern', year: '2025 — 26',
-    txt: 'Three training projects and two live industry products — HealthPulse and Nexus AI.',
+    key: '1stop', org: '1stop.ai', role: 'UI/UX Design Intern', year: 'Dec 2025 — Apr 2026',
+    txt: 'Completed UI/UX training and internship projects, including HealthPulse and Nexus AI, focusing on product design, prototyping, responsive interfaces, dark-themed systems, and reusable components.',
     tags: ['uiux', 'mobile', 'saas', 'web']
   }
   /* ASME NIT Rourkela and Axiom NIT Rourkela stay out of this list on

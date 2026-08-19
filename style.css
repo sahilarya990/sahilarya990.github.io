@@ -289,7 +289,7 @@ body.cur-on .cur{opacity:1}
   opacity:0;visibility:hidden;transform:translateY(10px);transition:var(--t);
 }
 .top.on{opacity:1;visibility:visible;transform:none}
-.top:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 0 30px -2px rgba(139,92,246,.55),var(--glow-s)}
+.top:hover{transform:translateY(-3px) scale(1.06) rotate(-8deg);box-shadow:0 0 30px -2px rgba(139,92,246,.55),var(--glow-s)}
 .top svg{width:18px;height:18px}
 
 /* ══ 06. NAV ═════════════════════════════════════════════════════════ */
@@ -610,6 +610,12 @@ body.cur-on .cur{opacity:1}
   font-size:var(--fs-sec);font-weight:600;letter-spacing:-.025em;line-height:1.1;
   max-width:min(100%,22ch);text-wrap:balance;
 }
+/* A short supporting line under a section title — same voice as .hero__lede */
+.sec__lede{
+  margin-top:clamp(.9rem,1.6vw,1.25rem);
+  max-width:min(100%,58ch);color:var(--text-2);line-height:1.6;
+  font-size:clamp(.95rem,.9rem + .25vw,1.05rem);
+}
 
 /* ══ 09. WORK — cinematic full-bleed showcase ════════════════════════
    Base layout: a plain stacked flow, each project its own near-fullscreen
@@ -685,7 +691,7 @@ body.cur-on .cur{opacity:1}
   text-shadow:0 1px 12px rgba(0,0,0,.5);
 }
 .slide__t{
-  font-size:clamp(2.5rem,1.8rem + 2.2vw,4rem);line-height:1.04;letter-spacing:-.02em;
+  font-size:clamp(1.75rem,1.5rem + 1vw,2.25rem);line-height:1.08;letter-spacing:-.015em;
   text-shadow:0 2px 24px rgba(0,0,0,.45);
 }
 .slide__d{
@@ -934,6 +940,41 @@ body.cur-on .cur{opacity:1}
 }
 
 /* ══ 10. ABOUT ═══════════════════════════════════════════════════════ */
+/* Name — the section's visual anchor. Each word is its own .reveal
+   target (existing IntersectionObserver system, script.js), staggered
+   via data-delay — no bespoke reveal JS needed. Blur-to-sharp + a
+   whisper of scale on top of the site's standard translateY fade. */
+.about__name{
+  position:relative;display:flex;flex-wrap:wrap;gap:.3em;
+  font-size:clamp(2.75rem,1.9rem + 4.4vw,5.75rem);font-weight:700;
+  letter-spacing:-.03em;line-height:1;margin-bottom:clamp(1.1rem,2.6vw,1.85rem);
+}
+.about__name-w{display:inline-block}
+.js .about__name-w.reveal{
+  transition:opacity 1s var(--e),transform 1s var(--e),filter 1s var(--e);
+}
+.js .about__name-w.reveal:not(.in){
+  opacity:0;transform:translateY(28px) scale(.97);filter:blur(9px);
+}
+.js .about__name-w.reveal.in{filter:blur(0)}
+/* A slow, atmospheric drift behind the name — same purple token as the
+   rest of the page, just extremely low-opacity and in constant, very
+   slow motion so the section feels quietly alive at rest */
+.about__glow{
+  position:absolute;z-index:-1;left:-6%;top:-90%;width:55%;height:280%;
+  pointer-events:none;filter:blur(60px);
+  background:radial-gradient(ellipse 60% 55% at 50% 50%, rgba(139,92,246,.24), transparent 70%);
+  animation:nameDrift 16s ease-in-out infinite alternate;
+}
+@keyframes nameDrift{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(5%,-4%) scale(1.1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .about__glow{animation:none}
+  .js .about__name-w.reveal:not(.in){filter:none}
+}
+
 /* Statement reveal — JS splits the line into words and brightens them
    progressively with scroll. Base state is fully readable (no-JS safe);
    the JS adds .about__statement--live before dimming anything. */
@@ -1079,24 +1120,41 @@ body.cur-on .cur{opacity:1}
     transition:height .5s var(--e);
   }
 }
-.js .exp__i{opacity:.38;transition:opacity .6s var(--e)}
+.js .exp__i{opacity:.38;transition:opacity .6s var(--e),transform .4s var(--e),background .4s var(--e)}
 .js .exp__i.is-past{opacity:.58}
 .js .exp__i.is-live{opacity:1}
+/* A quiet glow on whichever row the scroll-spy has lit up — reads as
+   "this is the active one" without a card/border appearing around it */
+@media (min-width:761px){
+  .js .exp__i.is-live{box-shadow:0 0 40px -18px rgba(139,92,246,.55)}
+}
 
-/* The year track is a fixed width so every row's copy column starts on the
-   same line — an auto track would size to each row's own year string. */
+/* Hover: a small horizontal shift + full brightness, independent of the
+   scroll-spy state, on top of the existing opacity transition above */
+@media (hover:hover){
+  .exp__i:hover{opacity:1 !important;transform:translateX(6px);background:rgba(255,255,255,.02)}
+}
+
+/* The date track is a fixed width so every row's copy column starts on
+   the same line — an auto track would size to each row's own string.
+   Widened from the original 100px and wrapping allowed (no nowrap):
+   these are now month-level ranges ("May 2026 — Jul 2026"), not bare
+   years, so they need the room. */
 .exp__i{
-  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr) 100px;
+  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr) clamp(120px,13vw,150px);
   gap:clamp(1rem,3vw,3rem);align-items:baseline;
-  padding:clamp(1.5rem,2.6vw,2.25rem) 0;border-top:1px solid var(--line);
+  padding:clamp(1.35rem,2.2vw,1.85rem) 0;border-top:1px solid var(--line);
 }
 .exp__i:last-child{border-bottom:1px solid var(--line)}
-.exp__i h3{font-size:clamp(1.25rem,1.05rem + .6vw,1.55rem)}
-.exp__role{font-size:.92rem;color:var(--acc-3);margin-top:.3rem}
-.exp__txt{color:var(--text-2);font-size:.95rem;max-width:52ch}
+.exp__i h3{font-size:clamp(1.05rem,.92rem + .5vw,1.25rem);font-weight:600;letter-spacing:-.01em}
+.exp__role{font-size:.82rem;color:var(--acc-3);margin-top:.3rem}
+.exp__txt{
+  color:var(--text-2);font-size:.88rem;line-height:1.55;max-width:48ch;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
 .exp__y{
-  font-size:var(--fs-meta);font-weight:600;letter-spacing:.1em;color:var(--text-3);
-  font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;
+  font-size:var(--fs-meta);font-weight:600;letter-spacing:.08em;color:var(--text-3);
+  font-variant-numeric:tabular-nums;justify-self:end;text-align:right;line-height:1.4;
 }
 
 /* ══ 12b. CERTIFICATIONS ═════════════════════════════════════════════
@@ -1185,15 +1243,32 @@ body.cur-on .cur{opacity:1}
 }
 #certsIdx{color:var(--acc-3);font-size:.85rem}
 
-/* ══ 13. CONTACT / FOOTER ════════════════════════════════════════════ */
+/* ══ 13. CONTACT / FOOTER ════════════════════════════════════════════
+   The closing scene: the existing radial glow stays, plus three tiled
+   SVG wave bands drifting behind the content — a premium, abstract
+   "flowing toward centre" backdrop built from the site's own purple
+   tokens, not a new colour. See #waveTile in index.html: one shape,
+   duplicated via <use> and looped by translating exactly one tile
+   width — transform-only, so it's cheap to run continuously.
+   ════════════════════════════════════════════════════════════════════ */
 .contact{position:relative;overflow:hidden;padding:clamp(6rem,12vw,11rem) 0}
 .contact__bg{
-  position:absolute;left:50%;top:50%;translate:-50% -50%;pointer-events:none;
+  position:absolute;left:50%;top:50%;translate:-50% -50%;pointer-events:none;z-index:0;
   width:min(80vw,900px);aspect-ratio:1/1;border-radius:50%;
   background:radial-gradient(circle, rgba(139,92,246,.2), transparent 62%);
   filter:blur(110px);
 }
-.contact__in{position:relative;display:grid;justify-items:center;text-align:center}
+.contact__waves{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.wave{
+  position:absolute;left:0;width:200%;height:56%;
+  animation:waveFlow linear infinite;will-change:transform;
+}
+.wave--1{top:18%;fill:rgba(139,92,246,.16);filter:blur(18px);animation-duration:34s}
+.wave--2{top:34%;fill:rgba(99,102,241,.13);filter:blur(26px);animation-duration:46s;animation-direction:reverse}
+.wave--3{top:50%;fill:rgba(192,132,252,.1);filter:blur(34px);animation-duration:60s}
+@keyframes waveFlow{to{transform:translateX(-50%)}}
+
+.contact__in{position:relative;z-index:1;display:grid;justify-items:center;text-align:center}
 .contact__t{
   font-size:clamp(2.25rem,1.6rem + 2.1vw,3.5rem);font-weight:600;letter-spacing:-.025em;
   line-height:1.08;max-width:min(100%,18ch);text-wrap:balance;
@@ -1201,6 +1276,11 @@ body.cur-on .cur{opacity:1}
 .contact__s{margin-top:1.25rem;color:var(--text-2);max-width:min(100%,40ch);
   font-size:clamp(1rem,.95rem + .3vw,1.15rem)}
 .contact__cta{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-top:2.5rem}
+/* A touch more presence than the base .btn--fill hover elsewhere — this
+   is the portfolio's last word, so its CTA gets a slightly stronger lift */
+.contact__cta .btn--fill:hover{transform:translateY(-2px) scale(1.03)}
+
+@media (prefers-reduced-motion:reduce){.wave{animation:none}}
 
 .foot{padding:2rem 0 2.5rem;border-top:1px solid var(--line)}
 .foot__in{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
@@ -1341,7 +1421,7 @@ body.cur-on .cur{opacity:1}
 
 @media (max-width:1200px){
   .expl__g{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1.25rem,3vw,2rem)}
-  .exp__i{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) 92px;gap:1.5rem}
+  .exp__i{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) 128px;gap:1.5rem}
 }
 
 /* Tablet */
@@ -1388,7 +1468,7 @@ body.cur-on .cur{opacity:1}
      (JS gates .wstage--on the same way), so tablet just gets a calmer,
      slightly smaller version of the same fullscreen-sheet base layout */
   .slide{min-height:min(80svh,760px)}
-  .slide__t{font-size:clamp(2rem,1.5rem + 2.4vw,3rem)}
+  .slide__t{font-size:clamp(1.5rem,1.3rem + 1vw,1.875rem)}
   .slide__d{max-width:46ch}
 
   .svc__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -1466,7 +1546,7 @@ body.cur-on .cur{opacity:1}
   /* Work — still one fullscreen-ish sheet per project; text overlay
      tightens and drops to the very bottom, tags wrap if needed */
   .slide{min-height:min(74svh,640px)}
-  .slide__t{font-size:clamp(1.7rem,1.3rem + 5vw,2.3rem)}
+  .slide__t{font-size:clamp(1.4rem,1.2rem + 3vw,1.75rem)}
   .slide__d{max-width:34ch;font-size:.9rem}
   .slide__copy{left:1.1rem;right:1.1rem;bottom:1.1rem}
   .slide__n{margin-bottom:.5rem}
