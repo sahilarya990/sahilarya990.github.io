@@ -150,7 +150,7 @@ const CASE_STUDIES = {
     title: 'EdTech Landing Page',
     sub: 'Landing page',
     tags: ['Landing Page', 'UI/UX'],
-    cover: 'images/edtech-landingpage.avif',
+    cover: 'images/ed-tech-landing-page.png',
     role: 'UI/UX Design',
     tools: 'Figma',
     timeline: 'Training project · 1stop.ai internship',
@@ -172,7 +172,7 @@ const CASE_STUDIES = {
     title: 'Seller Dashboard',
     sub: 'Dashboard concept',
     tags: ['Dashboard', 'UI/UX'],
-    cover: 'images/Ecommerce%20Seller%20Dashboard.avif',
+    cover: 'images/seller-dasboard-mobie-ui.png',
     role: 'UI/UX Design',
     tools: 'Figma',
     timeline: 'Self-directed project',
@@ -194,7 +194,7 @@ const CASE_STUDIES = {
     title: 'Salon Website',
     sub: 'Responsive web',
     tags: ['Responsive Design', 'UI/UX'],
-    cover: 'images/saloon-responsive.avif',
+    cover: 'images/saloon-responsive-web.png',
     role: 'UI/UX Design',
     tools: 'Figma',
     timeline: 'Training project · 1stop.ai internship',
@@ -213,6 +213,113 @@ const CASE_STUDIES = {
 
   /* 'responsive-website' was retired from the page to keep Explorations to
      four selected pieces. Re-add a card with data-project to bring it back. */
+};
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   01b. SERVICES  —  capability data for the Services panel
+   ----------------------------------------------------------------------
+   Every fact shown in a service panel is pulled live from CASE_STUDIES,
+   EXPERIENCE and CERTIFICATIONS below — nothing is written twice. Add a
+   project/role/certificate once, tag it, and it surfaces everywhere it's
+   relevant on its own. A service with no matching projects falls back
+   to a plain "coming soon" line rather than ever inventing one.
+   ══════════════════════════════════════════════════════════════════════ */
+const EXPERIENCE = [
+  {
+    key: 'helprevx', org: 'HelpRevX', role: 'Brand & UI/UX Design', year: '2026',
+    txt: 'Designed the brand identity and Brand Kit, and shaped the Vidyapeeth360 product experience.',
+    tags: ['web', 'uiux', 'branding', 'saas', 'frontend']
+  },
+  {
+    key: '1stop', org: '1stop.ai', role: 'UI/UX Design Intern', year: '2025 — 26',
+    txt: 'Three training projects and two live industry products — HealthPulse and Nexus AI.',
+    tags: ['uiux', 'mobile', 'saas', 'web']
+  }
+  /* ASME NIT Rourkela and Axiom NIT Rourkela stay out of this list on
+     purpose — creative-direction/video-editing roles for a college
+     society aren't a specific design service, so they'd have nowhere
+     honest to surface in a service panel. They still show in full in
+     the main Experience section below. */
+];
+
+const CERTIFICATIONS = [
+  {
+    key: 'helprevx-cert', title: 'UI/UX Developer — HelpRevX',
+    issuer: 'HelpRevX · May 20 – Jul 20, 2026',
+    href: 'assets/certificates/helprevx-certificate.jpg',
+    tags: ['uiux', 'frontend']
+  },
+  {
+    key: '1stop-cert', title: 'UI-UX Internship Program — 1stop',
+    issuer: '1stop · Dec 1, 2025 – Apr 1, 2026',
+    href: 'assets/certificates/1stop-certificate.jpg',
+    tags: ['uiux']
+  }
+  /* The Design, Prototyping & Advance Manufacturing certificate is
+     industrial-design/physical-manufacturing, not one of the six
+     services below, so it's left untagged here — it still shows in
+     the main Certifications section, just never inside a service panel. */
+];
+
+/* Which CASE_STUDIES tag(s) count as a match for each service */
+const SERVICE_PROJECT_TAGS = {
+  web: ['Web', 'Landing Page', 'Responsive Design'],
+  uiux: ['UI/UX', 'UX'],
+  branding: ['Branding'],
+  saas: ['SaaS', 'Dashboard'],
+  mobile: ['Mobile App']
+};
+
+/** Frontend has no project *tag* of its own — Vidyapeeth360 is the one
+ *  project with real, documented code work (tools list HTML/CSS/JS,
+ *  contribution lists "Frontend implementation"), so that's the actual
+ *  signal for that service rather than a tag that doesn't exist. */
+function projectsForService(key) {
+  return Object.keys(CASE_STUDIES).filter((k) => {
+    const p = CASE_STUDIES[k];
+    if (key === 'frontend') return /\bHTML\b/.test(p.tools);
+    return (SERVICE_PROJECT_TAGS[key] || []).some((t) => p.tags.includes(t));
+  });
+}
+
+const SERVICES = {
+  web: {
+    num: '01', title: 'Web Design',
+    card: 'Clean, conversion-minded website design.',
+    blurb: 'Structured, responsive websites and landing pages built around clear hierarchy, a considered type system and a layout that holds together at every screen size.',
+    skills: ['Figma', 'UI Design', 'Responsive Design', 'Design Systems', 'Web Layout', 'Prototyping']
+  },
+  uiux: {
+    num: '02', title: 'UI/UX Design',
+    card: 'Interfaces that are intuitive and easy to use.',
+    blurb: 'Designing intuitive digital experiences from structure to interaction — research, flows and interface design that stay usable under real conditions.',
+    skills: ['Figma', 'User Research', 'Wireframing', 'Prototyping', 'Interaction Design', 'Design Systems', 'Usability']
+  },
+  branding: {
+    num: '03', title: 'Branding',
+    card: 'Identity systems — logo, colour, typography.',
+    blurb: 'Brand identity systems built to be applied, not just admired — logo, colour, typography and documented guidelines that hold up across every surface.',
+    skills: ['Brand Identity', 'Logo Design', 'Brand Guidelines', 'Color Systems', 'Typography', 'Visual Identity', 'Brand Strategy']
+  },
+  saas: {
+    num: '04', title: 'SaaS Design',
+    card: 'Dashboard and product UI for SaaS platforms.',
+    blurb: 'Dashboard and product UI for data-heavy platforms — information architecture, layout density and hierarchy that keep complex state readable.',
+    skills: ['Dashboard Design', 'Product Design', 'Design Systems', 'UX Architecture', 'Data Visualization', 'Responsive UI', 'User Flows']
+  },
+  mobile: {
+    num: '05', title: 'Mobile App Design',
+    card: 'Intuitive mobile experiences designed for real users.',
+    blurb: 'Mobile-first interfaces designed for real use — legible at a glance, usable one-handed, and consistent across a full flow of screens.',
+    skills: ['Mobile UI', 'Mobile UX', 'User Flows', 'Wireframing', 'Prototyping', 'Responsive Design', 'Interaction Design']
+  },
+  frontend: {
+    num: '06', title: 'Frontend Development',
+    card: 'Clean, responsive and high-performance websites.',
+    blurb: 'Turning approved designs into responsive, production-ready interfaces — clean HTML, CSS and JavaScript implemented straight from Figma.',
+    skills: ['HTML', 'CSS', 'JavaScript', 'Responsive Web Design', 'Frontend Development', 'GitHub', 'Figma-to-Code', 'UI Implementation']
+  }
 };
 
 
@@ -809,7 +916,12 @@ const Certs = {
 
 
 /* ══════════════════════════════════════════════════════════════════════
-   09. CASE STUDY PANEL  —  progressive disclosure: the detail lives here
+   09. PANEL  —  progressive disclosure: case studies AND services share
+   one sliding sheet (#cs). [data-project] opens a case study, [data-service]
+   opens a service's capability view; either can be nested inside the
+   other (a project card inside a service view opens right over it).
+   Services are also hash-routable — #services/<key> — so a service view
+   is shareable/bookmarkable without a page reload.
    ══════════════════════════════════════════════════════════════════════ */
 const Panel = {
   last: null,
@@ -819,10 +931,10 @@ const Panel = {
     if (!cs) return;
 
     document.addEventListener('click', (e) => {
-      const t = e.target.closest('[data-project]');
-      if (!t || !CASE_STUDIES[t.dataset.project]) return;
-      e.preventDefault();
-      this.open(t.dataset.project);
+      const p = e.target.closest('[data-project]');
+      if (p && CASE_STUDIES[p.dataset.project]) { e.preventDefault(); this.openProject(p.dataset.project); return; }
+      const s = e.target.closest('[data-service]');
+      if (s && SERVICES[s.dataset.service]) { e.preventDefault(); this.openService(s.dataset.service); }
     });
 
     cs.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) this.close(); });
@@ -830,6 +942,16 @@ const Panel = {
       if (e.key === 'Escape') this.close();
       if (e.key === 'Tab' && !cs.hidden) this.trap(e, cs);
     });
+
+    /* A bookmarked/shared #services/<key> link opens straight to that
+       service; back/forward through history closes or reopens it. */
+    const route = () => {
+      const m = location.hash.match(/^#services\/([\w-]+)$/);
+      if (m && SERVICES[m[1]]) this.openService(m[1], false);
+      else if (!cs.hidden && $('#csBody .svcd')) this.close();
+    };
+    addEventListener('popstate', route);
+    route();
   },
 
   /* Keep keyboard focus inside the dialog */
@@ -841,7 +963,7 @@ const Panel = {
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   },
 
-  open(key) {
+  openProject(key) {
     const p = CASE_STUDIES[key];
     const cs = $('#cs'), body = $('#csBody');
     if (!p || !cs || !body) return;
@@ -885,9 +1007,96 @@ const Panel = {
     `;
 
     cs.hidden = false;
+    $('.cs__sheet', cs).classList.remove('cs__sheet--wide');
     document.body.classList.add('lock');
     $('.cs__sheet', cs).scrollTop = 0;
     $('.cs__x', cs)?.focus();
+  },
+
+  openService(key, pushHash = true) {
+    const s = SERVICES[key];
+    const cs = $('#cs'), body = $('#csBody');
+    if (!s || !cs || !body) return;
+
+    this.last = document.activeElement;
+
+    const projectKeys = projectsForService(key);
+    const exp = EXPERIENCE.filter((e) => e.tags.includes(key));
+    const certs = CERTIFICATIONS.filter((c) => c.tags.includes(key));
+
+    const projects = projectKeys.length ? `<ul class="svcd__projects">${projectKeys.map((pk, i) => {
+      const p = CASE_STUDIES[pk];
+      return `
+        <li class="svcd__proj" style="--i:${i}">
+          <button class="hit" type="button" data-project="${esc(pk)}" data-cursor="view" aria-label="Open case study: ${esc(p.title)}">Open case study</button>
+          <figure><img src="${esc(p.cover)}" alt="${esc(p.title)} — project visual" loading="lazy" decoding="async" /></figure>
+          <div class="svcd__proj-copy">
+            <h5>${esc(p.title)}</h5>
+            <p>${esc(p.sub)}</p>
+            <ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+            <span class="arrow">View case study
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </li>`;
+    }).join('')}</ul>` : `<p class="svcd__soon">Selected ${esc(s.title.toLowerCase())} work coming soon.</p>`;
+
+    const expBlock = exp.length ? `
+      <section class="cs__b">
+        <h4>Experience</h4>
+        <ul class="svcd__exp">${exp.map((e, i) => `
+          <li style="--i:${i}">
+            <div class="svcd__exp-lead"><h5>${esc(e.org)}</h5><span>${esc(e.role)}</span></div>
+            <p>${esc(e.txt)}</p>
+          </li>`).join('')}</ul>
+      </section>` : '';
+
+    const certBlock = certs.length ? `
+      <section class="cs__b">
+        <h4>Certifications</h4>
+        <ul class="svcd__certs">${certs.map((c, i) => `
+          <li style="--i:${i}">
+            <a href="${esc(c.href)}" data-lightbox="${esc(c.href)}" data-lightbox-alt="${esc(c.title)}" data-cursor="view">
+              <span>${esc(c.title)}</span><em>${esc(c.issuer)}</em>
+            </a>
+          </li>`).join('')}</ul>
+      </section>` : '';
+
+    body.innerHTML = `
+      <div class="cs-pad svcd">
+        <p class="cs__n">${esc(s.num)} — Service</p>
+        <h2 class="cs__t" id="csTitle">${esc(s.title)}</h2>
+        <p class="cs__sub">${esc(s.blurb)}</p>
+
+        <div class="svcd__grid">
+          <div class="svcd__left">
+            <section class="cs__b">
+              <h4>Skills &amp; Tools</h4>
+              <ul class="tags svcd__skills">${s.skills.map((sk, i) => `<li style="--i:${i}">${esc(sk)}</li>`).join('')}</ul>
+            </section>
+          </div>
+          <div class="svcd__right">
+            <section class="cs__b">
+              <h4>Selected Projects</h4>
+              ${projects}
+            </section>
+            ${expBlock}
+            ${certBlock}
+          </div>
+        </div>
+
+        <a class="btn btn--out svcd__cta" href="#work" data-close data-cursor="btn">Explore related work
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    `;
+
+    cs.hidden = false;
+    $('.cs__sheet', cs).classList.add('cs__sheet--wide');
+    document.body.classList.add('lock');
+    $('.cs__sheet', cs).scrollTop = 0;
+    $('.cs__x', cs)?.focus();
+    if (pushHash) history.pushState(null, '', '#services/' + key);
   },
 
   close() {
@@ -896,6 +1105,7 @@ const Panel = {
     cs.hidden = true;
     document.body.classList.remove('lock');
     this.last?.focus();
+    if (/^#services\//.test(location.hash)) history.pushState(null, '', location.pathname + location.search);
   }
 };
 
