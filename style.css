@@ -439,8 +439,8 @@ body.cur-on .cur{opacity:1}
 }
 @keyframes beamUp{
   0%  {transform:translateY(100vh);opacity:0}
-  8%  {opacity:.55}
-  82% {opacity:.55}
+  8%  {opacity:.32}
+  82% {opacity:.32}
   100%{transform:translateY(-100%);opacity:0}
 }
 /* Floating particle pinned to a track, drifting upward and back */
