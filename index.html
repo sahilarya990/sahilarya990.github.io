@@ -295,6 +295,22 @@
   <div class="wstage" id="wstage">
     <div class="wstage__pin">
 
+      <!-- Wayfinding chrome — decorative only, the real (accessible)
+           progress readout is .wprog below; these three are hidden
+           outside .wstage--on, same as .wprog. -->
+      <span class="wstage__tag" aria-hidden="true">Projects</span>
+      <div class="wstage__scroll" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg>
+        <span>Scroll</span>
+        <i></i>
+      </div>
+      <ol class="wprog2" aria-hidden="true">
+        <li><b>01</b><i></i></li>
+        <li><b>02</b><i></i></li>
+        <li><b>03</b><i></i></li>
+        <li><b>04</b><i></i></li>
+      </ol>
+
       <!-- Mood — four blurred glow beds, one per project. JS crossfades
            their opacity in lockstep with the active slide, so the section's
            colour temperature drifts as you scroll instead of cutting. -->

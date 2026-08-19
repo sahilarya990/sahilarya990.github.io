@@ -514,6 +514,7 @@ const Workstage = {
     const moods  = $$('.wstage__mood > .mood', stage);
     const curEl  = $('#wprogCur', stage);
     const fillEl = $('#wprogFill', stage);
+    const rail   = $$('.wprog2 > li', stage);          // decorative right-side dot rail
     const N = slides.length;
     if (N < 2) return;
 
@@ -576,6 +577,7 @@ const Workstage = {
       const act = Math.min(N - 1, Math.max(0, Math.round(val)));
       if (curEl) curEl.textContent = String(act + 1).padStart(2, '0');
       if (fillEl) fillEl.style.setProperty('--p', (val / (N - 1)).toFixed(3));
+      rail.forEach((li, i) => li.classList.toggle('on', i === act));
     };
 
     const loop = () => {

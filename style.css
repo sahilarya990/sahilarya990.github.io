@@ -793,6 +793,41 @@ body.cur-on .cur{opacity:1}
   box-shadow:0 0 8px rgba(139,92,246,.55);
   transform:scaleX(var(--p,0));transform-origin:left;
 }
+
+/* — Wayfinding chrome: top-right label, left scroll cue, right dot-rail —
+   purely decorative (aria-hidden), desktop-cinematic-only, static (no
+   looping animation — the section itself is the thing that should move). */
+.wstage__tag,.wstage__scroll,.wprog2{display:none}
+.wstage--on .wstage__tag{
+  display:block;position:absolute;top:1.7rem;right:clamp(1.5rem,4vw,3rem);z-index:3;
+  font-size:var(--fs-meta);font-weight:600;letter-spacing:.1em;color:var(--text-3);
+}
+.wstage--on .wstage__scroll{
+  display:flex;position:absolute;left:clamp(1.25rem,3vw,2.25rem);top:50%;translate:0 -50%;z-index:3;
+  flex-direction:column;align-items:center;gap:.85rem;color:var(--text-3);
+}
+.wstage__scroll svg{width:19px;height:19px}
+.wstage__scroll span{
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-size:var(--fs-meta);font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+}
+.wstage__scroll i{display:block;width:1px;height:56px;background:var(--line)}
+.wstage--on .wprog2{
+  display:flex;position:absolute;right:clamp(1.25rem,3vw,2.25rem);top:50%;translate:0 -50%;z-index:3;
+  flex-direction:column;align-items:center;gap:.95rem;
+}
+.wprog2 li{display:flex;flex-direction:column;align-items:center;gap:.55rem}
+.wprog2 b{
+  font-size:var(--fs-meta);font-weight:600;color:var(--text-3);
+  font-variant-numeric:tabular-nums;transition:color .4s var(--e);
+}
+.wprog2 i{
+  width:6px;height:6px;border-radius:50%;background:var(--line);flex:none;
+  transition:background .4s var(--e),box-shadow .4s var(--e),transform .4s var(--e);
+}
+.wprog2 li.on b{color:var(--acc-3)}
+.wprog2 li.on i{background:var(--acc-3);box-shadow:0 0 10px rgba(192,132,252,.6);transform:scale(1.6)}
+
 @media (prefers-reduced-motion:reduce){.mood{transition:none}}
 
 /* Explorations — four selected experiments, compact */
