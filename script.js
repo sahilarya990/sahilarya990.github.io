@@ -215,6 +215,10 @@ const CASE_STUDIES = {
      four selected pieces. Re-add a card with data-project to bring it back. */
 };
 
+/* These four have a full case-study write-up (case-study.js) and open as a
+   dedicated page instead of the slide-in panel above. */
+const FULL_PAGE_STUDIES = ['vidyapeeth360', 'helprevx', 'healthpulse', 'nexus-ai'];
+
 
 /* ══════════════════════════════════════════════════════════════════════
    01b. SERVICES  —  capability data for the Services panel
@@ -744,36 +748,22 @@ const Workstage = {
 /* ══════════════════════════════════════════════════════════════════════
    08c. EXPERIENCE TIMELINE  —  scroll-progress line + live row
    ══════════════════════════════════════════════════════════════════════ */
+/* Rows themselves are handled entirely by the standard .reveal system
+   (each .exp__i fades/rises into place once and stays put — see Reveal
+   above). This module only drives the decorative accent line's fill
+   as the list scrolls past the viewport centre; it never touches row
+   opacity, so nothing dims, dims out, or gets treated as "active". */
 const Timeline = {
   init() {
     const list = $('.exp');
-    if (!list) return;
-    const rows = $$('.exp__i', list);
-    if (!rows.length) return;
-
-    if (REDUCED) {
-      rows.forEach((r) => r.classList.add('is-live'));
-      return;
-    }
+    if (!list || REDUCED) return;
 
     onScroll(() => {
       const vh = innerHeight;
       const lr = list.getBoundingClientRect();
       if (lr.bottom < -100 || lr.top > vh + 100) return;
 
-      /* Brightest row = the one nearest the viewport centre */
       const mid = vh * 0.52;
-      let best = 0, bd = Infinity;
-      rows.forEach((r, i) => {
-        const c = r.getBoundingClientRect();
-        const d = Math.abs(c.top + c.height / 2 - mid);
-        if (d < bd) { bd = d; best = i; }
-      });
-      rows.forEach((r, i) => {
-        r.classList.toggle('is-live', i === best);
-        r.classList.toggle('is-past', i < best);
-      });
-
       const p = Math.min(1, Math.max(0, (mid - lr.top) / lr.height));
       list.style.setProperty('--fill', (p * 100).toFixed(1) + '%');
     });
@@ -932,7 +922,13 @@ const Panel = {
 
     document.addEventListener('click', (e) => {
       const p = e.target.closest('[data-project]');
-      if (p && CASE_STUDIES[p.dataset.project]) { e.preventDefault(); this.openProject(p.dataset.project); return; }
+      if (p && CASE_STUDIES[p.dataset.project]) {
+        e.preventDefault();
+        const key = p.dataset.project;
+        if (FULL_PAGE_STUDIES.includes(key)) { location.href = 'case-study.html?p=' + key; return; }
+        this.openProject(key);
+        return;
+      }
       const s = e.target.closest('[data-service]');
       if (s && SERVICES[s.dataset.service]) { e.preventDefault(); this.openService(s.dataset.service); }
     });

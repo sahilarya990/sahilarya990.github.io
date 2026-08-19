@@ -949,14 +949,28 @@ body.cur-on .cur{opacity:1}
   font-size:clamp(2.75rem,1.9rem + 4.4vw,5.75rem);font-weight:700;
   letter-spacing:-.03em;line-height:1;margin-bottom:clamp(1.1rem,2.6vw,1.85rem);
 }
-.about__name-w{display:inline-block}
+/* Dynamic premium coloring — a slow gradient sweep through the palette's
+   purple family, off-white at rest so it still reads as a name first. */
+.about__name-w{
+  display:inline-block;
+  background:linear-gradient(110deg,
+    var(--text) 0%, var(--text) 12%, var(--acc-3) 32%, var(--acc-2) 46%,
+    var(--indigo) 58%, var(--acc-3) 72%, var(--text) 90%, var(--text) 100%);
+  background-size:240% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 34px rgba(139,92,246,.16));
+  animation:aboutNameFlow 12s linear infinite;
+}
+@keyframes aboutNameFlow{
+  0%{background-position:0% 50%}
+  100%{background-position:-240% 50%}
+}
 .js .about__name-w.reveal{
   transition:opacity 1s var(--e),transform 1s var(--e),filter 1s var(--e);
 }
 .js .about__name-w.reveal:not(.in){
   opacity:0;transform:translateY(28px) scale(.97);filter:blur(9px);
 }
-.js .about__name-w.reveal.in{filter:blur(0)}
 /* A slow, atmospheric drift behind the name — same purple token as the
    rest of the page, just extremely low-opacity and in constant, very
    slow motion so the section feels quietly alive at rest */
@@ -972,6 +986,7 @@ body.cur-on .cur{opacity:1}
 }
 @media (prefers-reduced-motion:reduce){
   .about__glow{animation:none}
+  .about__name-w{animation:none;background-position:0% 50%}
   .js .about__name-w.reveal:not(.in){filter:none}
 }
 
@@ -1101,9 +1116,12 @@ body.cur-on .cur{opacity:1}
 }
 
 /* ══ 12. EXPERIENCE & RECOGNITION ════════════════════════════════════
-   A scrolling timeline: a thin line fills with scroll progress, the row
-   nearest the viewport centre is bright, earlier rows stay half-lit and
-   upcoming rows stay subtle.
+   A clean, continuous vertical list: a thin accent line on the left
+   fills with scroll progress (purely decorative), and each row does a
+   one-time fade/rise into place via the site's standard .reveal system
+   as it enters the viewport — then stays fully visible and stable.
+   No per-row scroll-spy, no opacity dimming, no clipping: every row is
+   readable at height:auto with nothing clamped or overflow-hidden.
    ════════════════════════════════════════════════════════════════════ */
 .exp{position:relative}
 @media (min-width:761px){
@@ -1120,19 +1138,17 @@ body.cur-on .cur{opacity:1}
     transition:height .5s var(--e);
   }
 }
-.js .exp__i{opacity:.38;transition:opacity .6s var(--e),transform .4s var(--e),background .4s var(--e)}
-.js .exp__i.is-past{opacity:.58}
-.js .exp__i.is-live{opacity:1}
-/* A quiet glow on whichever row the scroll-spy has lit up — reads as
-   "this is the active one" without a card/border appearing around it */
-@media (min-width:761px){
-  .js .exp__i.is-live{box-shadow:0 0 40px -18px rgba(139,92,246,.55)}
-}
 
-/* Hover: a small horizontal shift + full brightness, independent of the
-   scroll-spy state, on top of the existing opacity transition above */
+/* Entrance — reuses .reveal (opacity 0→1, translateY→0, IntersectionObserver
+   in script.js) with a slightly quicker, shorter-travel override; once
+   .in is added the row never re-animates or dims again. */
+.js .exp__i.reveal:not(.in){opacity:0;transform:translateY(20px)}
+.js .exp__i.reveal{transition:opacity .6s var(--e),transform .6s var(--e)}
+
+/* Hover: a small horizontal shift, nothing else — no opacity change,
+   no scale, no z-index, so it never overlaps a neighbouring row */
 @media (hover:hover){
-  .exp__i:hover{opacity:1 !important;transform:translateX(6px);background:rgba(255,255,255,.02)}
+  .exp__i:hover{transform:translateX(6px);background:rgba(255,255,255,.02)}
 }
 
 /* The date track is a fixed width so every row's copy column starts on
@@ -1143,6 +1159,7 @@ body.cur-on .cur{opacity:1}
 .exp__i{
   display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr) clamp(120px,13vw,150px);
   gap:clamp(1rem,3vw,3rem);align-items:baseline;
+  height:auto;min-height:0;overflow:visible;
   padding:clamp(1.35rem,2.2vw,1.85rem) 0;border-top:1px solid var(--line);
 }
 .exp__i:last-child{border-bottom:1px solid var(--line)}
@@ -1150,7 +1167,7 @@ body.cur-on .cur{opacity:1}
 .exp__role{font-size:.82rem;color:var(--acc-3);margin-top:.3rem}
 .exp__txt{
   color:var(--text-2);font-size:.88rem;line-height:1.55;max-width:48ch;
-  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+  height:auto;overflow:visible;
 }
 .exp__y{
   font-size:var(--fs-meta);font-weight:600;letter-spacing:.08em;color:var(--text-3);
