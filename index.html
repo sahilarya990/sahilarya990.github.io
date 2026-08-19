@@ -573,13 +573,20 @@
           <span class="about__name-w reveal" data-delay="100">Das</span>
         </p>
         <!-- Words brighten progressively as the statement scrolls into view -->
-        <h2 class="sec__title about__statement" id="aboutTitle">Designing experiences that feel simple, useful and human.</h2>
+        <h2 class="sec__title about__statement" id="aboutTitle">Designing digital experiences that feel simple, useful and human.</h2>
       </div>
 
       <figure class="about__pic reveal" data-delay="200" data-parallax="0.025">
+        <!-- Two glow layers behind the portrait: a large purple one that
+             breathes (scale+opacity pulse), and a smaller, slower,
+             blue-shifted one offset behind it for depth. Both sit on the
+             frame's containing block; #about clips their bleed so neither
+             can push the page into horizontal overflow. -->
+        <span class="about__pic-glow-2" aria-hidden="true"></span>
         <span class="about__pic-glow" aria-hidden="true"></span>
         <span class="about__pic-dot about__pic-dot--1" aria-hidden="true"></span>
         <span class="about__pic-dot about__pic-dot--2" aria-hidden="true"></span>
+        <span class="about__pic-dot about__pic-dot--3" aria-hidden="true"></span>
         <span class="about__pic-frame">
           <img src="images/sahil-profile.avif" alt="Portrait of Sahil Das"
                width="1024" height="992" loading="lazy" decoding="async" />
@@ -589,7 +596,7 @@
       <div class="about__bottom">
         <div class="about__bio">
           <p class="reveal" data-delay="240">I'm a pre-final year B.Tech student who enjoys turning complex ideas into intuitive,
-             user-centred digital experiences — across <strong class="about__kw">UI/UX design</strong>, <strong class="about__kw">branding</strong> and product thinking.
+             user-centred digital experiences — across <strong class="about__kw">UI/UX design</strong>, <strong class="about__kw">branding</strong> and <strong class="about__kw">product thinking</strong>.
              My journey has taken me from designing for college clubs to leading creative teams as
              <strong class="about__kw">Creative Head</strong> at ASME and Axiom, NIT Rourkela.</p>
           <p class="reveal" data-delay="320">During my internship at <strong class="about__kw">HelpRevX</strong>, I designed the HelpRevX and

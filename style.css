@@ -948,7 +948,7 @@ body.cur-on .cur{opacity:1}
    Parallax (script.js, [data-parallax]) for the portrait's scroll drift,
    both reused as-is, unchanged. */
 .about{
-  display:grid;
+  display:grid;overflow:hidden;
   grid-template-columns:minmax(0,1.35fr) minmax(260px,.95fr);
   grid-template-areas:"top pic" "bottom pic";
   column-gap:clamp(3rem,6vw,7rem);row-gap:clamp(1.5rem,3vw,2.25rem);align-items:start;
@@ -1065,34 +1065,53 @@ body.cur-on .cur{opacity:1}
 }
 .about__facts dd{font-size:.95rem;color:var(--text-2)}
 
-/* Portrait — premium treatment: an ambient glow behind it, two slow
-   drifting dots, a soft inner vignette and a thin border that brightens
-   on hover. The clipped frame is a separate inner element so the glow
-   and dots can bleed past the image edges instead of being clipped. */
+/* Portrait — premium treatment: two glow layers behind it (a large
+   purple one that breathes, a smaller slower blue-shifted one offset
+   behind for depth), three slow drifting/fading dots, a soft inner
+   vignette, and a frame that floats gently and whose border breathes
+   in step with the glow. The clipped frame is a separate inner element
+   so the glow and dots can bleed past the image edges instead of being
+   clipped by the image's own rounded corners — #about (the grid
+   container) is what actually bounds that bleed so it can never push
+   the page into horizontal overflow. */
 .about__pic{position:relative}
+
+/* Layer 1 — primary glow: large, purple/lavender, slow breathing pulse */
 .about__pic-glow{
-  /* Horizontal bleed stays small — the portrait sits near the layout's
-     right edge, so a wide inset here can push scrollWidth past the
-     viewport at some widths. Vertical bleed is cheap (no overflow risk)
-     and blur(60px) already softens the edge well beyond the box itself. */
-  position:absolute;inset:-22% -5%;z-index:-1;pointer-events:none;filter:blur(60px);
-  background:radial-gradient(ellipse 60% 55% at 50% 45%, rgba(139,92,246,.26), transparent 70%);
-  animation:aboutPicDrift 18s ease-in-out infinite alternate;
+  position:absolute;inset:-30% -20%;z-index:-2;pointer-events:none;filter:blur(64px);
+  background:radial-gradient(ellipse 62% 58% at 48% 47%, rgba(139,92,246,.4), transparent 72%);
+  animation:aboutPicBreathe 5s ease-in-out infinite;
 }
-@keyframes aboutPicDrift{
-  0%{transform:translate(0,0) scale(1)}
-  100%{transform:translate(-4%,3%) scale(1.08)}
+@keyframes aboutPicBreathe{
+  0%,100%{transform:scale(1);opacity:.7}
+  50%{transform:scale(1.14);opacity:1}
 }
+
+/* Layer 2 — secondary glow: smaller, blue-shifted, offset, very slow drift */
+.about__pic-glow-2{
+  position:absolute;inset:-24% -14% -30% -24%;z-index:-3;pointer-events:none;filter:blur(70px);
+  background:radial-gradient(ellipse 55% 50% at 60% 58%, rgba(99,102,241,.28), transparent 74%);
+  animation:aboutPicDrift2 24s ease-in-out infinite alternate;
+}
+@keyframes aboutPicDrift2{
+  0%{transform:translate(-2%,2%) scale(1)}
+  100%{transform:translate(3%,-2%) scale(1.08)}
+}
+
 .about__pic-dot{
-  position:absolute;border-radius:50%;pointer-events:none;opacity:.6;
+  position:absolute;border-radius:50%;pointer-events:none;
   background:var(--acc-3);box-shadow:0 0 12px 2px rgba(139,92,246,.5);
   animation:aboutDotFloat 9s ease-in-out infinite;
 }
 .about__pic-dot--1{width:5px;height:5px;top:9%;right:-3%;animation-delay:0s}
 .about__pic-dot--2{width:4px;height:4px;bottom:16%;left:-4%;animation-delay:3.2s}
-@keyframes aboutDotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.about__pic-dot--3{width:3px;height:3px;top:46%;right:-6%;animation-delay:6s}
+@keyframes aboutDotFloat{
+  0%,100%{transform:translateY(0);opacity:.6}
+  50%{transform:translateY(-14px);opacity:.26}
+}
 @media (prefers-reduced-motion:reduce){
-  .about__pic-glow,.about__pic-dot{animation:none}
+  .about__pic-glow,.about__pic-glow-2,.about__pic-dot{animation:none}
 }
 
 .about__pic-frame{
@@ -1100,8 +1119,27 @@ body.cur-on .cur{opacity:1}
   border:1px solid var(--line);background:var(--bg-2);
   box-shadow:0 30px 80px -30px rgba(0,0,0,.6);
   transition:border-color .5s var(--e);
+  /* A soft float, independent of the frame's own hover/reveal transform */
+  animation:aboutPicFloat 6.5s ease-in-out infinite;
+}
+@keyframes aboutPicFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .about__pic-frame{animation:none}
 }
 .about__pic:hover .about__pic-frame{border-color:var(--line-hi)}
+/* A second, purple ring just outside the real border that softly pulses
+   in step with the glow — kept as its own layer (not animating the real
+   border-color) so the hover state above can still change it cleanly */
+.about__pic-frame::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;
+  border:1px solid rgba(139,92,246,.5);opacity:0;
+  animation:aboutFrameRing 5s ease-in-out infinite;
+}
+@keyframes aboutFrameRing{0%,100%{opacity:0}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.about__pic-frame::before{animation:none;opacity:0}}
 .about__pic-frame::after{
   content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   box-shadow:inset 0 0 46px rgba(0,0,0,.28);
