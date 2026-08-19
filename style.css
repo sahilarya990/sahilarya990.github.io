@@ -289,7 +289,7 @@ body.cur-on .cur{opacity:1}
   opacity:0;visibility:hidden;transform:translateY(10px);transition:var(--t);
 }
 .top.on{opacity:1;visibility:visible;transform:none}
-.top:hover{transform:translateY(-3px)}
+.top:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 0 30px -2px rgba(139,92,246,.55),var(--glow-s)}
 .top svg{width:18px;height:18px}
 
 /* ══ 06. NAV ═════════════════════════════════════════════════════════ */
@@ -948,9 +948,27 @@ body.cur-on .cur{opacity:1}
 /* ══ 11. PROCESS ═════════════════════════════════════════════════════
    A four-node line: JS/Process sets --p (0→1) as the row crosses the
    viewport, filling the connector; each node ignites in turn via
-   .is-on once the fill reaches it. */
+   .is-on once the fill reaches it. .proc__copy wraps number/title/desc
+   so they can travel together as one flex item once the row collapses
+   to a vertical line on tablet/mobile — display:contents keeps it
+   invisible to the desktop layout below. */
+.sec--proc{position:relative;overflow:hidden}
+/* A very faint glow + grid behind the whole section — depth without
+   competing with the type or the timeline; same purple/white tokens
+   used everywhere else, just at a fraction of the opacity */
+.sec--proc::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 58% 50% at 50% 8%, rgba(139,92,246,.12), transparent 68%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 72px);
+  mask-image:radial-gradient(ellipse 75% 80% at 50% 35%, #000 45%, transparent 88%);
+  -webkit-mask-image:radial-gradient(ellipse 75% 80% at 50% 35%, #000 45%, transparent 88%);
+}
+.sec--proc .wrap{position:relative;z-index:1}
+.sec__head--proc{margin-bottom:clamp(2rem,4vw,3rem)}
+
 .proc{
-  position:relative;--nd:clamp(48px,4.5vw,58px);
+  position:relative;--nd:clamp(52px,4.8vw,64px);
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   gap:clamp(1.5rem,3vw,2.25rem);
 }
@@ -962,37 +980,62 @@ body.cur-on .cur{opacity:1}
 .proc::before{background:var(--line)}
 .proc::after{
   background:linear-gradient(90deg,var(--acc),var(--acc-3));
-  box-shadow:0 0 10px rgba(139,92,246,.5);
+  box-shadow:0 0 4px rgba(139,92,246,.7),0 0 16px rgba(139,92,246,.4);
   transform:scaleX(var(--p,0));transform-origin:left;
   transition:transform .4s var(--e);
 }
 
-.proc__i{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center}
-.proc__node{
-  width:var(--nd);height:var(--nd);border-radius:50%;flex:none;
-  display:grid;place-items:center;background:var(--bg-2);
-  border:1px solid var(--line);color:var(--text-3);
-  transition:color .5s var(--e),border-color .5s var(--e),box-shadow .5s var(--e),
-             transform .5s var(--e),background .5s var(--e);
+.proc__i{
+  position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:.5rem;margin:-.5rem;border-radius:var(--r-s);
+  transition:background .4s var(--e);
 }
-.proc__node svg{width:38%;height:38%}
+.proc__copy{display:contents}
+.proc__node{
+  position:relative;width:var(--nd);height:var(--nd);border-radius:50%;flex:none;
+  display:grid;place-items:center;color:var(--text-3);
+  background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.05), var(--bg-2) 72%);
+  border:1px solid var(--line);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
+  transition:color .4s var(--e),border-color .4s var(--e),box-shadow .4s var(--e),
+             transform .4s var(--e),background .4s var(--e);
+}
+.proc__node svg{width:36%;height:36%;position:relative;z-index:1}
+/* A large, near-invisible numeral behind each node — quiet depth cue
+   that also does the "stronger step number" job without shouting */
+.proc__i::before{
+  content:attr(data-step);position:absolute;top:-.4rem;left:50%;translate:-50% 0;
+  font-size:clamp(3.5rem,6vw,5.5rem);font-weight:700;line-height:1;
+  color:var(--acc);opacity:.05;pointer-events:none;z-index:0;
+  transition:opacity .4s var(--e);
+}
 .proc__n{
   margin-top:1rem;font-size:var(--fs-meta);font-weight:600;letter-spacing:.12em;
-  color:var(--text-3);font-variant-numeric:tabular-nums;transition:color .5s var(--e);
+  color:var(--text-3);font-variant-numeric:tabular-nums;transition:color .4s var(--e);
 }
-.proc__t{margin-top:.5rem;font-size:clamp(1.15rem,1rem + .5vw,1.4rem)}
-.proc__d{margin-top:.6rem;color:var(--text-2);font-size:.92rem;max-width:26ch}
+.proc__t{margin-top:.4rem;font-size:clamp(1.15rem,1rem + .5vw,1.4rem);transition:color .4s var(--e)}
+.proc__d{
+  margin-top:.6rem;color:var(--text-2);font-size:.92rem;line-height:1.55;max-width:26ch;
+  opacity:.75;transition:opacity .4s var(--e);
+}
 
-.proc__i.is-on .proc__node{
-  color:var(--acc-3);border-color:var(--line-hi);background:rgba(139,92,246,.12);
-  box-shadow:0 0 0 1px rgba(196,181,253,.25),0 0 30px -4px rgba(139,92,246,.55);
+.proc__i.is-on .proc__node,
+.proc__i:hover .proc__node{
+  color:var(--acc-3);border-color:var(--line-hi);
+  background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.08), rgba(139,92,246,.14) 72%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04),
+    0 0 0 1px rgba(196,181,253,.25),0 0 30px -4px rgba(139,92,246,.55);
   transform:scale(1.06);
 }
-.proc__i.is-on .proc__n{color:var(--acc-3);text-shadow:0 0 12px rgba(192,132,252,.4)}
+.proc__i.is-on .proc__n,.proc__i:hover .proc__n{color:var(--acc-3);text-shadow:0 0 12px rgba(192,132,252,.4)}
+.proc__i.is-on .proc__t,.proc__i:hover .proc__t{color:var(--text)}
+.proc__i.is-on .proc__d,.proc__i:hover .proc__d{opacity:1}
+.proc__i.is-on::before,.proc__i:hover::before{opacity:.09}
+@media (hover:hover){.proc__i:hover{background:rgba(255,255,255,.02)}}
 
 @media (prefers-reduced-motion:reduce){
   .proc::after{transition:none}
-  .proc__node{transition:none}
+  .proc__node,.proc__i,.proc__i::before{transition:none}
 }
 
 /* ══ 12. EXPERIENCE & RECOGNITION ════════════════════════════════════
@@ -1271,10 +1314,22 @@ body.cur-on .cur{opacity:1}
   .about{grid-template-columns:minmax(0,1fr);row-gap:2.5rem}
   .about__pic{width:min(100%,300px);aspect-ratio:1/1}
 
-  /* Process — the connecting line only makes sense running through a
-     row; stacked, each step just reads top to bottom on its own */
-  .proc{grid-template-columns:minmax(0,1fr);gap:2.75rem;max-width:340px;margin-inline:auto}
-  .proc::before,.proc::after{display:none}
+  /* Process — stacked, the connecting line turns to run vertically
+     through the node column instead of disappearing; each step reads
+     as a row (node left, copy right) along that line */
+  .proc{grid-template-columns:minmax(0,1fr);gap:2.5rem;max-width:420px;margin-inline:auto}
+  .proc::before,.proc::after{
+    left:calc(var(--nd) / 2);right:auto;top:0;bottom:0;height:auto;width:1px;
+    mask-image:linear-gradient(180deg,transparent 0,#000 4%,#000 96%,transparent 100%);
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 4%,#000 96%,transparent 100%);
+  }
+  .proc::after{transform:scaleY(var(--p,0));transform-origin:top}
+  .proc__i{flex-direction:row;align-items:flex-start;text-align:left;gap:1.1rem}
+  .proc__copy{display:block}
+  .proc__i::before{top:-.5rem;left:calc(var(--nd) / 2);font-size:clamp(3rem,13vw,4rem)}
+  .proc__n{margin-top:0}
+  .proc__t{margin-top:.3rem}
+  .proc__d{max-width:none}
 
   .exp__i{grid-template-columns:minmax(0,1fr) auto;gap:.75rem 1.5rem}
   .exp__txt{grid-column:1 / -1;max-width:60ch}

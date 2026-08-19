@@ -594,11 +594,11 @@
      node is marked is-on up front and the fill line is skipped, so the
      row just reads as a static, evenly-lit sequence.
      ══════════════════════════════════════════════════════════════ -->
-<section class="sec" id="process" aria-labelledby="processTitle">
+<section class="sec sec--proc" id="process" aria-labelledby="processTitle">
   <div class="wrap">
-    <header class="sec__head">
+    <header class="sec__head sec__head--proc">
       <p class="eyebrow reveal"><span>04</span> Process</p>
-      <h2 class="sec__title reveal" id="processTitle" data-delay="60">From problem to shipped product.</h2>
+      <h2 class="sec__title reveal" id="processTitle" data-delay="60">From problem to <em class="hl">shipped</em> product.</h2>
     </header>
 
     <ol class="proc reveal" id="proc" data-delay="100">
@@ -606,33 +606,41 @@
         <span class="proc__node" aria-hidden="true">
           <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3 20 20"/></svg>
         </span>
-        <span class="proc__n">01</span>
-        <h3 class="proc__t">Discover</h3>
-        <p class="proc__d">Understand the problem, the people and the constraints before opening Figma.</p>
+        <div class="proc__copy">
+          <span class="proc__n">01</span>
+          <h3 class="proc__t">Discover</h3>
+          <p class="proc__d">Understand the problem, users, goals and constraints before opening Figma.</p>
+        </div>
       </li>
       <li class="proc__i" data-step="2">
         <span class="proc__node" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M6 3.5 18.5 12l-5.6 1.4L11.4 19 6 3.5Z"/></svg>
         </span>
-        <span class="proc__n">02</span>
-        <h3 class="proc__t">Design</h3>
-        <p class="proc__d">Wireframes, UI and interactive prototypes, refined through iteration.</p>
+        <div class="proc__copy">
+          <span class="proc__n">02</span>
+          <h3 class="proc__t">Design</h3>
+          <p class="proc__d">Create wireframes, UI systems and interactive prototypes, refined through iteration.</p>
+        </div>
       </li>
       <li class="proc__i" data-step="3">
         <span class="proc__node" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg>
         </span>
-        <span class="proc__n">03</span>
-        <h3 class="proc__t">Build</h3>
-        <p class="proc__d">Approved designs become responsive, production-ready HTML, CSS and JavaScript.</p>
+        <div class="proc__copy">
+          <span class="proc__n">03</span>
+          <h3 class="proc__t">Build</h3>
+          <p class="proc__d">Turn approved designs into responsive, production-ready HTML, CSS and JavaScript.</p>
+        </div>
       </li>
       <li class="proc__i" data-step="4">
         <span class="proc__node" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M4.5 12.5 9 17l10.5-11"/></svg>
         </span>
-        <span class="proc__n">04</span>
-        <h3 class="proc__t">Refine</h3>
-        <p class="proc__d">Test across devices, polish the details that get skipped, then ship.</p>
+        <div class="proc__copy">
+          <span class="proc__n">04</span>
+          <h3 class="proc__t">Refine</h3>
+          <p class="proc__d">Test across devices, polish interactions, fix edge cases and ship.</p>
+        </div>
       </li>
     </ol>
   </div>
