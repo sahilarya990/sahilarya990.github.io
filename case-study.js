@@ -36,7 +36,7 @@ const CASE_STUDY_PAGES = {
     tagline: 'Brand identity and a responsive landing page for an institution management platform — designed and then built end to end.',
     accentA: '#3b82f6', accentB: '#f97316',
     role: 'UI/UX Designer + Frontend', tools: 'Figma AI · Claude · GitHub · HTML/CSS/JS', timeline: 'HelpRevX internship · 2026',
-    heroImage: { src: 'images/vidyapeeth-hero.png', alt: 'Vidyapeeth360 landing page — institution management platform' },
+    heroImage: { src: 'images/vidyapeeth-updated-ui.png', alt: 'Vidyapeeth360 landing page — institution management platform' },
     liveLink: { label: 'Visit Vidyapeeth360 ↗', href: 'https://vidyapeeth360.com' },
 
     overview: 'Vidyapeeth360 is an institution management platform for schools, colleges and coaching institutes. My role was the landing page and product showcase — the surface where a visiting institution first understands what the product does and decides whether to try it.',
@@ -117,7 +117,8 @@ const CASE_STUDY_PAGES = {
     tagline: 'A first step toward a modern, scalable brand identity — logo, colour system and applications, built during my design internship.',
     accentA: '#2c5ff9', accentB: '#ff4102',
     role: 'Brand & Visual Design (Internship)', tools: 'Figma', timeline: 'HelpRevX internship · 2026',
-    heroImage: { src: 'images/helprevx-brand.png', alt: 'HelpRevX brand direction — logo mark and wordmark' },
+    heroImage: { src: 'images/helprevx-updated-ui.png', alt: 'HelpRevX brand direction — logo mark and wordmark' },
+    liveLink: { label: 'Visit HelpRevX ↗', href: 'https://www.helprevx.com/' },
 
     overview: 'An initial exploration of the HelpRevX visual identity, developed during my internship — establishing a recognisable, flexible mark before the wider brand system expands.',
     problem: 'The mark needed to carry three ideas at once — AI and technology, business growth, and trust — and still hold up as a full lockup, a standalone icon, and a compact application across light and dark surfaces.',
@@ -193,7 +194,8 @@ const CASE_STUDY_PAGES = {
     tagline: 'A developer dashboard concept for managing an AI API platform — usage analytics, model management and team controls in one calm, data-dense interface.',
     accentA: '#22d3ee', accentB: '#6366f1',
     role: 'UI/UX Design', tools: 'Figma', timeline: '1stop.ai internship · Live industry project',
-    heroImage: { src: 'images/nexusai.jpg', alt: 'Nexus AI SaaS dashboard interface' },
+    heroImage: { src: 'images/nexus-ai-updated-ui.png', alt: 'Nexus AI SaaS dashboard interface' },
+    liveLink: { label: 'View Figma Prototype ↗', href: 'https://www.figma.com/proto/0yUj5Y35NkNUyKN02YCJEh/Untitled?node-id=3-2&t=p6REn8GLBAXU8wuW-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=7%3A46' },
 
     overview: 'Nexus AI is a dashboard concept for developers, ML engineers and platform teams building on an AI API — real-time usage, model management, API keys and team activity in one place.',
     problem: 'A platform like this surfaces a lot of state at once — revenue, live traffic, model performance, team activity — for several different kinds of users. Without a deliberate structure it turns into a wall of panels nobody can read quickly, so the interface needed hierarchy before it needed decoration.',
@@ -263,7 +265,8 @@ const CASE_STUDY_PAGES = {
     tagline: 'A personal health companion — fitness tracking, AI coaching, nutrition and sleep, unified into one premium mobile experience.',
     accentA: '#22c55e', accentB: '#3b82f6',
     role: 'UI/UX Design', tools: 'Figma', timeline: '1stop.ai internship · Live industry project',
-    heroImage: { src: 'images/healthplus-fitness-app.jpg', alt: 'HealthPulse fitness mobile app screens' },
+    heroImage: { src: 'images/fitness-app-updated-ui.png', alt: 'HealthPulse fitness mobile app screens' },
+    liveLink: { label: 'View Figma Prototype ↗', href: 'https://www.figma.com/proto/CeN7dDfT8hcLvVoxc4stW7/Fitness-app?node-id=1-2&t=NucdH87rw0pPbLWD-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2&show-proto-sidebar=1' },
 
     overview: 'HealthPulse unifies fitness tracking, AI coaching, nutrition logging and sleep analytics into a single mobile product — a data-rich alternative to a generic step counter, targeted at health-conscious users aged roughly 22–45.',
     problem: "A fitness app has to make progress legible at a glance, while staying usable mid-workout when attention and precision are both low — and it has to serve several different people, from the competitive athlete to the total beginner, through the same set of screens.",
@@ -856,7 +859,13 @@ function cspRender(p) {
 
   <nav class="csp__nav" aria-label="Case study sections">
     <div class="wrap csp__nav-in">
-      ${sections.map((s) => `<a href="#${s.id}">${esc(s.label)}</a>`).join('')}
+      <a class="csp__nav-back mag" href="index.html#work" data-cursor="btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Back to Work
+      </a>
+      <div class="csp__nav-links">
+        ${sections.map((s) => `<a href="#${s.id}">${esc(s.label)}</a>`).join('')}
+      </div>
     </div>
   </nav>
 
@@ -922,7 +931,7 @@ function cspInit() {
    04. SECTION SCROLL-SPY + SMOOTH SCROLL
    ══════════════════════════════════════════════════════════════════════ */
 function cspWireSectionNav() {
-  const links = $$('.csp__nav a');
+  const links = $$('.csp__nav-links a');
   if (!links.length) return;
 
   links.forEach((a) => {

@@ -53,18 +53,31 @@ body[data-csp]{ --csp-a:var(--acc-3); --csp-b:var(--indigo); }
   padding:.9rem 0;background:rgba(7,4,16,.6);backdrop-filter:blur(16px) saturate(140%);
   border-bottom:1px solid var(--line);
 }
-.csp__nav-in{display:flex;align-items:center;gap:clamp(1.25rem,2.5vw,2.25rem)}
-.csp__nav a{
-  position:relative;font-size:.78rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+.csp__nav-in{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+
+/* Back link — lives in the sticky bar on desktop so it stays reachable
+   while scrolling; the plain .csp__back above the hero carries mobile,
+   where this bar is hidden entirely (see 08. RESPONSIVE). */
+.csp__nav-back{
+  display:inline-flex;align-items:center;gap:.5rem;flex:none;
+  font-size:.8rem;font-weight:600;color:var(--text-2);transition:color var(--t-s);
+}
+.csp__nav-back svg{width:15px;height:15px;transition:transform var(--t-s)}
+.csp__nav-back:hover{color:var(--text)}
+.csp__nav-back:hover svg{transform:translateX(-3px)}
+
+.csp__nav-links{display:flex;align-items:center;gap:clamp(1.25rem,2.5vw,2.25rem);overflow-x:auto}
+.csp__nav-links a{
+  position:relative;flex:none;font-size:.78rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
   color:var(--text-3);padding-bottom:.3rem;transition:color var(--t-s);
 }
-.csp__nav a::after{
+.csp__nav-links a::after{
   content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
   background:linear-gradient(90deg,var(--csp-a),var(--csp-b));
   transform:scaleX(0);transform-origin:left;transition:transform .4s var(--e);
 }
-.csp__nav a.on{color:var(--text)}
-.csp__nav a.on::after{transform:scaleX(1)}
+.csp__nav-links a.on{color:var(--text)}
+.csp__nav-links a.on::after{transform:scaleX(1)}
 
 /* ══ 02. HERO — reuses the real project image, no generated mockup ═══ */
 .csp__hero{position:relative;padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(3rem,7vw,5.5rem);overflow:hidden}
@@ -327,6 +340,9 @@ body[data-csp]{ --csp-a:var(--acc-3); --csp-b:var(--indigo); }
 /* ══ 08. RESPONSIVE ══════════════════════════════════════════════════ */
 @media (min-width:1025px){
   .csp__nav{display:block}
+  /* The sticky nav carries "back to work" from here on desktop, so the
+     plain link above the hero (which scrolls out of view) is redundant. */
+  .csp__back{display:none}
 }
 @media (max-width:1024px){
   .csp__hero-in{grid-template-columns:minmax(0,1fr);gap:2.5rem}
