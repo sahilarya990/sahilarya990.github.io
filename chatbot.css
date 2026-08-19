@@ -1,0 +1,161 @@
+/* ==========================================================================
+   AI CHATBOT — premium portfolio assistant
+   --------------------------------------------------------------------------
+   Loads after style.css (and case-study.css, where present) and inherits
+   every token — --bg, --acc, --text, --line, --r, --e, --glass, --shadow,
+   etc. Purely additive: nothing here touches an existing selector.
+
+   01  Navbar button
+   02  Panel shell (scrim + window)
+   03  Header
+   04  Messages
+   05  Cards / actions / chips
+   06  Input bar
+   07  Responsive
+   08  Reduced motion
+   ========================================================================== */
+
+/* ══ 01. NAVBAR BUTTON ═══════════════════════════════════════════════ */
+.ai-btn{
+  position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:.45rem;
+  padding:.55rem 1.05rem .55rem .85rem;border-radius:99px;font-family:inherit;cursor:pointer;
+  border:1px solid var(--line-hi);color:var(--text);font-size:.85rem;font-weight:600;
+  background:linear-gradient(135deg, rgba(139,92,246,.16), rgba(99,102,241,.1));
+  transition:border-color var(--t-s), background var(--t-s), transform var(--t-s), box-shadow var(--t-s);
+}
+.ai-btn__glow{
+  position:absolute;inset:-45%;z-index:-1;border-radius:inherit;pointer-events:none;filter:blur(14px);
+  background:radial-gradient(ellipse 60% 60% at 50% 50%, rgba(139,92,246,.4), transparent 70%);
+  animation:aiGlowPulse 3.6s ease-in-out infinite;
+}
+@keyframes aiGlowPulse{0%,100%{opacity:.4;transform:scale(.92)}50%{opacity:.8;transform:scale(1.05)}}
+.ai-btn__spark{width:14px;height:14px;flex:none;color:var(--acc-3)}
+.ai-btn__spark path{fill:currentColor}
+.ai-btn:hover{border-color:var(--acc-3);background:linear-gradient(135deg, rgba(139,92,246,.28), rgba(99,102,241,.16));box-shadow:var(--glow-s);transform:translateY(-1px)}
+.ai-btn[aria-expanded="true"]{border-color:var(--acc-3);background:linear-gradient(135deg, rgba(139,92,246,.32), rgba(99,102,241,.2))}
+
+@media (max-width:1024px){
+  .ai-btn{width:42px;height:42px;padding:0;justify-content:center;border-radius:50%}
+  .ai-btn__label{display:none}
+  .ai-btn__spark{width:16px;height:16px}
+}
+
+/* ══ 02. PANEL SHELL ═════════════════════════════════════════════════ */
+.aic{position:fixed;inset:0;z-index:1300;pointer-events:none}
+.aic:not([hidden]){pointer-events:auto}
+.aic__scrim{position:absolute;inset:0;background:rgba(5,3,12,0);transition:background .35s var(--e)}
+.aic.is-on .aic__scrim{background:rgba(5,3,12,.4)}
+
+.aic__win{
+  position:fixed;right:clamp(1rem,3vw,1.75rem);bottom:clamp(1rem,3vw,1.75rem);
+  width:min(430px, calc(100vw - 2rem));height:min(680px, calc(100vh - 2rem));
+  display:flex;flex-direction:column;border-radius:22px;overflow:hidden;
+  background:rgba(12,7,22,.82);backdrop-filter:blur(28px) saturate(140%);-webkit-backdrop-filter:blur(28px) saturate(140%);
+  border:1px solid var(--line-hi);
+  box-shadow:0 30px 90px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(139,92,246,.08), var(--glow-m);
+  opacity:0;transform:translateY(22px) scale(.97);transform-origin:bottom right;
+  transition:opacity .36s var(--e), transform .36s var(--e);
+}
+.aic.is-on .aic__win{opacity:1;transform:translateY(0) scale(1)}
+
+/* ══ 03. HEADER ══════════════════════════════════════════════════════ */
+.aic__head{display:flex;align-items:flex-start;gap:.75rem;padding:1.1rem 1.1rem .95rem;border-bottom:1px solid var(--line);flex:none}
+.aic__head-ic{
+  width:38px;height:38px;border-radius:12px;flex:none;display:grid;place-items:center;color:var(--acc-3);
+  background:linear-gradient(135deg, rgba(139,92,246,.3), rgba(99,102,241,.16));border:1px solid var(--line-hi);
+}
+.aic__head-ic svg{width:18px;height:18px;fill:currentColor}
+.aic__head-copy{flex:1;min-width:0}
+.aic__t{font-size:.95rem;font-weight:700;color:var(--text)}
+.aic__sub{font-size:.78rem;color:var(--text-3);margin-top:.15rem}
+.aic__status{display:inline-flex;align-items:center;gap:.35rem;margin-top:.45rem;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#4ade80}
+.aic__dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:aiDotPulse 2s ease-in-out infinite}
+@keyframes aiDotPulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 5px rgba(74,222,128,0)}}
+.aic__x{
+  width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;
+  border:1px solid var(--line);background:var(--glass);color:var(--text-2);
+  transition:border-color var(--t-s), color var(--t-s), background var(--t-s);
+}
+.aic__x:hover{border-color:var(--line-hi);color:var(--text);background:rgba(139,92,246,.12)}
+.aic__x svg{width:14px;height:14px}
+
+/* ══ 04. MESSAGES ════════════════════════════════════════════════════ */
+.aic__body{flex:1;overflow-y:auto;overflow-x:hidden;padding:1.1rem;display:flex;flex-direction:column;gap:.9rem;scroll-behavior:smooth}
+.aic__msg{display:flex;gap:.55rem;max-width:100%}
+.aic__msg--user{justify-content:flex-end}
+.aic__ic{
+  width:26px;height:26px;flex:none;margin-top:.1rem;border-radius:8px;display:grid;place-items:center;
+  background:rgba(139,92,246,.16);border:1px solid var(--line-hi);color:var(--acc-3);
+}
+.aic__ic svg{width:13px;height:13px;fill:currentColor}
+.aic__bubble{max-width:84%;padding:.7rem .9rem;font-size:.86rem;line-height:1.55;word-break:break-word}
+.aic__msg--user .aic__bubble{background:linear-gradient(135deg, var(--acc), var(--acc-2));color:#fff;border-radius:16px 16px 4px 16px}
+.aic__msg--bot .aic__bubble{background:var(--glass);border:1px solid var(--line);color:var(--text-2);border-radius:4px 16px 16px 16px}
+.aic__bubble p{margin:0}
+.aic__bubble p + p{margin-top:.55rem}
+
+.js .aic__msg{animation:aicIn .38s var(--e) both}
+@keyframes aicIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.aic__dots{display:flex;align-items:center;gap:4px;padding:.85rem .95rem}
+.aic__dots i{width:6px;height:6px;border-radius:50%;background:var(--acc-3);opacity:.4;animation:aiTyping 1.2s ease-in-out infinite}
+.aic__dots i:nth-child(2){animation-delay:.15s}
+.aic__dots i:nth-child(3){animation-delay:.3s}
+@keyframes aiTyping{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+/* ══ 05. CARDS / ACTIONS / CHIPS ═════════════════════════════════════ */
+.aic__cards{display:flex;flex-direction:column;gap:.5rem;margin-top:.7rem}
+.aic__card{display:flex;flex-direction:column;gap:.15rem;padding:.7rem .8rem;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);transition:border-color var(--t-s), background var(--t-s), transform var(--t-s)}
+.aic__card:hover{border-color:var(--line-hi);background:rgba(139,92,246,.08);transform:translateX(2px)}
+.aic__card-t{font-size:.85rem;font-weight:700;color:var(--text)}
+.aic__card-cat{font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--acc-3)}
+.aic__card-d{font-size:.78rem;color:var(--text-3);line-height:1.45}
+.aic__card-go{display:inline-flex;align-items:center;gap:.3rem;margin-top:.3rem;font-size:.74rem;font-weight:600;color:var(--acc-3)}
+.aic__card-go svg{width:11px;height:11px}
+
+.aic__actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.aic__act{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .85rem;border-radius:99px;border:1px solid var(--line-hi);background:rgba(139,92,246,.1);color:var(--text);font-size:.78rem;font-weight:600;transition:background var(--t-s), transform var(--t-s)}
+.aic__act:hover{background:rgba(139,92,246,.22);transform:translateY(-1px)}
+.aic__act svg{width:11px;height:11px}
+
+.aic__chips-inline{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.aic__chip{padding:.4rem .75rem;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--text-2);font-size:.75rem;font-weight:600;font-family:inherit;cursor:pointer;transition:border-color var(--t-s), color var(--t-s), background var(--t-s)}
+.aic__chip:hover{border-color:var(--line-hi);color:var(--text);background:rgba(139,92,246,.1)}
+
+/* ══ 06. INPUT BAR ═══════════════════════════════════════════════════ */
+.aic__inputbar{display:flex;align-items:flex-end;gap:.6rem;padding:.85rem 1rem;border-top:1px solid var(--line);flex:none}
+.aic__input{
+  flex:1;resize:none;max-height:120px;font:inherit;font-size:.85rem;line-height:1.4;color:var(--text);
+  background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:.65rem .9rem;
+  transition:border-color var(--t-s), box-shadow var(--t-s);
+}
+.aic__input::placeholder{color:var(--text-3)}
+.aic__input:focus{outline:none;border-color:var(--acc-3);box-shadow:0 0 0 3px rgba(139,92,246,.15)}
+.aic__send{
+  width:40px;height:40px;flex:none;border:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  background:linear-gradient(135deg, var(--acc), var(--acc-2));color:#fff;
+  transition:opacity var(--t-s), transform var(--t-s);
+}
+.aic__send svg{width:16px;height:16px}
+.aic__send:hover:not(:disabled){transform:scale(1.06)}
+.aic__send:disabled{opacity:.35;cursor:not-allowed}
+
+/* ══ 07. RESPONSIVE ══════════════════════════════════════════════════ */
+@media (max-width:640px){
+  .aic__win{
+    inset:0;right:0;bottom:0;width:100%;height:100dvh;border-radius:0;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .aic__head{padding-top:max(1.1rem, env(safe-area-inset-top))}
+}
+@media (max-width:390px){
+  .aic__bubble,.aic__card{font-size:.82rem}
+}
+
+/* ══ 08. REDUCED MOTION ══════════════════════════════════════════════ */
+@media (prefers-reduced-motion:reduce){
+  .ai-btn__glow,.aic__dot,.aic__dots i{animation:none}
+  .aic__win{transition:opacity .12s linear}
+  .aic__body{scroll-behavior:auto}
+  .js .aic__msg{animation:none}
+}
