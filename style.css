@@ -1078,13 +1078,13 @@ body.cur-on .cur{opacity:1}
 
 /* Layer 1 — primary glow: large, purple/lavender, slow breathing pulse */
 .about__pic-glow{
-  position:absolute;inset:-30% -20%;z-index:-2;pointer-events:none;filter:blur(64px);
-  background:radial-gradient(ellipse 62% 58% at 48% 47%, rgba(139,92,246,.4), transparent 72%);
+  position:absolute;inset:-36% -26%;z-index:-2;pointer-events:none;filter:blur(60px);
+  background:radial-gradient(ellipse 62% 58% at 48% 47%, rgba(139,92,246,.55), transparent 72%);
   animation:aboutPicBreathe 5s ease-in-out infinite;
 }
 @keyframes aboutPicBreathe{
-  0%,100%{transform:scale(1);opacity:.7}
-  50%{transform:scale(1.14);opacity:1}
+  0%,100%{transform:scale(1);opacity:.75}
+  50%{transform:scale(1.16);opacity:1}
 }
 
 /* Layer 2 — secondary glow: smaller, blue-shifted, offset, very slow drift */
@@ -1117,10 +1117,16 @@ body.cur-on .cur{opacity:1}
 .about__pic-frame{
   position:relative;display:block;width:100%;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;
   border:1px solid var(--line);background:var(--bg-2);
-  box-shadow:0 30px 80px -30px rgba(0,0,0,.6);
-  transition:border-color .5s var(--e);
+  /* A dark drop shadow for depth, plus a glow hugging the frame edges
+     directly (on top of the blurred, breathing layers behind it), so
+     the effect reads clearly at a glance and not just as ambient haze */
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.6), 0 0 55px -6px rgba(139,92,246,.5), 0 0 100px -16px rgba(99,102,241,.32);
+  transition:border-color .5s var(--e), box-shadow .5s var(--e);
   /* A soft float, independent of the frame's own hover/reveal transform */
   animation:aboutPicFloat 6.5s ease-in-out infinite;
+}
+.about__pic:hover .about__pic-frame{
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.6), 0 0 70px -4px rgba(139,92,246,.6), 0 0 120px -14px rgba(99,102,241,.4);
 }
 @keyframes aboutPicFloat{
   0%,100%{transform:translateY(0)}

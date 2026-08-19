@@ -183,7 +183,7 @@ with `Escape` · full `prefers-reduced-motion` support.
 2. **Resume** — drop a PDF at `assets/sahil-das-resume.pdf` and uncomment the nav link.
 3. **Vidyapeeth360 image** — only 480×309; re-export at ~1600px wide, it's the lead visual.
 4. **Certificate** — replace `assets/certificates/helprevx-certificate.svg`.
-5. **Email** — currently `founder@helprevx.com` in the nav and contact buttons.
+5. **Email** — currently `sahilarya2552@gmail.com` in the nav and contact buttons.
 
 ## Run locally
 

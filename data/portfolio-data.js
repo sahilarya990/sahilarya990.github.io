@@ -126,7 +126,7 @@ const PORTFOLIO_KB = {
   services: ['Web Design', 'UI/UX Design', 'Branding', 'SaaS Design', 'Mobile App Design', 'Frontend Development'],
 
   contact: {
-    email: 'founder@helprevx.com',
+    email: 'sahilarya2552@gmail.com',
     linkedin: 'https://www.linkedin.com/',
     github: 'https://github.com/sahilarya990'
   }
